@@ -17,7 +17,7 @@ A user will first sign up for an account where they are able to enter their calo
 
 [Taylor Smart](https://github.com/taylorsmart) - UI Owner
 
-[Mauricio Moreno]](https://github.com/mmoren01)
+[Mauricio Moreno](https://github.com/mmoren01)
 
 [Emma Knor](https://github.com/emmaknor)
 
@@ -63,8 +63,11 @@ git workflow demo
 Our team implemented an agile process as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics. 
 
 -code reviews
+
 -test coverage (60%)
+
 -continuous integration
+
 -linter/best practices
 
 Ticketing System: [https://app.asana.com/0/1200144939863904/board]
