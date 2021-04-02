@@ -11,17 +11,17 @@ A user will first sign up for an account where they are able to enter their calo
 
 ## Contributors:
 
-[Scott Guinn](https://github.com/Scott-Guinn) - Architecture Owner
+[Scott Guinn](https://github.com/Scott-Guinn) - Lead Software Architect
 
 [Ciaddie Rutelionis](https://github.com/Ciaddie) - Product Manager
 
-[Taylor Smart](https://github.com/taylorsmart) - UI Owner
+[Taylor Smart](https://github.com/taylorsmart) - UI Designer
+
+[Dennis Mejia](https://github.com/dennismejia) - UI Designer
 
 [Mauricio Moreno](https://github.com/mmoren01)
 
 [Emma Knor](https://github.com/emmaknor)
-
-[Dennis Mejia](https://github.com/dennismejia)
 
 [Oren Nelson](https://github.com/nohren)
 
