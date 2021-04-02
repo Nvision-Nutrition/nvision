@@ -11,8 +11,7 @@ A user will first sign up for an account where they are able to enter their calo
 
 ## Contributors:
 
-Scott Guinn - Architecture Owner
-[Github Profile](https://github.com/Scott-Guinn)
+[Scott Guinn](https://github.com/Scott-Guinn) - Architecture Owner
 
 Ciaddie Rutelionis - Product Manager
 [Github Profile](https://github.com/Ciaddie)
