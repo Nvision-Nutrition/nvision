@@ -13,26 +13,19 @@ A user will first sign up for an account where they are able to enter their calo
 
 [Scott Guinn](https://github.com/Scott-Guinn) - Architecture Owner
 
-Ciaddie Rutelionis - Product Manager
-[Github Profile](https://github.com/Ciaddie)
+[Ciaddie Rutelionis](https://github.com/Ciaddie) - Product Manager
 
-Taylor Smart - UI Owner
-[Github Profile](https://github.com/taylorsmart)
+[Taylor Smart](https://github.com/taylorsmart) - UI Owner
 
-Mauricio Moreno - README Author
-[Github Profile](https://github.com/mmoren01)
+[Mauricio Moreno]](https://github.com/mmoren01)
 
-Emma Knor - README Author
-[Github Profile](https://github.com/emmaknor)
+[Emma Knor](https://github.com/emmaknor)
 
-Dennis Mejia
-[Github Profile](https://github.com/dennismejia)
+[Dennis Mejia](https://github.com/dennismejia)
 
-Oren Nelson
-[Github Profile](https://github.com/nohren)
+[Oren Nelson](https://github.com/nohren)
 
-Ben Kennedy
-[Github Profile](https://github.com/benkennedy98)
+[Ben Kennedy](https://github.com/benkennedy98)
 
 
 ## Tech Stack
