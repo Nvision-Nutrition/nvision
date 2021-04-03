@@ -78,7 +78,7 @@ const getSuccess = (req, res) => {
 
   pool.query(queryString)
       .then((success_quote) => {
-        res.status(200).send(success_quote.rows);
+        res.status(200).send(success_quote);
       }).catch((err) => {
         console.error(err);
         res.status(404).send(err);
