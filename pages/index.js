@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import {Navbar, NavDropdown} from 'react-bootstrap';
 import React from 'react';
 import CaloricHistory from '../components/caloricHistory.jsx';
 import WaterHistory from '../components/waterHistory.jsx';
+import DailyTracker from '../components/dailyTracker.jsx';
 
 
 // this is a shortened nameless version of class App extends React.Component
@@ -26,18 +28,38 @@ const App = () => {
         <title>The Nutritious App for Vision</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar bg="dark" variant="dark" style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Navbar.Brand href="#home">
-            <strong style={{ fontSize: '20px', fontFamily: 'Palatino', marginLeft: '10px' }}>nVision Nutrition</strong>
-            <span style={{ fontSize: '11px', marginLeft: '20px' }}><i>The Nutritious App for Vision</i></span>
-          </Navbar.Brand>
-          <NavDropdown title="Sign Out" id="basic-nav-dropdown">
-              <NavDropdown.Item >
-                {`Account Page PlaceHolder`}
-                {`Sign Out PlaceHolder`}
-              </NavDropdown.Item>
-          </NavDropdown>
+      <Navbar 
+        bg="dark" 
+        variant="dark" 
+        style={{display: 'flex', justifyContent: 'space-between'}}>
+        <Navbar.Brand href="#home">
+          <strong
+            style={{
+              fontSize: '20px',
+              fontFamily: 'Palatino',
+              marginLeft: '10px'}}
+          >
+            nVision Nutrition
+          </strong>
+          <span
+            style={{fontSize: '11px', marginLeft: '20px'}}>
+            <i>
+                The Nutritious App for Vision
+            </i>
+          </span>
+        </Navbar.Brand>
+        <NavDropdown
+          title="Sign Out"
+          id="basic-nav-dropdown"
+        >
+          <NavDropdown.Item >
+            {`Account Page PlaceHolder`}
+            {`Sign Out PlaceHolder`}
+          </NavDropdown.Item>
+        </NavDropdown>
+      </Navbar>
       <main className={styles.main}>
+        <DailyTracker />
         <CaloricHistory />
         <WaterHistory />
       </main>
