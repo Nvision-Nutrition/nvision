@@ -155,7 +155,6 @@ module.exports = {
   insertWater,
   getSuccess,
   getFail,
-  testing,
   fetchDayCount,
   fetchWeek
 };
