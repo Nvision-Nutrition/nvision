@@ -5,6 +5,8 @@ export default (req, res) => {
     queries.fetchDayCount(req, res);
   } else if (req.query.type === 'week') {
     queries.fetchWeek(req, res);
+  } else {
+    res.status(404).end();
   }
 };
 
