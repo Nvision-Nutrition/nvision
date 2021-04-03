@@ -1,7 +1,11 @@
 const queries = require('../../db/index.js');
 
 export default (req, res) => {
-  queries.fetchDayCount(req, res);
+  if (req.query.type === 'day') {
+    queries.fetchDayCount(req, res);
+  } else if (req.query.type === 'week') {
+    queries.fetchWeek(req, res);
+  }
 };
 
 // disables the warning for an unresolved api request
@@ -10,3 +14,4 @@ export const config = {
     externalResolver: true,
   },
 };
+
