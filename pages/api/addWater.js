@@ -2,7 +2,7 @@
 const queries = require('../../db/index.js');
 
 export default (req, res) => {
-  queries.getSuccess(req, res);
+  queries.insertWater(req, res);
 };
 
 // disable unresolved api request - another option is to return a promise in db query

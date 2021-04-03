@@ -31,10 +31,9 @@ const sampleQuery = (req, res) => {
 
 // insert into entries - calorie record
 const insertCalories = (req, res) => {
-  const { userId, type, calories, mealName } = req.body;
+  let { userId, mealType, calories, mealName } = req.body;
   const queryString = `INSERT INTO entries(type, calories, mealName, date, user_id)
-                       VALUES($1, $2, $3, current_timestamp, $4)';`,
-                       [type, calories, mealName, userId];
+                       VALUES(${mealType}, ${calories}, ${mealName}, current_timestamp, ${userId});`;
   pool.query(queryString)
       .then((response) => {
         res.status(201).send('Calorie entry successful!');
@@ -46,10 +45,9 @@ const insertCalories = (req, res) => {
 
 // insert into entries - water record
 const insertWater = (req, res) => {
-  const { userId, type, water, mealName } = req.body;
-  const queryString = `INSERT INTO entries(type, water, mealName, date, user_id)
-                       VALUES($1, $2, $3, current_timestamp, $4)';`,
-                       [type, water, mealName, userId];
+  const { waterType, userId, water } = req.body;
+  const queryString = `INSERT INTO entries(type, water, date, user_id)
+                       VALUES(${waterType}, ${water}, current_timestamp, ${userId})';`;
   pool.query(queryString)
       .then((response) => {
         res.status(201).send('Water entry successful!');
@@ -78,9 +76,9 @@ const getSuccess = (req, res) => {
 
   pool.query(queryString)
       .then((success_quote) => {
-        res.status(200).send(success_quote);
+        res.status(200).send(success_quote.rows);
       }).catch((err) => {
-        console.error(err);
+        console.error('whats is worng', err);
         res.status(404).send(err);
       });
   }
