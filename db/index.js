@@ -118,13 +118,10 @@ const getSuccess = (req, res) => {
 module.exports = {
   // put database query function exports here
   sampleQuery,
-<<<<<<< HEAD
   insertCalories,
   insertWater,
   getSuccess,
   getFail,
-=======
   fetchDayCount,
->>>>>>> 137c3ca00afbc14892c889be55fd7e7b755438de
 };
 
