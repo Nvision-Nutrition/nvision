@@ -61,7 +61,7 @@ const fetchDayCount = (req, res) => {
 
 // insert into entries - calorie record
 const insertCalories = (req, res) => {
-  let { userId, mealType, calories, mealName } = req.body;
+  const { userId, mealType, calories, mealName } = req.body;
   const queryString = `INSERT INTO entries(type, calories, mealName, date, user_id)
                        VALUES(${mealType}, ${calories}, ${mealName}, current_timestamp, ${userId});`;
   pool.query(queryString)
