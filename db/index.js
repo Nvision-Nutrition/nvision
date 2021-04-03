@@ -92,7 +92,70 @@ const fetchWeek = async (req, res) => {
   }
 }
 
+// insert into entries - calorie record
+const insertCalories = (req, res) => {
+  const { userId, mealType, calories, mealName } = req.body;
+  const queryString = `INSERT INTO entries(type, calories, mealName, date, user_id)
+                       VALUES(${mealType}, ${calories}, ${mealName}, current_timestamp, ${userId});`;
+  pool.query(queryString)
+      .then((response) => {
+        res.status(201).send('Calorie entry successful!');
+      }).catch((err) => {
+        console.error(err);
+        res.status(400).send(err);
+      });
+}
+
+// insert into entries - water record
+const insertWater = (req, res) => {
+  const { waterType, userId, water } = req.body;
+  const queryString = `INSERT INTO entries(type, water, date, user_id)
+                       VALUES(${waterType}, ${water}, current_timestamp, ${userId})';`;
+  pool.query(queryString)
+      .then((response) => {
+        res.status(201).send('Water entry successful!');
+      }).catch((err) => {
+        console.error(err);
+        res.status(400).send(err);
+      });
+}
+
+// get a random fail quote
+const getFail = (req, res) => {
+  const queryString = 'SELECT failure_quote FROM quotes ORDER BY RANDOM() LIMIT 1';
+
+  pool.query(queryString)
+      .then((fail_quote) => {
+        res.status(200).send(fail_quote.rows);
+      }).catch((err) => {
+        console.error(err);
+        res.status(404).send(err);
+      });
+}
+
+// get a random success quote
+const getSuccess = (req, res) => {
+  const queryString = 'SELECT success_quote FROM quotes ORDER BY RANDOM() LIMIT 1';
+
+  pool.query(queryString)
+      .then((success_quote) => {
+        res.status(200).send(success_quote.rows);
+      }).catch((err) => {
+        console.error('whats is worng', err);
+        res.status(404).send(err);
+      });
+  }
+
+
+
 module.exports = {
+  quoteTable,
+  sampleQuery,
+  insertCalories,
+  insertWater,
+  getSuccess,
+  getFail,
   fetchDayCount,
   fetchWeek
 };
+
