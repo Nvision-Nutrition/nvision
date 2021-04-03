@@ -96,5 +96,3 @@ module.exports = {
   getFail,
 };
 
-
-'SELECT failure_quote FROM quotes ORDER BY RANDOM() LIMIT 1'
