@@ -24,8 +24,38 @@ const sampleQuery = (req, res) => {
         // send nicely formatted data back to the client here:
         res.send(response);
       }).catch((err) => {
-        res.sendStatus(500);
         console.error(err);
+        res.sendStatus(500);
+      });
+};
+
+// Fetches the total calorie and water count for a given date and user_id
+const fetchDayCount = (req, res) => {
+  // where does the userID info come from? req.query?
+  // https://stackoverflow.com/questions/30967822/when-do-i-use-path-params-vs-query-params-in-a-restful-api
+
+  // 'userID' defaults to 1 for testing purposes only
+  // 'date' defaults to today's date (Format: "2021-04-03")
+  const {userID = 1, date = new Date().toISOString().slice(0, 10)} = req.query;
+
+  const queryString = `SELECT calories, water
+                       FROM entries
+                       WHERE user_id=${userID} AND date='${date}';`;
+
+  pool.query(queryString)
+      .then((response) => {
+        let calorieSum = 0;
+        let waterSum = 0;
+
+        response.rows.forEach((entry) => {
+          calorieSum += entry.calories;
+          waterSum += entry.water;
+        });
+
+        res.send({calorieSum: calorieSum, waterSum: waterSum});
+      }).catch((err) => {
+        console.error(err);
+        res.status(500).send();
       });
 };
 
@@ -88,9 +118,13 @@ const getSuccess = (req, res) => {
 module.exports = {
   // put database query function exports here
   sampleQuery,
+<<<<<<< HEAD
   insertCalories,
   insertWater,
   getSuccess,
   getFail,
+=======
+  fetchDayCount,
+>>>>>>> 137c3ca00afbc14892c889be55fd7e7b755438de
 };
 
