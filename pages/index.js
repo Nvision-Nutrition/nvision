@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import React from 'react';
-import WaterTracker from '../components/waterTracker.jsx'
 
 
 // this is a shortened nameless version of class App extends React.Component
@@ -27,7 +26,6 @@ const App = () => {
       </Head>
 
       <main className={styles.main}>
-        <WaterTracker />
       </main>
     </div>
   );
