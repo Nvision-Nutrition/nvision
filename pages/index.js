@@ -2,9 +2,8 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import {Navbar, NavDropdown} from 'react-bootstrap';
 import React from 'react';
-import CaloricHistory from '../components/caloricHistory.jsx';
-import WaterHistory from '../components/waterHistory.jsx';
-import DailyTracker from '../components/dailyTracker.jsx';
+import WaterTracker from '../components/waterTracker.jsx';
+import CalorieTracker from '../components/CalorieTracker.jsx';
 
 
 // this is a shortened nameless version of class App extends React.Component
@@ -50,9 +49,8 @@ const App = () => {
         </NavDropdown>
       </Navbar>
       <main className={styles.main}>
-        <DailyTracker />
-        <CaloricHistory />
-        <WaterHistory />
+        <CalorieTracker />
+        <WaterTracker />
       </main>
     </div>
   );
