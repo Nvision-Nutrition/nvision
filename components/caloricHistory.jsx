@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../styles/Home.module.css';
 
-const WaterHistory = () => {
+const CaloricHistory = () => {
   return (
     <>
       <div className={`${styles.card} caloric-history chart`}>
@@ -12,4 +12,4 @@ const WaterHistory = () => {
   );
 };
 
-export default WaterHistory;
+export default CaloricHistory;
