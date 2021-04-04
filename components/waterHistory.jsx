@@ -3,7 +3,7 @@ import {v4 as uuidv4} from 'uuid';
 import styles from '../styles/Home.module.css';
 
 const WaterHistory = () => {
-  const generateWaterGraph = (waterDrank = 62, waterGoal = 100) => {
+  const generateWaterGraph = (waterDrank = 0, waterGoal = 100) => {
     const waterPercentage = waterGoal > 0 ?
       Math.round((waterDrank / waterGoal) * 10) :
       0;
