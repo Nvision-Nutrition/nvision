@@ -28,21 +28,12 @@ const App = () => {
         <title>The Nutritious App for Vision</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar 
-        bg="dark" 
-        variant="dark" 
-        style={{display: 'flex', justifyContent: 'space-between'}}>
+      <Navbar>
         <Navbar.Brand href="#home">
-          <strong
-            style={{
-              fontSize: '20px',
-              fontFamily: 'Palatino',
-              marginLeft: '10px'}}
-          >
+          <strong>
             nVision Nutrition
           </strong>
-          <span
-            style={{fontSize: '11px', marginLeft: '20px'}}>
+          <span>
             <i>
                 The Nutritious App for Vision
             </i>
