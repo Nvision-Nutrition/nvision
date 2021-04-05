@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.bottle-image {
+  width: 45px;
+  height: 45px;
+}
