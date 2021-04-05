@@ -2,7 +2,7 @@ import React from 'react';
 import {v4 as uuidv4} from 'uuid';
 import styles from '../styles/Home.module.css';
 
-const WaterHistory = () => {
+const WaterDaily = () => {
   const generateWaterGraph = (waterDrank = 0, waterGoal = 100) => {
     
     // This finds the percentage rounded to the tens digit 62 => 60 => 6, representing 6 crushed water bottles out of 10
@@ -78,4 +78,4 @@ const WaterHistory = () => {
   );
 };
 
-export default WaterHistory;
+export default WaterDaily;
