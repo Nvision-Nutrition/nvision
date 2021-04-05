@@ -5,7 +5,8 @@ import React from 'react';
 import CaloricHistory from '../components/caloricHistory.jsx';
 import WaterHistory from '../components/waterHistory.jsx';
 import DailyTracker from '../components/dailyTracker.jsx';
-
+import Login from '../components/login.jsx';
+import SignUp from '../components/signUp.jsx';
 
 // this is a shortened nameless version of class App extends React.Component
 // without the need to type "export default App;" at the bottom
@@ -54,6 +55,8 @@ const App = () => {
         <CaloricHistory />
         <WaterHistory />
       </main>
+      <Login />
+      <SignUp />
     </div>
   );
 };
