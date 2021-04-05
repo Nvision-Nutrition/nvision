@@ -91,11 +91,11 @@ const fetchWeek = async (req, res) => {
 
 // insert into entries table - calorie record
 const insertCalories = (req, res) => {
-  const {userId, mealType, calories, mealName} = req.body;
+  const {userId, mealType, calories, mealName, usersDate} = req.body;
   const queryString = `INSERT INTO entries
                        (type, calories, mealName, date, user_id)
-                       VALUES(${mealType},${calories}, ${mealName},
-                              current_timestamp, ${userId});`;
+                       VALUES('${mealType}',${calories}, '${mealName}',
+                              ${usersDate}, ${userId});`;
   pool.query(queryString)
       .then((response) => {
         res.status(201).send('Calorie entry successful!');
@@ -107,10 +107,10 @@ const insertCalories = (req, res) => {
 
 // insert into entries table - water record
 const insertWater = (req, res) => {
-  const {waterType, userId, water} = req.body;
+  const {waterType, userId, water, usersDate} = req.body;
   const queryString = `INSERT INTO entries(type, water, date, user_id)
-                       VALUES(${waterType}, ${water},
-                       current_timestamp, ${userId})';`;
+                       VALUES('${waterType}', ${water},
+                       ${usersDate}, ${userId})';`;
   pool.query(queryString)
       .then((response) => {
         res.status(201).send('Water entry successful!');
