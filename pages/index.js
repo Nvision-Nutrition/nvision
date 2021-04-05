@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import {Navbar, NavDropdown} from 'react-bootstrap';
 import React from 'react';
-import WaterTracker from '../components/waterTracker.jsx';
+// import WaterTracker from '../components/waterTracker.jsx';
 import CalorieTracker from '../components/CalorieTracker.jsx';
 
 
@@ -50,7 +50,7 @@ const App = () => {
       </Navbar>
       <main className={styles.main}>
         <CalorieTracker />
-        <WaterTracker />
+        {/* <WaterTracker /> */}
       </main>
     </div>
   );
