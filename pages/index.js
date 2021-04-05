@@ -6,6 +6,8 @@ import {GlobalStateProvider} from '../components/globalState.js';
 import CaloricHistory from '../components/caloricHistory.jsx';
 import WaterHistory from '../components/waterHistory.jsx';
 import DailyTracker from '../components/dailyTracker.jsx';
+import Login from '../components/login.jsx';
+import SignUp from '../components/signUp.jsx';
 
 const App = () => {
   return (
@@ -41,6 +43,8 @@ const App = () => {
           <CaloricHistory />
           <WaterHistory />
         </main>
+        <Login />
+        <SignUp />
       </div>
     </GlobalStateProvider>
   );
