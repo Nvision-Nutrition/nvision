@@ -3,14 +3,61 @@ import PropTypes from 'prop-types';
 import {
   Container, Modal, Button,
 } from 'react-bootstrap';
-// import axios from 'axios';
+import axios from 'axios';
 import NumPad from 'react-numpad';
 
 const InsertModals = ({show, type, handleClose}) => {
   const [meal, setMeal] = useState('');
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [val, setVal] = useState(0);
 
   const handleChange = (e) => {
     setMeal(e.target.value);
+  };
+
+  const addFood = (e) => {
+    e.preventDefault();
+    const foodEntry = {
+      // default value for userId until global context is made avaliable
+      userId: '1',
+      mealType: 'food',
+      calories: val,
+      mealName: meal,
+      usersDate: date,
+    };
+    if (val && meal && date) {
+      axios.post('/api/addCalories', foodEntry)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+    } else {
+      alert('Please complete entry');
+    }
+  };
+
+  const addWater = (e) => {
+    e.preventDefault();
+    const waterEntry = {
+      // default value for userId until global context is made avaliable
+      waterType: 'water',
+      userId: '1',
+      water: val,
+      usersDate: date,
+    };
+    if (val && date) {
+      axios.post('/api/addWater', waterEntry)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+    } else {
+      alert('Please complete entry');
+    }
   };
 
   return (
@@ -36,22 +83,30 @@ const InsertModals = ({show, type, handleClose}) => {
               }
               <NumPad.Number
                 onChange={(value) => {
-                  console.log('value', value);
+                  setVal(value);
                 }}
                 label={'Calories:'}
                 placeholder={'my placeholder'}
-                value={0}
+                value={val}
                 decimal={2}
               />
               <NumPad.Calendar
-                onChange={(value) => console.log('changed', value)}
+                onChange={(value) => {
+                  setDate(value);
+                }}
                 label='Date:'
-                dateFormat="DD-MM-YYYY"
-                min="05-04-2021"
-                markers={['05-04-2021', '05-04-2022']}
+                dateFormat="YYYY-MM-DD"
+                min="2021-04-05"
+                value={date}
               />
               <Button
-                variant="outline-secondary">
+                variant="outline-secondary"
+                onClick={
+                  (e) => {
+                    type === 'food' ? addFood(e) :
+                    addWater(e);
+                  }
+                }>
                 Record it!
               </Button>
             </Modal.Body>

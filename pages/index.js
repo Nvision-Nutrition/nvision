@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import {Navbar, NavDropdown} from 'react-bootstrap';
 import React from 'react';
+import {GlobalStateProvider} from '../components/globalState.js';
 import dynamic from 'next/dynamic';
 import CaloricHistory from '../components/caloricHistory.jsx';
 import WaterHistory from '../components/waterHistory.jsx';
