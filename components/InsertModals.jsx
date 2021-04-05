@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Row, Col, Modal, Button,
+  Container, Modal, Button,
 } from 'react-bootstrap';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
+// import axios from 'axios';
 import NumPad from 'react-numpad';
 
 const InsertModals = ({show, type, handleClose}) => {
@@ -13,22 +12,6 @@ const InsertModals = ({show, type, handleClose}) => {
   const handleChange = (e) => {
     setMeal(e.target.value);
   };
-
-  /*
-  add food button
-
-  modal for input
-
-  -meal dropdown
-  -calorie numpad dropdown
-  -calendar input
-  -submit button
-
-  */
-
-  /* date format: new Date().toISOString().slice(0, 10) */
-
-  // set up axios reqs
 
   return (
     <>
@@ -69,7 +52,7 @@ const InsertModals = ({show, type, handleClose}) => {
               />
               <Button
                 variant="outline-secondary">
-              Record it!
+                Record it!
               </Button>
             </Modal.Body>
           </Modal>
