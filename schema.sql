@@ -9,7 +9,7 @@ CREATE TABLE users
  firstName   varchar(50),
  lastName    varchar(50),
  username    varchar(50) NOT NULL,
- password    varchar(1000) NOT NULL,
+ password    varchar NOT NULL,
  calorieGoal smallint NOT NULL DEFAULT 2000,
  waterGoal   smallint NOT NULL,
  weightGoal  smallint,
