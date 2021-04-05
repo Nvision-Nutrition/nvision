@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const {Pool} = require('pg');
 
 const pool = new Pool({
   user: process.env.POSTGRES_USER,
@@ -18,22 +18,20 @@ const sumDay = (userID, date) => {
                        WHERE user_id=${userID} AND date='${date}';`;
 
   return new Promise((resolve, reject) => {
-
     pool.query(queryString)
-      .then((response) => {
-        let calorieSum = 0;
-        let waterSum = 0;
+        .then((response) => {
+          let calorieSum = 0;
+          let waterSum = 0;
 
-        response.rows.forEach((entry) => {
-          calorieSum += entry.calories;
-          waterSum += entry.water;
-        });
-        const sums = { calorieSum: calorieSum, waterSum: waterSum }
-        resolve(sums);
-      }).catch((err) => reject(err));
-
-  })
-}
+          response.rows.forEach((entry) => {
+            calorieSum += entry.calories;
+            waterSum += entry.water;
+          });
+          const sums = {calorieSum: calorieSum, waterSum: waterSum};
+          resolve(sums);
+        }).catch((err) => reject(err));
+  });
+};
 
 /* Sends day sums to client for given userID and date */
 const fetchDayCount = async (req, res) => {
@@ -42,7 +40,7 @@ const fetchDayCount = async (req, res) => {
 
   // 'userID' defaults to 1 for testing purposes only
   // 'date' defaults to today's date (Format: "2021-04-03")
-  const { userID = 1, date = new Date().toISOString().slice(0, 10) } = req.query;
+  const {userID = 1, date = new Date().toISOString().slice(0, 10)} = req.query;
 
   try {
     const day = {};
@@ -52,10 +50,10 @@ const fetchDayCount = async (req, res) => {
     console.error(err);
     res.status(500).send();
   }
-}
+};
 
 /*
-    fetchWeek returns calorie and water sums for the past seven days in the following format:
+  fetchWeek returns calorie and water sums for past seven days in the format:
   [
     { 2021-04-03: {
                     calorieCount: 2000,
@@ -70,14 +68,14 @@ const fetchDayCount = async (req, res) => {
 */
 const fetchWeek = async (req, res) => {
   try {
-    const { userID = 1 } = req.query;
-    let week = [];
-    let today = new Date();
+    const {userID = 1} = req.query;
+    const week = [];
+    const today = new Date();
 
     // iterate through the past seven days
     for (let i = 0; i < 7; i++) {
-      let currentDay = {};
-      let date = new Date(today);
+      const currentDay = {};
+      const date = new Date(today);
       date.setDate(date.getDate() - i);
       const formattedDate = date.toISOString().slice(0, 10);
       currentDay[formattedDate] = await sumDay(userID, formattedDate);
@@ -85,18 +83,19 @@ const fetchWeek = async (req, res) => {
     }
 
     res.send(week);
-
   } catch (err) {
     console.error(err);
     res.status(500).send();
   }
-}
+};
 
-// insert into entries - calorie record
+// insert into entries table - calorie record
 const insertCalories = (req, res) => {
-  const { userId, mealType, calories, mealName } = req.body;
-  const queryString = `INSERT INTO entries(type, calories, mealName, date, user_id)
-                       VALUES(${mealType}, ${calories}, ${mealName}, current_timestamp, ${userId});`;
+  const {userId, mealType, calories, mealName} = req.body;
+  const queryString = `INSERT INTO entries
+                       (type, calories, mealName, date, user_id)
+                       VALUES(${mealType},${calories}, ${mealName},
+                              current_timestamp, ${userId});`;
   pool.query(queryString)
       .then((response) => {
         res.status(201).send('Calorie entry successful!');
@@ -104,13 +103,14 @@ const insertCalories = (req, res) => {
         console.error(err);
         res.status(400).send(err);
       });
-}
+};
 
-// insert into entries - water record
+// insert into entries table - water record
 const insertWater = (req, res) => {
-  const { waterType, userId, water } = req.body;
+  const {waterType, userId, water} = req.body;
   const queryString = `INSERT INTO entries(type, water, date, user_id)
-                       VALUES(${waterType}, ${water}, current_timestamp, ${userId})';`;
+                       VALUES(${waterType}, ${water},
+                       current_timestamp, ${userId})';`;
   pool.query(queryString)
       .then((response) => {
         res.status(201).send('Water entry successful!');
@@ -118,44 +118,41 @@ const insertWater = (req, res) => {
         console.error(err);
         res.status(400).send(err);
       });
-}
+};
 
 // get a random fail quote
 const getFail = (req, res) => {
-  const queryString = 'SELECT failure_quote FROM quotes ORDER BY RANDOM() LIMIT 1';
+  const queryString = `SELECT failure_quote
+                       FROM quotes ORDER BY RANDOM() LIMIT 1`;
 
   pool.query(queryString)
-      .then((fail_quote) => {
-        res.status(200).send(fail_quote.rows);
+      .then((failQuote) => {
+        res.status(200).send(failQuote.rows);
       }).catch((err) => {
         console.error(err);
         res.status(404).send(err);
       });
-}
+};
 
 // get a random success quote
 const getSuccess = (req, res) => {
-  const queryString = 'SELECT success_quote FROM quotes ORDER BY RANDOM() LIMIT 1';
+  const queryString = `SELECT success_quote
+                       FROM quotes ORDER BY RANDOM() LIMIT 1`;
 
   pool.query(queryString)
-      .then((success_quote) => {
-        res.status(200).send(success_quote.rows);
+      .then((successQuote) => {
+        res.status(200).send(successQuote.rows);
       }).catch((err) => {
-        console.error('whats is worng', err);
+        console.error(err);
         res.status(404).send(err);
       });
-  }
-
-
+};
 
 module.exports = {
-  quoteTable,
-  sampleQuery,
   insertCalories,
   insertWater,
   getSuccess,
   getFail,
   fetchDayCount,
-  fetchWeek
+  fetchWeek,
 };
-

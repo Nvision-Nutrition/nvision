@@ -5,7 +5,6 @@ export default (req, res) => {
   queries.getFail(req, res);
 };
 
-// disable unresolved api request - another option is to return a promise in db query
 export const config = {
   api: {
     externalResolver: true,
