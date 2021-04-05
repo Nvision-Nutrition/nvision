@@ -9,7 +9,7 @@ CREATE TABLE users
  firstName   varchar(50),
  lastName    varchar(50),
  username    varchar(50) NOT NULL,
- password    varchar(50) NOT NULL,
+ password    varchar(1000) NOT NULL,
  calorieGoal smallint NOT NULL DEFAULT 2000,
  waterGoal   smallint NOT NULL,
  weightGoal  smallint,
@@ -45,6 +45,16 @@ CREATE TABLE quotes
  id                serial PRIMARY KEY,
  failure_quote  varchar(1000),
  success_quote     varchar(1000)
+);
+
+DROP TABLE IF EXISTS sessions CASCADE;
+
+CREATE TABLE sessions
+(
+ id             serial PRIMARY KEY,
+ session        varchar,
+ dtgCreated     Date,
+ user_id        integer references users(id)
 );
 
 INSERT INTO quotes(failure_quote, success_quote) VALUES('Failure is success in progress, you got this!', 'Keep going! You are doing great!');
