@@ -45,12 +45,12 @@ const SignUp = () => {
         <br />
         <input type="text"></input>
         <br />
-        <label>Sex</label>
+        <label>Sex(assigned at birth)</label>
         <br />
         <select style={{'width': '100%'}}>
           <option>Male</option>
           <option>Female</option>
-          <option>Other</option>
+          <option>Choose not to disclose</option>
         </select>
         <br />
         <br />
