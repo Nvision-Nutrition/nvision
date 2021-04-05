@@ -2,7 +2,7 @@ import React from 'react';
 
 const Login = () => {
   return (
-    <div id="loginDiv" style={{'text-align': 'center'}} >
+    <div id="loginDiv" style={{'textAlign': 'center'}} >
       <h1>Login</h1>
       <form>
         <label>Email </label>
