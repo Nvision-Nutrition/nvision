@@ -149,8 +149,8 @@ const getSuccess = (req, res) => {
 
 
 module.exports = {
-  quoteTable,
-  sampleQuery,
+  // quoteTable,
+  // sampleQuery,
   insertCalories,
   insertWater,
   getSuccess,
