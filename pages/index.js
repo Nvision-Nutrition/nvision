@@ -47,6 +47,8 @@ const App = () => {
           <CaloricHistory />
           <WaterHistory />
         </main>
+        <Login />
+        <SignUp />
       </div>
     </GlobalStateProvider>
   );
