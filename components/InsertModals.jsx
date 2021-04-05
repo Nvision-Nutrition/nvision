@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import axios from 'axios';
 import NumPad from 'react-numpad';
+import styles from '../styles/Home.module.css';
 
 const InsertModals = ({show, type, handleClose}) => {
   const [meal, setMeal] = useState('');
@@ -73,7 +74,9 @@ const InsertModals = ({show, type, handleClose}) => {
             <Modal.Body>
               {
                 type === 'food' &&
-                <select value={meal} onChange={handleChange}>
+                <select
+                  value={meal}
+                  onChange={handleChange}>
                   <option>Select a Meal</option>
                   <option value="breakfast">breakfast</option>
                   <option value="lunch">lunch</option>
