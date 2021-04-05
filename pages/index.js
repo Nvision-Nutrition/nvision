@@ -26,19 +26,15 @@ const App = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>The Nutritious App for Vision</title>
+        <title>nVision nutrition</title>
         <link rel="icon" href="/favicon.ico" />
+        <link href='https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap" rel="stylesheet">' rel="stylesheet"/>
       </Head>
       <Navbar>
         <Navbar.Brand href="#home">
-          <strong>
+          <h1 className="titleFont">
             nVision Nutrition
-          </strong>
-          <span>
-            <i>
-                The Nutritious App for Vision
-            </i>
-          </span>
+          </h1>
         </Navbar.Brand>
         <NavDropdown
           title="Sign Out"
