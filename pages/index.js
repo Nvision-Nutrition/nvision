@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import {Navbar, NavDropdown} from 'react-bootstrap';
 import React from 'react';
-import CaloricHistory from '../components/caloricHistory.jsx';
+import HistoryGraph from '../components/historyGraph.jsx';
 import WaterDaily from '../components/waterDaily.jsx';
 import DailyTracker from '../components/dailyTracker.jsx';
 
@@ -51,8 +51,7 @@ const App = () => {
       </Navbar>
       <main className={styles.main}>
         <DailyTracker />
-        <historyGraph />
-        <CaloricHistory />
+        <HistoryGraph />
         <WaterDaily />
       </main>
     </div>
