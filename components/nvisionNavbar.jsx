@@ -1,27 +1,51 @@
 import React, {useContext} from 'react';
+import {Navbar, Nav, Button} from 'react-bootstrap';
+import Brightness2Icon from '@material-ui/icons/Brightness2';
 import {Context} from './globalState.js';
-import {Navbar, NavDropdown} from 'react-bootstrap';
-import styles from '../styles/Home.module.css';
+
 
 const NvisionNavbar = () => {
-  const {theme} = useContext(Context);
-  console.log('theme is: ', theme);
+  const {theme, setTheme} = useContext(Context);
+
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  };
+
+
   return (
-    <Navbar fixed="top" bg={theme} variant={theme}>
-      <Navbar.Brand href="#home">
+    <Navbar
+      style={{justifyContent: 'space-between'}}
+      sticky="top"
+      bg={theme}
+      variant={theme}
+    >
+      <Navbar.Brand>
         <h1 className="titleFont">
           nVision Nutrition
         </h1>
       </Navbar.Brand>
-      <NavDropdown
-        title="Sign Out"
-        id="basic-nav-dropdown"
-      >
-        <NavDropdown.Item >
-          {`Account Page PlaceHolder`}
-          {`Sign Out PlaceHolder`}
-        </NavDropdown.Item>
-      </NavDropdown>
+
+      <Button
+        variant={theme === 'light' ? 'outline-dark' : 'outline-light'}
+        onClick={toggleTheme}>
+        <Brightness2Icon/>
+      </Button>
+
+      <Nav>
+        <Nav.Link
+          style={{
+            alignSelf: 'center',
+            display: 'inline-flex',
+            marginLeft: '25px',
+            marginRight: '25px',
+            fontFamily: 'Fredoka One, Open Sans, Arial',
+          }}
+        > <h3>Sign Out</h3></Nav.Link>
+      </Nav>
     </Navbar>
   );
 };
