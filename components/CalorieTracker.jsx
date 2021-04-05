@@ -4,7 +4,7 @@ import Apple from '../public/appleStencil.svg';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const CalorieTracker = () => {
-  const [progress] = useState(0);
+  const [progress, setProgress] = useState(60);
 
   return (
     <>
@@ -24,6 +24,18 @@ const CalorieTracker = () => {
         />
         <Apple className="calorie-progress-overlay" />
       </div>
+      <button
+        type="button"
+        onClick={() => {
+          if (progress === 100) {
+            setProgress(0);
+          } else {
+            setProgress(progress+20);
+          }
+        }}
+      >
+        Test
+      </button>
     </>
   );
 };
