@@ -3,6 +3,14 @@ import Providers from 'next-auth/providers';
 
 const isCorrectCredentials = (credentials) => {
 
+  //hash password here using argon2  
+
+  //send query to db for username and password
+
+  //if credentials.username comes back as a match in the db 
+  // and credentials.passowrd (hashed) is === to the hashed version associated with the username in the db 
+  // then its good to go
+
   return credentials.username === process.env.NEXTAUTH_USERNAME &&
   credentials.password === process.env.NEXTAUTH_PASSWORD;
 }
@@ -17,11 +25,13 @@ const options = {
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
+        username: { label: 'Username', type: 'text', placeholder: 'vision' },
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
+          //if credentials match 
         if (isCorrectCredentials(credentials)) {
+          //return user to the app  
           const user = { id: 1, name: 'Admin' };
           // Any object returned will be saved in `user` property of the JWT
           return Promise.resolve(user);
