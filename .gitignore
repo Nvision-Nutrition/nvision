@@ -38,5 +38,3 @@ yarn-error.log*
 # linter
 .eslintrc.js
 
-# DummyData
-*/dummyData
