@@ -4,40 +4,43 @@ import {ResponsiveBar} from '@nivo/bar';
 import styles from '../styles/Home.module.css';
 
 const HistoryGraph = () => {
+  const goalValue = 3000;
+  const keyValue = 'Calories'
+
   const data = [
     {
       'dow': 'Sun',
-      'calories': 104,
+      [keyValue]: 3053,
     },
     {
       'dow': 'Mon',
-      'calories': 10,
+      [keyValue]: 3003,
     },
     {
       'dow': 'Tue',
-      'calories': 35,
+      [keyValue]: 2758,
     },
     {
       'dow': 'Wed',
-      'calories': 44,
+      [keyValue]: 2893,
     },
     {
       'dow': 'Thu',
-      'calories': 55,
+      [keyValue]: 4208,
     },
     {
       'dow': 'Fri',
-      'calories': 96,
+      [keyValue]: 3256,
     },
     {
       'dow': 'Sat',
-      'calories': 48,
+      [keyValue]: 2784,
     },
   ];
 
   const config = {
     keys: [
-      'calories',
+      `${keyValue}`,
     ],
     margin: {
       'top': 50,
@@ -79,7 +82,7 @@ const HistoryGraph = () => {
       'tickSize': 5,
       'tickPadding': 5,
       'tickRotation': 0,
-      'legend': 'Calories',
+      'legend': `${keyValue}`,
       'legendPosition': 'middle',
       'legendOffset': -40,
     },
@@ -110,7 +113,7 @@ const HistoryGraph = () => {
             indexBy="dow"
             margin={config.margin}
             padding={0.3}
-            colors={{ scheme: 'category10' }}
+            colors={{scheme: 'category10'}}
             colorBy="id"
             defs={config.defs}
             fill={config.fill}
@@ -125,6 +128,15 @@ const HistoryGraph = () => {
             animate={true}
             motionStiffness={90}
             motionDamping={15}
+            markers={[
+              {
+                  axis: 'y',
+                  value: goalValue,
+                  lineStyle: { stroke: 'rgba(0, 0, 0, .35)', strokeWidth: 2 },
+                  legend: `Target ${goalValue}`,
+                  legendOrientation: 'vertical',
+              },
+            ]}
           />
         </div>
       </div>

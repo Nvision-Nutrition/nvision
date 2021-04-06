@@ -22,7 +22,7 @@ const WaterDaily = () => {
           bottleArray.push(
               <div key={uuidv4()}>
                 <img
-                  src="/full_bottle.jpg"
+                  src="/fullBottle.svg"
                   alt=""
                   className="bottle-image" />
               </div>);
@@ -49,7 +49,7 @@ const WaterDaily = () => {
           bottleArray.push(
               <div key={uuidv4()}>
                 <img
-                  src="/crushed_bottle.jpeg"
+                  src="/emptyBottle.svg"
                   alt=""
                   className="bottle-image" />
               </div>);
