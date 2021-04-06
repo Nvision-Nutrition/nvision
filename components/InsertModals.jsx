@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import {Context} from './globalState.js';
 import PropTypes from 'prop-types';
 import {
   Container, Modal, Row, Button, Form,
@@ -9,7 +10,10 @@ import NumPad from 'react-numpad';
 const InsertModals = ({show, type, handleClose}) => {
   const [meal, setMeal] = useState('');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [displayDate, setDisplayDate] = useState(date.substring(5, 7).concat(
+      '.', date.substring(8), '.', date.substring(2, 4)));
   const [val, setVal] = useState(0);
+  const {userID} = useContext(Context);
 
   const handleChange = (e) => {
     setMeal(e.target.value);
@@ -19,7 +23,7 @@ const InsertModals = ({show, type, handleClose}) => {
     e.preventDefault();
     const foodEntry = {
       // default value for userId until global context is made avaliable
-      userId: '1',
+      userId: userID,
       mealType: 'food',
       calories: val,
       mealName: meal,
@@ -45,7 +49,7 @@ const InsertModals = ({show, type, handleClose}) => {
     const waterEntry = {
       // default value for userId until global context is made avaliable
       waterType: 'water',
-      userId: '1',
+      userId: userID,
       water: val,
       usersDate: date,
     };
@@ -61,6 +65,26 @@ const InsertModals = ({show, type, handleClose}) => {
     } else {
       alert('Please complete entry');
     }
+  };
+  const myTheme = {
+    header: {
+      primaryColor: '#dc3545',
+      secondaryColor: '#ECEFF1',
+      highlightColor: '#FFC107',
+      backgroundColor: '#dc3545',
+    },
+    body: {
+      primaryColor: '#000000',
+      secondaryColor: '#32a5f2',
+      highlightColor: '#FFC107',
+      backgroundColor: '#000000',
+    },
+    panel: {
+      backgroundColor: '#dc3545',
+    },
+    global: {
+      fontFamily: 'Roboto, Helvetica Neue, Arial, sans-serif, Helvetica',
+    },
   };
 
   return (
@@ -106,24 +130,10 @@ const InsertModals = ({show, type, handleClose}) => {
                 onChange={(value) => {
                   setVal(value);
                 }}
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  height: 'calc(1.5em + .75rem + 2px)',
-                  padding: '.375rem .75rem',
-                  // fontSize: 1rem;
-                  // fontWeight: 400;
-                  // lineHeight: 1.5;
-                  color: 'red',
-                  backgroundColor: 'red',
-                  // backgroundClip: padding-box;
-                  // border: 1px solid #ced4da;
-                  // borderRadius: .25rem;
-                  // transition: borderColor .15s ease-in-out,box-shadow .15s ease-in-out;
-                }}
                 position='center'
                 value={val}
                 decimal={2}
+                theme={myTheme}
               />
               <br/>
               <br/>
@@ -132,10 +142,14 @@ const InsertModals = ({show, type, handleClose}) => {
               <NumPad.Calendar
                 onChange={(value) => {
                   setDate(value);
+                  // const display = value.substring(5, 7).concat('.',
+                  //     value.substring(8), '.', value.substring(2, 4));
+                  // setDisplayDate(display);
                 }}
                 dateFormat="YYYY-MM-DD"
                 min="2021-04-05"
                 value={date}
+                theme={myTheme}
               />
               <br/>
               <br/>
