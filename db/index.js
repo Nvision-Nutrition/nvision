@@ -105,6 +105,80 @@ const insertCalories = (req, res) => {
       });
 };
 
+/*
+  checks if username exists already in database
+    if so, returns userID
+    if not returns -1
+    (returns a Promise)
+*/
+const getUsernameID = (username) => {
+  const checkQuery = `Select id FROM users
+                      WHERE username='${username}';`;
+
+  return new Promise((resolve, reject) => {
+    pool.query(checkQuery)
+        .then((response) => {
+          if (response.rows.length === 0) {
+            resolve(-1);
+          } else {
+            resolve(response.rows[0].id);
+          }
+        }).catch((err) => {
+          reject(err);
+        });
+  });
+};
+
+/*
+  adds a new user to the database provided the username
+  is not already taken
+*/
+const addUser = async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    username,
+    password,
+    calorieGoal,
+    waterGoal,
+    weightGoal,
+    phone,
+    email,
+    sex,
+  } = req.body;
+
+  try {
+    const userID = await getUsernameID(username);
+    if (userID !== -1) {
+      // user exists already
+      res.status(501).send(`user exists already with userID: ${userID}`);
+    } else {
+      // create a new user
+      const queryString = `INSERT INTO users(
+        firstName, lastName, username,
+        password, calorieGoal, waterGoal,
+        weightGoal, phone, email, sex)
+        VALUES('${firstName}', '${lastName}',
+        '${username}', '${password}', '${calorieGoal}',
+        '${waterGoal}', '${weightGoal}', '${phone}',
+        '${email}', '${sex}')
+        RETURNING id`;
+
+      pool.query(queryString)
+          .then((response) => {
+            const userID = response.rows[0].id;
+            res.status(201).send(`New user created with ID: ${userID}`);
+          }).catch((err) => {
+            console.error(err);
+            res.send(500);
+          });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
 // insert into entries table - water record
 const insertWater = (req, res) => {
   const {waterType, userId, water, usersDate} = req.body;
@@ -155,4 +229,5 @@ module.exports = {
   getFail,
   fetchDayCount,
   fetchWeek,
+  addUser,
 };
