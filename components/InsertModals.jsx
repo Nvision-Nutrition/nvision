@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Modal, Row, Button,
+  Container, Modal, Row, Button, Form,
 } from 'react-bootstrap';
 import axios from 'axios';
 import NumPad from 'react-numpad';
-import styles from '../styles/Home.module.css';
 
 const InsertModals = ({show, type, handleClose}) => {
   const [meal, setMeal] = useState('');
@@ -30,6 +29,8 @@ const InsertModals = ({show, type, handleClose}) => {
       axios.post('/api/addCalories', foodEntry)
           .then((res) => {
             console.log(res);
+            setVal(0);
+            setMeal('Select a Meal');
           })
           .catch((err) => {
             console.error(err);
@@ -52,6 +53,7 @@ const InsertModals = ({show, type, handleClose}) => {
       axios.post('/api/addWater', waterEntry)
           .then((res) => {
             console.log(res);
+            setVal(0);
           })
           .catch((err) => {
             console.error(err);
@@ -76,56 +78,79 @@ const InsertModals = ({show, type, handleClose}) => {
               }
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body
-            bsPrefix="entries-modal">
-            {
-              type === 'food' &&
-                <select
-                  value={meal}
-                  className={`${styles.card} meal-select`}
-                  onChange={handleChange}>
-                  <option>Select a Meal</option>
-                  <option value="breakfast">breakfast</option>
-                  <option value="lunch">lunch</option>
-                  <option value="dinner">dinner</option>
-                  <option value="snack">snack</option>
-                </select>
-            }
-            <Row>
+          <Modal.Body>
+            <Form>
+              {
+                type === 'food' &&
+                <>
+                  <Form.Label>Meal Type</Form.Label>
+                  <select
+                    value={meal}
+                    className="form-control"
+                    onChange={handleChange}>
+                    <option value="Select a Meal">Select a Meal</option>
+                    <option value="breakfast">breakfast</option>
+                    <option value="lunch">lunch</option>
+                    <option value="dinner">dinner</option>
+                    <option value="snack">snack</option>
+                  </select>
+                </>
+              }
+              <br/>
+              {
+                type === 'food' ? <Form.Label>Calories</Form.Label> :
+                <Form.Label>Water (oz)</Form.Label>
+              }
+              <br/>
               <NumPad.Number
                 onChange={(value) => {
                   setVal(value);
                 }}
-                label={'Calories:'}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  height: 'calc(1.5em + .75rem + 2px)',
+                  padding: '.375rem .75rem',
+                  // fontSize: 1rem;
+                  // fontWeight: 400;
+                  // lineHeight: 1.5;
+                  color: 'red',
+                  backgroundColor: 'red',
+                  // backgroundClip: padding-box;
+                  // border: 1px solid #ced4da;
+                  // borderRadius: .25rem;
+                  // transition: borderColor .15s ease-in-out,box-shadow .15s ease-in-out;
+                }}
+                position='center'
                 value={val}
                 decimal={2}
-                className={`${styles.card} add-amount`}
               />
-            </Row>
-            <Row>
+              <br/>
+              <br/>
+              <Form.Label>Date</Form.Label>
+              <br/>
               <NumPad.Calendar
                 onChange={(value) => {
                   setDate(value);
                 }}
-                label='Date:'
                 dateFormat="YYYY-MM-DD"
                 min="2021-04-05"
                 value={date}
-                className={`${styles.card} add-date`}
               />
-            </Row>
-            <Row>
+              <br/>
+              <br/>
               <Button
-                variant="outline-secondary"
+                variant="outline-danger"
                 onClick={
                   (e) => {
                     type === 'food' ? addFood(e) :
                     addWater(e);
+                    handleClose();
                   }
                 }>
                 Record it!
               </Button>
-            </Row>
+            </Form>
           </Modal.Body>
         </Modal>
       </Container>
