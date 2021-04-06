@@ -1,5 +1,5 @@
 module.exports = {
-  'collectCoverage': true,
+  // 'collectCoverage': true,
   'coverageDirectory': 'coverage',
   'verbose': true,
   'roots': [
@@ -9,14 +9,14 @@ module.exports = {
     '\\.[jt]sx?$': 'babel-jest',
   },
   // tests should reach 60 percent code coverage
-  'coverageThreshold': {
-    'global': {
-      'branches': 60,
-      'functions': 60,
-      'lines': 60,
-      'statements': 60,
-    },
-  },
+  // 'coverageThreshold': {
+  //   'global': {
+  //     'branches': 60,
+  //     'functions': 60,
+  //     'lines': 60,
+  //     'statements': 60,
+  //   },
+  // },
   'setupFiles': [
     './setupTests',
   ],
