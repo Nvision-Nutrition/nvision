@@ -5,7 +5,7 @@ import * as React from 'react';
 import {GlobalStateProvider} from 'globalState.js';
 import NvisionNavbar from 'nvisionNavbar.jsx';
 
-describe.only('Nvision Nabar testing suite', () => {
+describe('Nvision Nabar testing suite', () => {
   const renderComponent = () => {
     // this wrapper argument wraps the NvisionNavbar component in the
     // GlobalStateProvider context.
