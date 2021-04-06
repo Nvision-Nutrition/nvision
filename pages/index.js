@@ -34,8 +34,8 @@ const App = () => {
         <div className={styles.container}>
           <main className={styles.main}>
             <DailyTracker />
-            <HistoryGraph />
             <WaterDaily />
+            <HistoryGraph />
           </main>
           <Login />
           <SignUp />
