@@ -28,7 +28,7 @@ it('should render the text "Sign Out" ', () => {
   expect(signOut).toBeTruthy();
 });
 
-it.only('toggles dark mode button on click', () => {
+it('toggles dark mode button on click', () => {
   const {queryByLabelText} = renderComponent();
   const darkMode = queryByLabelText('dark-mode-toggle');
 
