@@ -13,6 +13,8 @@ export const GlobalStateProvider = (props) => {
   // (defaults to '1')
   const [userID, setUserID] = useState(1);
 
+  const [theme, setTheme] = useState('light');
+
   /* dummy variables for testing */
   const [count, setCount] = useState(13);
   const dummyString = 'dummy';
@@ -22,6 +24,9 @@ export const GlobalStateProvider = (props) => {
 
   return (
     <Context.Provider value={{
+      theme,
+      setTheme,
+      // below here are dummy examples:
       count,
       setCount,
       dummyString,

@@ -32,3 +32,14 @@ a {
  .chart:hover {
    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
  }
+
+.titleFont {
+  font-family: Fredoka One, Open Sans, Arial;
+  text-shadow: 1px 1px 1px #2FD481;
+  cursor: default;
+  display: inline;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0,0,0,.85);
+}
