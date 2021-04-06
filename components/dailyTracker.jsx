@@ -25,17 +25,29 @@ const DailyTracker = () => {
           }}
           style={{
             marginRight: 20,
+            width: '30%',
           }}
           title='calorie-btn'>
-          Add Calories
+          <img src='/restaurant.png'
+            style={{
+              height: '28px',
+              width: '28px',
+            }}/>
         </Button>
         <Button
           variant="outline-primary"
+          style={{
+            width: '30%',
+          }}
           onClick={(e) => {
             handleOpen();
             setType('water');
           } }>
-          Add Water
+          <img src='/drop.png'
+            style={{
+              height: '28px',
+              width: '28px',
+            }}/>
         </Button>
         <InsertModals
           show={show}
