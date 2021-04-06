@@ -22,12 +22,6 @@ const App = () => {
         <title>nVision nutrition</title>
         <link rel="icon" href="/favicon.ico" />
         <link href='https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap" rel="stylesheet">' rel="stylesheet" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-          crossOrigin="anonymous"
-        />
       </Head>
       <GlobalStateProvider>
         <NvisionNavbar />
