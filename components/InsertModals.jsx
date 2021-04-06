@@ -1,14 +1,13 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Context} from './globalState.js';
-import PropTypes from 'prop-types';
 import {
-  Container, Modal, Row, Button, Form,
+  Container, Modal, Button, Form,
 } from 'react-bootstrap';
 import axios from 'axios';
 import NumPad from 'react-numpad';
 
-const InsertModals = ({show, type, handleClose}) => {
-  const [meal, setMeal] = useState('');
+const InsertModals = ({show, type, handleClose, valid, setValid}) => {
+  const [meal, setMeal] = useState('Select a Meal');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   // potential state for a more user friendly date
   // const [displayDate, setDisplayDate] = useState(date.substring(5, 7).concat(
@@ -35,12 +34,11 @@ const InsertModals = ({show, type, handleClose}) => {
             console.log(res);
             setVal(0);
             setMeal('Select a Meal');
+            setValid('');
           })
           .catch((err) => {
             console.error(err);
           });
-    } else {
-      alert('Please complete entry');
     }
   };
 
@@ -57,6 +55,7 @@ const InsertModals = ({show, type, handleClose}) => {
           .then((res) => {
             console.log(res);
             setVal(0);
+            setValid('');
           })
           .catch((err) => {
             console.error(err);
@@ -79,12 +78,37 @@ const InsertModals = ({show, type, handleClose}) => {
           .then((res) => {
             console.log(res);
             setVal(0);
+            setValid('');
           })
           .catch((err) => {
             console.error(err);
           });
     } else {
       alert('Please complete entry');
+    }
+  };
+
+  useEffect(() => {
+    if (type === 'food' && meal !== 'Select a Meal' && val) {
+      setValid(true);
+    } else if (val) {
+      setValid(true);
+    }
+  }, [val]);
+
+  const handleInput = (e) => {
+    e.preventDefault();
+    if (type === 'food' && meal !== 'Select a Meal' && val) {
+      addFood(e);
+      handleClose();
+    } else if (type === 'water' && val) {
+      addWater(e);
+      handleClose();
+    } else if (type === 'weight' && val) {
+      addWeight(e);
+      handleClose();
+    } else {
+      setValid(false);
     }
   };
 
@@ -140,6 +164,7 @@ const InsertModals = ({show, type, handleClose}) => {
                       style={{
                         height: '20px',
                         width: '20px',
+                        align: 'center',
                       }}/>
                   </div>
               }
@@ -195,16 +220,17 @@ const InsertModals = ({show, type, handleClose}) => {
               />
               <br/>
               <br/>
+              {
+                valid === false &&
+                <div>
+                  Please complete entry
+                </div>
+              }
               <Button
                 variant="outline-danger"
-                onClick={
-                  (e) => {
-                    type === 'food' ? addFood(e) :
-                    type === 'water' ? addWater(e) :
-                    addWeight(e);
-                    handleClose();
-                  }
-                }>
+                onClick={(e) => {
+                  handleInput(e);
+                }}>
                 Record it!
               </Button>
             </Form>
@@ -213,12 +239,6 @@ const InsertModals = ({show, type, handleClose}) => {
       </Container>
     </>
   );
-};
-
-InsertModals.propTypes = {
-  // show: PropTypes.instanceOf(Boolean).isRequired,
-  // type: PropTypes.instanceOf(String).isRequired,
-  // handleClose: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default InsertModals;

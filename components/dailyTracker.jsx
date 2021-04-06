@@ -7,8 +7,13 @@ import InsertModals from './InsertModals.jsx';
 const DailyTracker = () => {
   const [show, setShow] = useState(false);
   const [type, setType] = useState('');
+  const [valid, setValid] = useState('');
 
-  const handleClose = () => setShow(false);
+
+  const handleClose = () => {
+    setShow(false);
+    setValid('');
+  };
   const handleOpen = () => setShow(true);
 
 
@@ -69,6 +74,8 @@ const DailyTracker = () => {
           type={type}
           handleClose={handleClose}
           onHide={handleClose}
+          valid={valid}
+          setValid={setValid}
         />
       </div>
     </>
