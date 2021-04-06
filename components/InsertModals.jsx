@@ -147,6 +147,7 @@ const InsertModals = ({show, type, handleClose}) => {
                 value={val}
                 decimal={2}
                 theme={myTheme}
+                title='amount-input'
               />
               <br/>
               <br/>

@@ -17,6 +17,5 @@ describe('calorie input button', () => {
     const button = screen.queryByTitle('calorie-btn');
     fireEvent.click(button);
     expect(screen.getByText('Record it!')).toBeInTheDocument();
-    fireEvent.click(button);
   });
 });

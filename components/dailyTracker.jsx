@@ -18,7 +18,7 @@ const DailyTracker = () => {
         <p className={`${styles.description} subtitle`}>{`Daily Tracker`}</p>
         <CalorieTracker />
         <Button
-          variant="outline-success"
+          variant="outline-warning"
           onClick={(e) => {
             handleOpen();
             setType('food');
@@ -44,6 +44,21 @@ const DailyTracker = () => {
             setType('water');
           } }>
           <img src='/drop.png'
+            style={{
+              height: '28px',
+              width: '28px',
+            }}/>
+        </Button>
+        <Button
+          variant="outline-success"
+          style={{
+            width: '30%',
+          }}
+          onClick={(e) => {
+            handleOpen();
+            setType('weight');
+          } }>
+          <img src='/weight-scale.png'
             style={{
               height: '28px',
               width: '28px',
