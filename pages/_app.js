@@ -3,6 +3,7 @@
 import '../styles/globals.css';
 import '../styles/calorie-progress-bar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/globals.css';
 import React from 'react';
 
 function MyApp({Component, pageProps}) {

@@ -19,3 +19,14 @@ a {
   width: 45px;
   height: 45px;
 }
+
+.titleFont {
+  font-family: Fredoka One, Open Sans, Arial;
+  text-shadow: 1px 1px 1px #2FD481;
+  cursor: default;
+  display: inline;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0,0,0,.85);
+}
