@@ -1,4 +1,4 @@
-import {render, fireEvent, cleanup} from '@testing-library/react';
+import {render, fireEvent, cleanup, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import * as React from 'react';
 import DailyTracker from 'dailyTracker.jsx';
@@ -11,15 +11,12 @@ describe('calorie input button', () => {
     const calBtn = queryByTitle('calorie-btn');
     expect(calBtn).toBeTruthy();
   });
-  it('should render calorie modal on click', async () => {
-    const fetchMock = jest.spyOn(window,
-        'fetch').mockImplementation((req) => req);
-    const {getByText} = render(<DailyTracker />);
-    fireEvent.click(getByText('Add Calories'));
-    await waitForElement(() =>
-      expect(getByText('Record it!')).toBeInTheDocument(),
-    );
-    // reset mock
-    fetchMock.restoreAllMocks();
+
+  it('clicking the button toggles the modal', () => {
+    render(<DailyTracker />);
+    const button = screen.queryByTitle('calorie-btn');
+    fireEvent.click(button);
+    expect(screen.getByText('Record it!')).toBeInTheDocument();
+    fireEvent.click(button);
   });
 });

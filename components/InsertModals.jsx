@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Modal, Button,
+  Container, Modal, Row, Button,
 } from 'react-bootstrap';
 import axios from 'axios';
 import NumPad from 'react-numpad';
@@ -64,18 +64,25 @@ const InsertModals = ({show, type, handleClose}) => {
   return (
     <>
       <Container>
-        <div>
-          <Modal
-            show={show}
-            onHide={handleClose}
-          >
-            <Modal.Header closeButton >
-            </Modal.Header>
-            <Modal.Body>
+        <Modal
+          show={show}
+          onHide={handleClose}
+        >
+          <Modal.Header closeButton >
+            <Modal.Title>
               {
-                type === 'food' &&
+                  type === 'food' ? 'Meal Entry' :
+                  'Water Entry'
+              }
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body
+            bsPrefix="entries-modal">
+            {
+              type === 'food' &&
                 <select
                   value={meal}
+                  className={`${styles.card} meal-select`}
                   onChange={handleChange}>
                   <option>Select a Meal</option>
                   <option value="breakfast">breakfast</option>
@@ -83,7 +90,8 @@ const InsertModals = ({show, type, handleClose}) => {
                   <option value="dinner">dinner</option>
                   <option value="snack">snack</option>
                 </select>
-              }
+            }
+            <Row>
               <NumPad.Number
                 onChange={(value) => {
                   setVal(value);
@@ -91,7 +99,10 @@ const InsertModals = ({show, type, handleClose}) => {
                 label={'Calories:'}
                 value={val}
                 decimal={2}
+                className={`${styles.card} add-amount`}
               />
+            </Row>
+            <Row>
               <NumPad.Calendar
                 onChange={(value) => {
                   setDate(value);
@@ -100,7 +111,10 @@ const InsertModals = ({show, type, handleClose}) => {
                 dateFormat="YYYY-MM-DD"
                 min="2021-04-05"
                 value={date}
+                className={`${styles.card} add-date`}
               />
+            </Row>
+            <Row>
               <Button
                 variant="outline-secondary"
                 onClick={
@@ -111,19 +125,18 @@ const InsertModals = ({show, type, handleClose}) => {
                 }>
                 Record it!
               </Button>
-            </Modal.Body>
-          </Modal>
-        </div>
+            </Row>
+          </Modal.Body>
+        </Modal>
       </Container>
     </>
   );
 };
 
-// prop types currently commented out due to errors - I will resolve this
 InsertModals.propTypes = {
-  // show: PropTypes.instanceOf(Boolean).isRequired,
-  // type: PropTypes.instanceOf(String).isRequired,
-  // handleClose: PropTypes.instanceOf(Function).isRequired,
+  show: PropTypes.instanceOf(Boolean).isRequired,
+  type: PropTypes.instanceOf(String).isRequired,
+  handleClose: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default InsertModals;

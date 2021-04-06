@@ -16,10 +16,13 @@ const DailyTracker = () => {
       <div className={`${styles.card} daily-tracker`}>
         <p className={`${styles.description} subtitle`}>{`Daily Tracker`}</p>
         <CalorieTracker />
-        <button onClick={(e) => {
-          handleOpen();
-          setType('food');
-        }} className={`${styles.card} input-button`}>
+        <button
+          onClick={(e) => {
+            handleOpen();
+            setType('food');
+          }}
+          className={`${styles.card} input-button`}
+          title='calorie-btn'>
           Add Calories
         </button>
         <button onClick={(e) => {
