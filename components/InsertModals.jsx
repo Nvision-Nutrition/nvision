@@ -97,8 +97,21 @@ const InsertModals = ({show, type, handleClose}) => {
           <Modal.Header closeButton >
             <Modal.Title>
               {
-                  type === 'food' ? 'Meal Entry' :
-                  'Water Entry'
+                  type === 'food' ?
+                  <div>
+                  Meal Entry <img src='/restaurant.png'
+                      style={{
+                        height: '20px',
+                        width: '20px',
+                      }}/>
+                  </div> :
+                  <div>
+                    Water Entry <img src='/drop.png'
+                      style={{
+                        height: '20px',
+                        width: '20px',
+                      }}/>
+                  </div>
               }
             </Modal.Title>
           </Modal.Header>
