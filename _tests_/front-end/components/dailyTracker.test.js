@@ -1,4 +1,4 @@
-import {render, fireEvent, screen, cleanup} from '@testing-library/react';
+import {render, fireEvent, cleanup} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import * as React from 'react';
 import DailyTracker from '../components/dailyTracker.jsx';
