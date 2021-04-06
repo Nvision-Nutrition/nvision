@@ -6,6 +6,8 @@ import {GlobalStateProvider} from '../components/globalState.js';
 import dynamic from 'next/dynamic';
 import CaloricHistory from '../components/caloricHistory.jsx';
 import WaterHistory from '../components/waterHistory.jsx';
+import Login from '../components/login.jsx';
+import SignUp from '../components/signUp.jsx';
 const DailyTracker = dynamic(
   () => {
     return import("../components/dailyTracker.jsx");
