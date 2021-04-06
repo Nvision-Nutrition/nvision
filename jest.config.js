@@ -17,15 +17,14 @@ module.exports = {
       'statements': 60,
     },
   },
-  /*
-  this block allows for easier enzyme configuration & is
-  currently commented out due to the prioritzation of
-  react-testing-library tests
   'setupFiles': [
     './setupTests',
   ],
-  */
   'moduleNameMapper': {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
   },
+  'moduleDirectories': [
+    'node_modules',
+    'components',
+  ],
 };

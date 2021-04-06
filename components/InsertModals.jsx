@@ -89,7 +89,6 @@ const InsertModals = ({show, type, handleClose}) => {
                   setVal(value);
                 }}
                 label={'Calories:'}
-                placeholder={'my placeholder'}
                 value={val}
                 decimal={2}
               />
