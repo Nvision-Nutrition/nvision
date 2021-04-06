@@ -10,8 +10,9 @@ import NumPad from 'react-numpad';
 const InsertModals = ({show, type, handleClose}) => {
   const [meal, setMeal] = useState('');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  const [displayDate, setDisplayDate] = useState(date.substring(5, 7).concat(
-      '.', date.substring(8), '.', date.substring(2, 4)));
+  // potential state for a more user friendly date
+  // const [displayDate, setDisplayDate] = useState(date.substring(5, 7).concat(
+  //     '.', date.substring(8), '.', date.substring(2, 4)));
   const [val, setVal] = useState(0);
   const {userID} = useContext(Context);
 
@@ -22,7 +23,6 @@ const InsertModals = ({show, type, handleClose}) => {
   const addFood = (e) => {
     e.preventDefault();
     const foodEntry = {
-      // default value for userId until global context is made avaliable
       userId: userID,
       mealType: 'food',
       calories: val,
@@ -47,7 +47,6 @@ const InsertModals = ({show, type, handleClose}) => {
   const addWater = (e) => {
     e.preventDefault();
     const waterEntry = {
-      // default value for userId until global context is made avaliable
       waterType: 'water',
       userId: userID,
       water: val,
@@ -66,6 +65,29 @@ const InsertModals = ({show, type, handleClose}) => {
       alert('Please complete entry');
     }
   };
+
+  const addWeight = (e) => {
+    e.preventDefault();
+    const weightEntry = {
+      type: 'weight',
+      weight: val,
+      usersDate: date,
+      userId: userID,
+    };
+    if (val && date) {
+      axios.post('/api/addWeight', weightEntry)
+          .then((res) => {
+            console.log(res);
+            setVal(0);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+    } else {
+      alert('Please complete entry');
+    }
+  };
+
   const myTheme = {
     header: {
       primaryColor: '#dc3545',
@@ -105,8 +127,16 @@ const InsertModals = ({show, type, handleClose}) => {
                         width: '20px',
                       }}/>
                   </div> :
+                  type === 'water' ?
                   <div>
                     Water Entry <img src='/drop.png'
+                      style={{
+                        height: '20px',
+                        width: '20px',
+                      }}/>
+                  </div> :
+                  <div>
+                  Weight Update <img src='/weight-scale.png'
                       style={{
                         height: '20px',
                         width: '20px',
@@ -136,7 +166,8 @@ const InsertModals = ({show, type, handleClose}) => {
               <br/>
               {
                 type === 'food' ? <Form.Label>Calories</Form.Label> :
-                <Form.Label>Water (oz)</Form.Label>
+                type === 'water' ? <Form.Label>Water (oz)</Form.Label> :
+                <Form.Label>Weight (lb)</Form.Label>
               }
               <br/>
               <NumPad.Number
@@ -156,9 +187,6 @@ const InsertModals = ({show, type, handleClose}) => {
               <NumPad.Calendar
                 onChange={(value) => {
                   setDate(value);
-                  // const display = value.substring(5, 7).concat('.',
-                  //     value.substring(8), '.', value.substring(2, 4));
-                  // setDisplayDate(display);
                 }}
                 dateFormat="YYYY-MM-DD"
                 min="2021-04-05"
@@ -172,7 +200,8 @@ const InsertModals = ({show, type, handleClose}) => {
                 onClick={
                   (e) => {
                     type === 'food' ? addFood(e) :
-                    addWater(e);
+                    type === 'water' ? addWater(e) :
+                    addWeight(e);
                     handleClose();
                   }
                 }>

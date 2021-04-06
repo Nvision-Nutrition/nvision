@@ -190,6 +190,20 @@ const insertWater = (req, res) => {
       });
 };
 
+// insert into entries table - water record
+const insertWeight = (req, res) => {
+  const {type, weight, usersDate, userId} = req.body;
+  const queryString = `INSERT INTO entries(type, weight, date, user_id)
+                       VALUES($1, $2,$3, $4);`;
+  pool.query(queryString, [type, weight, usersDate, userId])
+      .then((response) => {
+        res.status(201).send('Weight entry successful!');
+      }).catch((err) => {
+        console.error(err);
+        res.status(400).send(err);
+      });
+};
+
 // get a random fail quote
 const getFail = (req, res) => {
   const queryString = `SELECT failure_quote
@@ -221,6 +235,7 @@ const getSuccess = (req, res) => {
 module.exports = {
   insertCalories,
   insertWater,
+  insertWeight,
   getSuccess,
   getFail,
   fetchDayCount,
