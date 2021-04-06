@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "load": "psql -f schema.sql"
+    "load": "psql -f schema.sql",
+    "test": "jest",
+    "code-coverage": "jest --collect-coverage",
+    "open-coverage": "open ./coverage/lcov-report/index.html"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
