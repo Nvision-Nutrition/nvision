@@ -30,7 +30,8 @@ const App = () => {
   //what's not seen is that next js is adding a div before render
   return (
     <>
-      {!session && !signup ? (
+      {!session && (
+        !signup ? (
         //not a session and not yet signing up 
         <>
           <p1>Not signed in</p1><br/>
@@ -44,7 +45,7 @@ const App = () => {
         <>
          <SignUp signup={signup} setSignup={setSignup}/>
         </>
-      )} 
+      ))} 
       {session && (
           
        
@@ -83,8 +84,6 @@ const App = () => {
               <CaloricHistory />
               <WaterHistory />
             </main>
-            <Login />
-            <SignUp />
           </div>
         </GlobalStateProvider>
       )}
