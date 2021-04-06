@@ -95,7 +95,7 @@ const insertCalories = (req, res) => {
   const queryString = `INSERT INTO entries
                        (type, calories, mealName, date, user_id)
                        VALUES('${mealType}',${calories}, '${mealName}',
-                              ${usersDate}, ${userId});`;
+                              '${usersDate}', ${userId});`;
   pool.query(queryString)
       .then((response) => {
         res.status(201).send('Calorie entry successful!');
@@ -110,7 +110,7 @@ const insertWater = (req, res) => {
   const {waterType, userId, water, usersDate} = req.body;
   const queryString = `INSERT INTO entries(type, water, date, user_id)
                        VALUES('${waterType}', ${water},
-                       ${usersDate}, ${userId})';`;
+                       '${usersDate}', ${userId})';`;
   pool.query(queryString)
       .then((response) => {
         res.status(201).send('Water entry successful!');
