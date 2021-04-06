@@ -114,14 +114,6 @@
   height: 1em;
 }
 
-.card button {
-  cursor: pointer;
-}
-
-.entries-modal {
-  color:red;
-}
-
 @media (max-width: 600px) {
   .grid {
     width: 100%;

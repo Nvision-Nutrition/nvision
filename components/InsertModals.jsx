@@ -134,9 +134,9 @@ const InsertModals = ({show, type, handleClose}) => {
 };
 
 InsertModals.propTypes = {
-  show: PropTypes.instanceOf(Boolean).isRequired,
-  type: PropTypes.instanceOf(String).isRequired,
-  handleClose: PropTypes.instanceOf(Function).isRequired,
+  // show: PropTypes.instanceOf(Boolean).isRequired,
+  // type: PropTypes.instanceOf(String).isRequired,
+  // handleClose: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default InsertModals;

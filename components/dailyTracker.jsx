@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Button} from 'react-bootstrap';
 import styles from '../styles/Home.module.css';
 import CalorieTracker from './CalorieTracker.jsx';
 import InsertModals from './InsertModals.jsx';
@@ -16,22 +17,26 @@ const DailyTracker = () => {
       <div className={`${styles.card} daily-tracker`}>
         <p className={`${styles.description} subtitle`}>{`Daily Tracker`}</p>
         <CalorieTracker />
-        <button
+        <Button
+          variant="outline-success"
           onClick={(e) => {
             handleOpen();
             setType('food');
           }}
-          className={`${styles.card} input-button`}
+          style={{
+            marginRight: 20,
+          }}
           title='calorie-btn'>
           Add Calories
-        </button>
-        <button onClick={(e) => {
-          handleOpen();
-          setType('water');
-        } }
-        className={`${styles.card} input-button`}>
+        </Button>
+        <Button
+          variant="outline-primary"
+          onClick={(e) => {
+            handleOpen();
+            setType('water');
+          } }>
           Add Water
-        </button>
+        </Button>
         <InsertModals
           show={show}
           type={type}
