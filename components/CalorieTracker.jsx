@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import {Context} from './globalState.js';
 import Apple from '../public/appleStencil.svg';
 
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const CalorieTracker = () => {
-  const [progress, setProgress] = useState(60);
+  const {Counter} = useContext;
+  const [progress, setProgress] = useState(0);
 
   return (
     <>
