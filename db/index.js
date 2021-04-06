@@ -12,13 +12,13 @@ const pool = new Pool({
   fetches the total calorie and water count for a given date and userID
   (returns a promise)
 */
-const sumDay = (userID, date) => {
+const sumDay = (userId, date) => {
   const queryString = `SELECT calories, water
                        FROM entries
-                       WHERE user_id=${userID} AND date='${date}';`;
+                       WHERE user_id=$1 AND date=$2;`;
 
   return new Promise((resolve, reject) => {
-    pool.query(queryString)
+    pool.query(queryString, [userId, date])
         .then((response) => {
           let calorieSum = 0;
           let waterSum = 0;
@@ -94,9 +94,8 @@ const insertCalories = (req, res) => {
   const {userId, mealType, calories, mealName, usersDate} = req.body;
   const queryString = `INSERT INTO entries
                        (type, calories, mealName, date, user_id)
-                       VALUES('${mealType}',${calories}, '${mealName}',
-                              '${usersDate}', ${userId});`;
-  pool.query(queryString)
+                       VALUES($1, $2, $3, $4, $5);`;
+  pool.query(queryString, [mealType, calories, mealName, usersDate, userId])
       .then((response) => {
         res.status(201).send('Calorie entry successful!');
       }).catch((err) => {
@@ -113,10 +112,10 @@ const insertCalories = (req, res) => {
 */
 const getUsernameID = (username) => {
   const checkQuery = `Select id FROM users
-                      WHERE username='${username}';`;
+                      WHERE username=$1;`;
 
   return new Promise((resolve, reject) => {
-    pool.query(checkQuery)
+    pool.query(checkQuery, [username])
         .then((response) => {
           if (response.rows.length === 0) {
             resolve(-1);
@@ -158,13 +157,11 @@ const addUser = async (req, res) => {
         firstName, lastName, username,
         password, calorieGoal, waterGoal,
         weightGoal, phone, email, sex)
-        VALUES('${firstName}', '${lastName}',
-        '${username}', '${password}', '${calorieGoal}',
-        '${waterGoal}', '${weightGoal}', '${phone}',
-        '${email}', '${sex}')
-        RETURNING id`;
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        RETURNING id;`;
 
-      pool.query(queryString)
+      // eslint-disable-next-line max-len
+      pool.query(queryString, [firstName, lastName, username, password, calorieGoal, waterGoal, weightGoal, phone, email, sex])
           .then((response) => {
             const userID = response.rows[0].id;
             res.status(201).send(`New user created with ID: ${userID}`);
@@ -183,9 +180,8 @@ const addUser = async (req, res) => {
 const insertWater = (req, res) => {
   const {waterType, userId, water, usersDate} = req.body;
   const queryString = `INSERT INTO entries(type, water, date, user_id)
-                       VALUES('${waterType}', ${water},
-                       '${usersDate}', ${userId})';`;
-  pool.query(queryString)
+                       VALUES($1, $2,$3, $4);`;
+  pool.query(queryString, [waterType, water, usersDate, userId])
       .then((response) => {
         res.status(201).send('Water entry successful!');
       }).catch((err) => {
