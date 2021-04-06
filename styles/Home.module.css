@@ -114,6 +114,10 @@
   height: 1em;
 }
 
+.card button {
+  cursor: pointer;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
