@@ -18,22 +18,25 @@ const NvisionNavbar = () => {
 
   return (
     <Navbar
-      style={{justifyContent: 'space-between'}}
+      style={{
+        justifyContent: 'space-between',
+        border: 'solid #2FD481',
+        borderRadius: '15px',
+      }}
       sticky="top"
       bg={theme}
       variant={theme}
     >
       <Navbar.Brand>
-        <h1 className="titleFont">
-          nVision Nutrition
-        </h1>
+        <div>
+          <img
+            src="/logo.png"
+            width="80"
+            height="80"
+            alt="nVision logo"
+          />
+        </div>
       </Navbar.Brand>
-
-      <Button
-        variant={theme === 'light' ? 'outline-dark' : 'outline-light'}
-        onClick={toggleTheme}>
-        <Brightness2Icon/>
-      </Button>
 
       <Nav>
         <Nav.Link
@@ -44,8 +47,17 @@ const NvisionNavbar = () => {
             marginRight: '25px',
             fontFamily: 'Fredoka One, Open Sans, Arial',
           }}
-        > <h3>Sign Out</h3></Nav.Link>
+        > <h4 style={{marginBottom: '0px'}} >Sign Out</h4></Nav.Link>
       </Nav>
+
+      <Button
+        variant={theme === 'light' ? 'outline-dark' : 'outline-light'}
+        onClick={toggleTheme}
+        style={{position: 'relative', marginBottom: '8px', marginRight: '3px'}}
+      >
+        <Brightness2Icon />
+      </Button>
+
     </Navbar>
   );
 };

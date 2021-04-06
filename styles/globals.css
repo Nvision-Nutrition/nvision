@@ -22,5 +22,11 @@ a {
 
 .titleFont {
   font-family: Fredoka One, Open Sans, Arial;
-  text-shadow: 2px 2px 1px #1EFC52;
+  text-shadow: 1px 1px 1px #2FD481;
+  cursor: default;
+  display: inline;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0,0,0,.85);
 }
