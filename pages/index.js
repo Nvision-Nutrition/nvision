@@ -6,8 +6,8 @@ import NvisionNavbar from '../components/nvisionNavbar.jsx';
 import Login from '../components/login.jsx';
 import SignUp from '../components/signUp.jsx';
 import dynamic from 'next/dynamic';
-import CaloricHistory from '../components/caloricHistory.jsx';
-import WaterHistory from '../components/waterHistory.jsx';
+import HistoryGraph from '../components/historyGraph.jsx';
+import WaterDaily from '../components/waterDaily.jsx';
 const DailyTracker = dynamic(
   () => {
     return import("../components/dailyTracker.jsx");
@@ -34,8 +34,8 @@ const App = () => {
         <div className={styles.container}>
           <main className={styles.main}>
             <DailyTracker />
-            <CaloricHistory />
-            <WaterHistory />
+            <WaterDaily />
+            <HistoryGraph />
           </main>
           <Login />
           <SignUp />
