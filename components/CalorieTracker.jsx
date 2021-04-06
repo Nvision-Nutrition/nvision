@@ -1,11 +1,9 @@
-import React, {useState, useContext} from 'react';
-import {Context} from './globalState.js';
-import Apple from '../public/appleStencil.svg';
+import React, {useState} from 'react';
+import Apple from './Apple.jsx';
 
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const CalorieTracker = () => {
-  const {Counter} = useContext;
   const [progress, setProgress] = useState(0);
 
   return (
@@ -24,7 +22,7 @@ const CalorieTracker = () => {
           variant='success'
           now={progress}
         />
-        <Apple className="calorie-progress-overlay" />
+        <Apple />
       </div>
       <button
         type="button"

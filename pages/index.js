@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import Login from '../components/login.jsx';
+import SignUp from '../components/signUp.jsx';
 import {Navbar, NavDropdown} from 'react-bootstrap';
 import React from 'react';
 import {GlobalStateProvider} from '../components/globalState.js';
