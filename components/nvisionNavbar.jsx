@@ -3,7 +3,6 @@ import {Navbar, Nav, Button} from 'react-bootstrap';
 import Brightness2Icon from '@material-ui/icons/Brightness2';
 import {Context} from './globalState.js';
 
-
 const NvisionNavbar = () => {
   const {theme, setTheme} = useContext(Context);
 
@@ -14,7 +13,6 @@ const NvisionNavbar = () => {
       setTheme('light');
     }
   };
-
 
   return (
     <Navbar
@@ -46,6 +44,8 @@ const NvisionNavbar = () => {
             marginLeft: '25px',
             marginRight: '25px',
             fontFamily: 'Fredoka One, Open Sans, Arial',
+            border: 'solid ',
+            borderRadius: '10px',
           }}
         > <h4 style={{marginBottom: '0px'}} >Sign Out</h4></Nav.Link>
       </Nav>
