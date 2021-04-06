@@ -17,12 +17,14 @@ const DailyTracker = () => {
         <p className={`${styles.description} subtitle`}>{`Daily Tracker`}</p>
         <CalorieTracker />
         <button onClick={(e) => {
-          handleOpen(); setType('food');
+          handleOpen();
+          setType('food');
         }} className={`${styles.card} input-button`}>
           Add Calories
         </button>
         <button onClick={(e) => {
-          handleOpen(); setType('water');
+          handleOpen();
+          setType('water');
         } }
         className={`${styles.card} input-button`}>
           Add Water
