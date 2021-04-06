@@ -89,7 +89,6 @@ const InsertModals = ({show, type, handleClose}) => {
                   setVal(value);
                 }}
                 label={'Calories:'}
-                placeholder={'my placeholder'}
                 value={val}
                 decimal={2}
               />
@@ -120,10 +119,11 @@ const InsertModals = ({show, type, handleClose}) => {
   );
 };
 
+// prop types currently commented out due to errors - I will resolve this
 InsertModals.propTypes = {
-  show: PropTypes.instanceOf(Boolean).isRequired,
-  type: PropTypes.instanceOf(String).isRequired,
-  handleClose: PropTypes.instanceOf(Function).isRequired,
+  // show: PropTypes.instanceOf(Boolean).isRequired,
+  // type: PropTypes.instanceOf(String).isRequired,
+  // handleClose: PropTypes.instanceOf(Function).isRequired,
 };
 
 export default InsertModals;
