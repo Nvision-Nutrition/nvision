@@ -13,26 +13,26 @@ const HistoryGraph = () => {
   // goalValue: User defined goal
   // buttonName: Aesthetic control for Button Toggle
   let [keyValue, fetchValue, goalValue, buttonName] =
-    ['Calories', 'calorieSum', 3000, 'Check Water History'];
+    ['Calories', 'calorieSum', 3000, 'Check Water'];
 
   switch (macroNumber) {
     case 1:
       keyValue = 'Water';
       fetchValue = 'waterSum';
       goalValue = 5;
-      buttonName = 'Check Weight History';
+      buttonName = 'Check Weight';
       break;
     case 2:
       keyValue = 'Weight';
       fetchValue = 'weightSum';
       goalValue = 180;
-      buttonName = 'Check Calorie History';
+      buttonName = 'Check Calorie';
       break;
     default:
       keyValue = 'Calories';
       fetchValue = 'calorieSum';
       goalValue = 3000;
-      buttonName = 'Check Water History';
+      buttonName = 'Check Water';
       break;
   }
 
