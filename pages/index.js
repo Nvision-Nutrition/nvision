@@ -9,7 +9,6 @@ import dynamic from 'next/dynamic';
 import HistoryGraph from '../components/historyGraph.jsx';
 import WaterDaily from '../components/waterDaily.jsx';
 import axios from 'axios';
-// import {Context} from '../components/globalState.js';
 
 const DailyTracker = dynamic(
   () => {
@@ -19,14 +18,9 @@ const DailyTracker = dynamic(
 );
 
 const App = () => {
-  // this is necessary because App doesn't have access to GlobalState vars
-  // setup such that it matches the 'theme' variable in GlobalState
+
   const [globalTheme, setGlobalTheme] = useState('light');
-  // const {theme} = useContext(Context);
 
-  useEffect(() => {
-
-  }, [])
   return (
     <div style={globalTheme === 'dark' ? {backgroundColor: '#343A40'} : null}>
       <Head>
