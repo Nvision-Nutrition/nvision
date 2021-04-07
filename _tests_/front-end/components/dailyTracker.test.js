@@ -1,25 +1,23 @@
-import {render, fireEvent, cleanup} from '@testing-library/react';
+import {render, fireEvent, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
+import {GlobalStateProvider} from 'globalState.js';
 import * as React from 'react';
 import DailyTracker from 'dailyTracker.jsx';
 
-afterEach(cleanup);
-
-xdescribe('calorie input button', () => {
+describe('calorie input button', () => {
+  const renderTracker = () => {
+    return render(<DailyTracker />, {wrapper: GlobalStateProvider});
+  };
   it('should render', () => {
-    const {queryByTitle} = render(<DailyTracker />);
+    const {queryByTitle} = renderTracker();
     const calBtn = queryByTitle('calorie-btn');
     expect(calBtn).toBeTruthy();
   });
-  it('should render calorie modal on click', async () => {
-    const fetchMock = jest.spyOn(window,
-        'fetch').mockImplementation((req) => req);
-    const {getByText} = render(<DailyTracker />);
-    fireEvent.click(getByText('Add Calories'));
-    await waitForElement(() =>
-      expect(getByText('Record it!')).toBeInTheDocument(),
-    );
-    // reset mock
-    fetchMock.restoreAllMocks();
+
+  it('clicking the button toggles the modal', () => {
+    renderTracker();
+    const button = screen.queryByTitle('calorie-btn');
+    fireEvent.click(button);
+    expect(screen.getByText('Record it!')).toBeInTheDocument();
   });
 });
