@@ -2,15 +2,15 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import {Button, Row, Image} from 'react-bootstrap';
 import { signIn, useSession } from 'next-auth/client';
-import React, {useState} from 'react';
-import {setGlobalTheme, GlobalStateProvider} from '../components/globalState.js';
+import {GlobalStateProvider} from '../components/globalState.js';
+import React, {useContext, useState, useEffect} from 'react';
 import NvisionNavbar from '../components/nvisionNavbar.jsx';
 import SignUp from '../components/signUp.jsx';
 import dynamic from 'next/dynamic';
 import { Container } from '@material-ui/core';
 import HistoryGraph from '../components/historyGraph.jsx';
 import WaterDaily from '../components/waterDaily.jsx';
-// import {Context} from '../components/globalState.js';
+import axios from 'axios';
 
 const DailyTracker = dynamic(
   () => {
@@ -34,7 +34,7 @@ const App = () => {
   // this is necessary because App doesn't have access to GlobalState vars
   // setup such that it matches the 'theme' variable in GlobalState
   const [globalTheme, setGlobalTheme] = useState('light');
-  // const {theme} = useContext(Context);
+
   return (
     <div style={globalTheme === 'dark' ? {backgroundColor: '#343A40'} : null}>
       <Head>
