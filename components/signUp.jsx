@@ -28,7 +28,6 @@ const SignUp = () => {
 
 
   const submitUser = () => {
-    console.log(state)
     //check that data is there
     if (state.password1 !== state.password2) {
       alert('Passwords don\'t match')
@@ -43,10 +42,10 @@ const SignUp = () => {
       data: state
     })
     .then((result) => {
-      console.log(result)
+      console.error(result)
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     })
   }
 
@@ -116,11 +115,10 @@ const SignUp = () => {
         <Form.Group>
           <Form.Label>Calorie Goal</Form.Label>
           <Form.Control
-            placeholder="Enter username"
+            placeholder="Enter calorie goal"
             onChange={handleChange}
             name='calorieGoal'
             value={state.calorieGoal}
-
           />
         </Form.Group>
 
@@ -128,7 +126,7 @@ const SignUp = () => {
         <Form.Group>
           <Form.Label>Water Goal</Form.Label>
           <Form.Control
-            placeholder="Enter username"
+            placeholder="Enter water goal"
             onChange={handleChange}
             name="waterGoal"
             value={state.waterGoal}
@@ -149,7 +147,7 @@ const SignUp = () => {
         <Form.Group>
           <Form.Label>Phone Number</Form.Label>
           <Form.Control
-            placeholder="Enter username"
+            placeholder="Enter phone number"
             onChange={handleChange}
             name="phone"
             value={state.phone}

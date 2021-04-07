@@ -6,7 +6,7 @@ const credentialsObject = async (credentials) => {
     // In futre hash password here using argon2
     //returns a user or nothing if username doesn't exist
     var user = await db.getUser(credentials.username);
-    if (user !== undefined) {
+    if (user !== null) {
         user.verdict = credentials.password === user.password ? 
         true : false;
         return user;
@@ -43,7 +43,6 @@ const callbacks = {
     //After authorization come here
     //get the JWT token from API response
     async jwt(token, user, account, profile, isNewUser) {
-            console.log('user: ', user)
             user && (token.user = user);
             return token;
     },

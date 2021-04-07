@@ -181,7 +181,7 @@ const getUser = async (username) => {
   
   const userID = await getUsernameID(username);
   if (userID === -1) {
-    return undefined; 
+    return null; 
   }
   const queryString = `SELECT * FROM users WHERE id=${userID}`
   return new Promise((resolve, reject) => {
