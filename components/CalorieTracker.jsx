@@ -36,9 +36,7 @@ const CalorieTracker = () => {
       <button
         type="button"
         onClick={() => {
-          console.log({userInfo});
-          console.log({calorieCount});
-          if (progress === 100) {
+          if (progress >= 100) {
             setProgress(0);
           } else {
             setProgress(progress+20);
