@@ -1,10 +1,19 @@
-import React, {useState} from 'react';
-import Apple from './Apple.jsx';
+import React, {useState, useEffect, useContext} from 'react';
+import {Context} from './globalState.js';
 
+import Apple from './Apple.jsx';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
+
 const CalorieTracker = () => {
+  const {userInfo, calorieCount} = useContext(Context);
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const {calorieGoal} = userInfo;
+    const calcProgressPercent = Math.floor(calorieCount / calorieGoal * 100);
+    setProgress(calcProgressPercent);
+  }, [calorieCount]);
 
   return (
     <>
@@ -13,7 +22,7 @@ const CalorieTracker = () => {
           {`
           .progress{
             height: 18.55rem;
-            width: 16.1rem;
+            width: 16.0rem;
           }
         `}
         </style>
@@ -27,7 +36,7 @@ const CalorieTracker = () => {
       <button
         type="button"
         onClick={() => {
-          if (progress === 100) {
+          if (progress >= 100) {
             setProgress(0);
           } else {
             setProgress(progress+20);
