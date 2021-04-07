@@ -52,6 +52,7 @@ const NvisionNavbar = () => {
 
       <Button
         variant={theme === 'light' ? 'outline-dark' : 'outline-light'}
+        aria-label="dark-mode-toggle"
         onClick={toggleTheme}
         style={{position: 'relative', marginBottom: '8px', marginRight: '3px'}}
       >

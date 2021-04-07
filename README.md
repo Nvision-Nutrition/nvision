@@ -1,34 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NVision Nutrition
 
-## Getting Started
+![nutritionimage](https://user-images.githubusercontent.com/73598239/113371941-b6ce2100-9324-11eb-9c23-a75eecbf2f04.png)
 
-First, run the development server:
+## About
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+NVision Nutrition is a web and mobile-friendly nutrition tracking application that aims to encourage users on their weight loss journey. This app provides an easily accessible user interface to facilitate the key concept that fueling your body is a crucial element to living a healthy lifestyle.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A user will first sign up for an account where they are able to enter their calorie, macro, and water goals. Upon log in the user is able to submit entries and then will be updated on their progress and recieve motivation based on their daily activity. Our hope is to  support people in achieving their weight loss goals in a fun, motivational way.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Contributors:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+[Scott Guinn](https://github.com/Scott-Guinn) - Lead Software Architect
 
-## Learn More
+[Ciaddie Rutelionis](https://github.com/Ciaddie) - Product Manager
 
-To learn more about Next.js, take a look at the following resources:
+[Taylor Smart](https://github.com/taylorsmart) - UX Designer
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[Dennis Mejia](https://github.com/dennismejia) - UI Designer
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+[Mauricio Moreno](https://github.com/mmoren01)
 
-## Deploy on Vercel
+[Emma Knor](https://github.com/emmaknor)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[Oren Nelson](https://github.com/nohren)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[Ben Kennedy](https://github.com/benkennedy98)
+
+
+## Tech Stack
+NVision Nutrition utilizes React as the front-end library and a Node server connected to a PostgreSQL database on the back-end configured with Next.js.
+
+![68747470733a2f2f6c68352e676f6f676c6575736572636f6e74656e742e636f6d2f7264416f5664594b4f436e6d746576367437444a724559376d4734695973525071655448305a2d4f726c73566d696561337135534d744f474e536137487a4a637978634963656c546163473567504e6779426f497669](https://user-images.githubusercontent.com/73598239/113373808-e7b05500-9328-11eb-8f31-38830ea4a3c8.png)
+
+![68747470733a2f2f6c68352e676f6f676c6575736572636f6e74656e742e636f6d2f5f5263492d73674e5258354a306f6c587a5279636a514e337479736f54586248386b585266453041744259384b6b4472494e41707372665a47416b637a5a5947774b54505a6c59644a5851794b6d574f347a467a764f](https://user-images.githubusercontent.com/73598239/113373813-ebdc7280-9328-11eb-8a4e-dcee209e0861.png)
+
+
+## Technical Challenges:
+
+## Client Deliverables:
+
+User Stories
+* As a user I should be able to create an account with NVision Nutrition.
+* As a user after eating a meal or hydrating myself I would like to be able to record my consumption.
+* As a user upon submitting health metrics I expect my dashboard to reflect my current intake in respect to my predefined goals.
+* As a user I should be able to recieve a motivational message when I am struggling to meet my daily goals.
+
+## MVP
+![picture alt](http://via.placeholder.com/200x150 "Title is optional")
+web app demo 1
+
+![picture alt](http://via.placeholder.com/200x150 "Title is optional")
+web app demo 2
+
+## Future additions:
+stretch goals that were not achieved go here!
+
+## Workflow:
+![picture alt](http://via.placeholder.com/200x150 "Title is optional")
+git workflow demo
+
+Our team implemented an agile process as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics. 
+
+-code reviews
+
+-test coverage (60%)
+
+-continuous integration
+
+-linter/best practices
+
+Ticketing System: [https://app.asana.com/0/1200144939863904/board]
+Wireframe: [https://www.figma.com/file/UlLnGihRrXrBesmVPPHJ1A/nVision-Nutrition?node-id=0%3A1]
