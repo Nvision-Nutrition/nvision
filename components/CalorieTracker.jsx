@@ -13,7 +13,7 @@ const CalorieTracker = () => {
           {`
           .progress{
             height: 18.55rem;
-            width: 16.1rem;
+            width: 16.0rem;
           }
         `}
         </style>
