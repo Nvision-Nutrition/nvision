@@ -1,19 +1,25 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Context} from './globalState.js';
 import {
   Container, Modal, Button, Form,
 } from 'react-bootstrap';
 import axios from 'axios';
 import NumPad from 'react-numpad';
+import Celebration from './Celebration.jsx';
+import Failure from './Failure.jsx';
 
 const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   const [meal, setMeal] = useState('Select a Meal');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  // potential state for a more user friendly date
-  // const [displayDate, setDisplayDate] = useState(date.substring(5, 7).concat(
-  //     '.', date.substring(8), '.', date.substring(2, 4)));
   const [val, setVal] = useState(0);
-  const {userID} = useContext(Context);
+  const [celebrate, setCelebrate] = useState(false);
+  const [motivate, setMotivate] = useState(false);
+  const {userInfo,
+    userId,
+    calorieCount,
+    setCalorieCount,
+    waterCount,
+    setWaterCount} = useContext(Context);
 
   const handleChange = (e) => {
     setMeal(e.target.value);
@@ -22,47 +28,39 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   const addFood = (e) => {
     e.preventDefault();
     const foodEntry = {
-      userId: userID,
+      userId: userId,
       mealType: 'food',
       calories: val,
       mealName: meal,
       usersDate: date,
     };
-    if (val && meal && date) {
-      axios.post('/api/addCalories', foodEntry)
-          .then((res) => {
-            console.log(res);
-            setVal(0);
-            setMeal('Select a Meal');
-            setValid('');
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-    }
+    axios.post('/api/addCalories', foodEntry)
+        .then((res) => {
+          setVal(0);
+          setMeal('Select a Meal');
+          setValid('');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
   };
 
   const addWater = (e) => {
     e.preventDefault();
     const waterEntry = {
       waterType: 'water',
-      userId: userID,
+      userId: userId,
       water: val,
       usersDate: date,
     };
-    if (val && date) {
-      axios.post('/api/addWater', waterEntry)
-          .then((res) => {
-            console.log(res);
-            setVal(0);
-            setValid('');
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-    } else {
-      alert('Please complete entry');
-    }
+    axios.post('/api/addWater', waterEntry)
+        .then((res) => {
+          setVal(0);
+          setValid('');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
   };
 
   const addWeight = (e) => {
@@ -71,41 +69,36 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       type: 'weight',
       weight: val,
       usersDate: date,
-      userId: userID,
+      userId: userId,
     };
-    if (val && date) {
-      axios.post('/api/addWeight', weightEntry)
-          .then((res) => {
-            console.log(res);
-            setVal(0);
-            setValid('');
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-    } else {
-      alert('Please complete entry');
-    }
+    axios.post('/api/addWeight', weightEntry)
+        .then((res) => {
+          setVal(0);
+          setValid('');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
   };
 
-  useEffect(() => {
-    if (type === 'food' && meal !== 'Select a Meal' && val) {
-      setValid(true);
-    } else if (val) {
-      setValid(true);
-    }
-  }, [val]);
 
   const handleInput = (e) => {
     e.preventDefault();
     if (type === 'food' && meal !== 'Select a Meal' && val) {
       addFood(e);
+      setCalorieCount(calorieCount + val);
+      calorieCount <= userInfo.calorieGoal ?
+      setCelebrate(true) : setMotivate(true);
       handleClose();
     } else if (type === 'water' && val) {
       addWater(e);
+      setWaterCount(waterCount + val);
+      setCelebrate(true);
       handleClose();
     } else if (type === 'weight' && val) {
       addWeight(e);
+      val <= userInfo.weightGoal ?
+      setCelebrate(true) : setMotivate(true);
       handleClose();
     } else {
       setValid(false);
@@ -214,7 +207,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
                 }}
                 dateFormat="YYYY-MM-DD"
                 min="2021-04-05"
-                value={date}
+                placeholder={date}
                 theme={myTheme}
               />
               <br/>
@@ -239,6 +232,16 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
             </Form>
           </Modal.Body>
         </Modal>
+        <Celebration
+          show={celebrate}
+          onHide={() => setCelebrate(false)}
+          name={userInfo.firstName}
+        />
+        <Failure
+          show={motivate}
+          onHide={() => setMotivate(false)}
+          name={userInfo.firstName}
+        />
       </Container>
     </>
   );
