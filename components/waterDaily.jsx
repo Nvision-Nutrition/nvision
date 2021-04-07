@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {Context} from './globalState.js';
 import {v4 as uuidv4} from 'uuid';
-import styles from '../styles/Home.module.css';
+import {card, description} from '../styles/Home.module.css';
 
 const WaterDaily = () => {
+  const {theme} = useContext(Context);
+  const [
+    darkModeToggle,
+    setDarkModeToggle,
+  ] = useState(`${card} water-intake-chart`);
+
   const generateWaterGraph = (waterDrank = 0, waterGoal = 100) => {
     /*
      This finds the percentage rounded to the tens digit 62 => 60 => 6,
@@ -23,7 +30,7 @@ const WaterDaily = () => {
               <div key={uuidv4()}>
                 <img
                   src="/fullBottle.svg"
-                  alt=""
+                  alt="full-bottle"
                   className="bottle-image" />
               </div>);
           break;
@@ -50,7 +57,7 @@ const WaterDaily = () => {
               <div key={uuidv4()}>
                 <img
                   src="/emptyBottle.svg"
-                  alt=""
+                  alt="empty-bottle"
                   className="bottle-image" />
               </div>);
           /*
@@ -72,10 +79,16 @@ const WaterDaily = () => {
       </div>);
   };
 
+  useEffect(() => {
+    if (theme === 'dark') {
+      setDarkModeToggle(`${card} water-intake-chart-darkMode`);
+    }
+  }, [theme]);
+
   return (
     <>
-      <div className={`${styles.card} water-daily chart`}>
-        <p className={`${styles.description} subtitle`}>{`Water Intake`}</p>
+      <div className={darkModeToggle}>
+        <p className={`${description} subtitle`}>{`Water Intake`}</p>
         { generateWaterGraph() }
       </div>
     </>
