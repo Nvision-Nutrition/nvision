@@ -1,15 +1,17 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import {Button, Row, Image} from 'react-bootstrap';
-import React, { useState } from 'react';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import { signIn, useSession } from 'next-auth/client';
+import React, {useState} from 'react';
 import {GlobalStateProvider} from '../components/globalState.js';
 import NvisionNavbar from '../components/nvisionNavbar.jsx';
 import SignUp from '../components/signUp.jsx';
 import dynamic from 'next/dynamic';
-import CaloricHistory from '../components/caloricHistory.jsx';
-import WaterHistory from '../components/waterHistory.jsx';
 import { Container } from '@material-ui/core';
+import HistoryGraph from '../components/historyGraph.jsx';
+import WaterDaily from '../components/waterDaily.jsx';
+// import {Context} from '../components/globalState.js';
+
 const DailyTracker = dynamic(
   () => {
     return import("../components/dailyTracker.jsx");
@@ -29,18 +31,16 @@ const App = () => {
     setSignup(true);
   }
   //what's not seen is that next js is adding a div before render
+  // this is necessary because App doesn't have access to GlobalState vars
+  // setup such that it matches the 'theme' variable in GlobalState
+  const [globalTheme, setGlobalTheme] = useState('light');
+  // const {theme} = useContext(Context);
   return (
-    <>
+    <div style={globalTheme === 'dark' ? {backgroundColor: '#343A40'} : null}>
       <Head>
         <title>nVision nutrition</title>
         <link rel="icon" href="/favicon.ico" />
         <link href='https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap" rel="stylesheet">' rel="stylesheet" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-          crossOrigin="anonymous"
-        />
       </Head>
       {!session && (
         !signup ? (
@@ -86,20 +86,19 @@ const App = () => {
       ))} 
       {session && (
         <GlobalStateProvider>
-        <div>Signed in as {session.user.name}<br/>
-            <button onClick={signOut}>Sign Out</button>
-            </div>
-          <NvisionNavbar />
-          <div className={styles.container}>
-            <main className={styles.main}>
-              <DailyTracker />
-              <CaloricHistory />
-              <WaterHistory />
-            </main>
-          </div>
-        </GlobalStateProvider>
+        <NvisionNavbar setGlobalTheme={setGlobalTheme}/>
+        <div className={styles.container}>
+          <main className={styles.main}>
+            <DailyTracker />
+            <WaterDaily />
+            <HistoryGraph />
+          </main>
+          <Login />
+          <SignUp />
+        </div>
+      </GlobalStateProvider>
       )}
-      </>
+    </div>
   );
 };
 

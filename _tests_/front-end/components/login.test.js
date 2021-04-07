@@ -5,8 +5,3 @@ import Login from 'login.jsx';
 
 afterEach(cleanup);
 
-// describe('Sign up button', () => {
-//   it('should render', () => {
-//     const {queryByTitle} = render(<Login />);
-//   });
-// });
