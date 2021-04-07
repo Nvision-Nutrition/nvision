@@ -39,7 +39,9 @@ export const GlobalStateProvider = (props) => {
       userId,
       setUserId,
       calorieCount,
+      setCalorieCount,
       waterCount,
+      setWaterCount,
       userInfo,
     }}
     >
