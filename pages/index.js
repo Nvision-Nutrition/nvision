@@ -20,6 +20,8 @@ const DailyTracker = dynamic(
 );
 
 const App = () => {
+  //what's not seen is that next js is adding a div before render
+  const [globalTheme, setGlobalTheme] = useState('light');
   const [session, loading] = useSession();
   const [signup, setSignup] = useState(false); 
 
@@ -30,10 +32,7 @@ const App = () => {
   const handleSignUp = () => {
     setSignup(true);
   }
-  //what's not seen is that next js is adding a div before render
-  // this is necessary because App doesn't have access to GlobalState vars
-  // setup such that it matches the 'theme' variable in GlobalState
-  const [globalTheme, setGlobalTheme] = useState('light');
+
 
   return (
     <div style={globalTheme === 'dark' ? {backgroundColor: '#343A40'} : null}>
@@ -93,8 +92,6 @@ const App = () => {
             <WaterDaily />
             <HistoryGraph />
           </main>
-          <Login />
-          <SignUp />
         </div>
       </GlobalStateProvider>
       )}
