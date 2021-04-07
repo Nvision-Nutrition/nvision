@@ -4,14 +4,20 @@ import '@testing-library/jest-dom';
 import * as React from 'react';
 import InsertModals from 'InsertModals.jsx';
 
-describe('caloric/water input', () => {
-  it('should render', () => {
-    const {queryByTitle} = render(
-        <GlobalStateProvider>
-          <InsertModals />
-        </GlobalStateProvider>);
-    const numericInput = queryByTitle('amount-input');
-    expect(numericInput).toBeTruthy();
+
+describe('calorie, water, and weight modals', () => {
+  const renderModal = () => {
+    return render(<InsertModals />, {wrapper: GlobalStateProvider});
+  };
+
+
+  it('should render submit button', () => {
+    // const {queryByText} = renderModal();
+    const {debug} = renderModal();
+    const btn = screen.queryByText('Record it!');
+    console.log('btn!!! ', btn);
+    debug();
+    expect(btn).toBeTruthy();
   });
 });
 

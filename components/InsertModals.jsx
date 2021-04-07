@@ -203,7 +203,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
                 value={val}
                 decimal={2}
                 theme={myTheme}
-                title='amount-input'
               />
               <br/>
               <br/>
@@ -222,10 +221,14 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               <br/>
               {
                 valid === false &&
-                <div>
+                <div
+                  style={{
+                    color: '#dc3545',
+                  }}>
                   Please complete entry
                 </div>
               }
+              <br/>
               <Button
                 variant="outline-danger"
                 onClick={(e) => {
