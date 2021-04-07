@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ResponsiveBar} from '@nivo/bar';
 import sevenDayFetch from '../db/dummyData/dummyData.js';
 import styles from '../styles/Home.module.css';
 import {Button} from 'react-bootstrap';
+import axios from 'axios';
 
 const HistoryGraph = () => {
   // Macro Number 0 = cal, 1 = water, 2 = weight
   const [macroNumber, setMacroNumber] = useState(1);
+  const [userData, setUserData] = useState(sevenDayFetch);
 
   // keyValue: Graph set up/ aesthetics
   // fetchValue: Define the appropriate db column to fetch from
@@ -36,19 +38,32 @@ const HistoryGraph = () => {
       break;
   }
 
+  const getChartData = () => {
+    axios({
+      url: 'api/progress?type=week&userId=1',
+      method: 'get',
+    })
+        .then((result) => {
+          console.log(result);
+          setUserData(result.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  };
 
   // Fetch and format data appropriately
   // NOTE:
   //   This will fetch the rows of data that are available from the last seven
   //   day fetch.  If no data was input, the days may be skipped.
   const data = [];
-  Object.keys(sevenDayFetch).forEach((day) => {
+  Object.keys(userData).forEach((day) => {
     // Fetch date key
-    const date = Object.keys(sevenDayFetch[day]);
+    const date = Object.keys(userData[day]);
     // Re-format key to dow in short form (Mon, Tues, Wed)
     const dow = new Date(date).toLocaleString('en-us', {weekday: 'short'});
     // Fetch the appropriate value for the date in question
-    const val = sevenDayFetch[day][date][fetchValue];
+    const val = userData[day][date][fetchValue];
 
     // Add object to data array
     data.push({
@@ -115,6 +130,9 @@ const HistoryGraph = () => {
     ],
   };
 
+  useEffect(()=>{
+    getChartData();
+  },[])
 
   return (
     <>
