@@ -24,7 +24,6 @@ const App = () => {
   const [globalTheme, setGlobalTheme] = useState('light');
   const [session, loading] = useSession();
   const [signup, setSignup] = useState(false); 
-  // console.log('session: ', session)
 
   if (loading) {
     return <p>Loading...</p>
@@ -33,7 +32,6 @@ const App = () => {
   const handleSignUp = () => {
     setSignup(true);
   }
-
 
   return (
     <div style={globalTheme === 'dark' ? {backgroundColor: '#343A40'} : null}>
@@ -45,12 +43,6 @@ const App = () => {
       {!session && (
         !signup ? (
         //not a session and not yet signing up 
-     
-          // <p>Not signed in</p><br/>
-          
-      
-        // <Button variant="outline-primary" size="lg" onClick={signIn}>Log in</Button>{' '}
-        // <Button variant="outline-primary" size="lg" onClick={handleSignUp}>Sign up</Button>{' '}
           <Container style={{
             height: '100vh',
             backgroundImage: 'url("https://images7.alphacoders.com/912/thumbbig-912808.jpg")',
