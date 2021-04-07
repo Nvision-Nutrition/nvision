@@ -13,6 +13,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   // const [displayDate, setDisplayDate] = useState(date.substring(5, 7).concat(
   //     '.', date.substring(8), '.', date.substring(2, 4)));
   const [val, setVal] = useState(0);
+  const [goalStatus, setGoalStatus] = useState('');
   const {userID} = useContext(Context);
 
   const handleChange = (e) => {
