@@ -8,6 +8,8 @@ export const GlobalStateProvider = (props) => {
     lastName: 'Doe',
     email: 'janeDoe@email.com',
     username: 'username',
+    calorieGoal: 2000,
+    waterGoal: 100,
     weightGoal: 150,
   });
   // userID should be set upon login/signup/session validation
@@ -43,6 +45,7 @@ export const GlobalStateProvider = (props) => {
       waterCount,
       setWaterCount,
       userInfo,
+      setUserInfo,
     }}
     >
       {props.children}
