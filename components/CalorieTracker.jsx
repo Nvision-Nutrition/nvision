@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Context} from './globalState.js';
 
 import Apple from './Apple.jsx';
-import ProgressBar from 'react-bootstrap/ProgressBar';
+import {Button, ProgressBar, Container} from 'react-bootstrap';
 
 
 const CalorieTracker = () => {
@@ -18,22 +18,24 @@ const CalorieTracker = () => {
   return (
     <>
       <div className="calorie-progress-container">
-        <style type="text/css">
-          {`
-          .progress{
-            height: 18.55rem;
-            width: 16.0rem;
-          }
-        `}
-        </style>
         <ProgressBar
+          style={{
+            height: '100%',
+            width: '190px',
+          }}
           className="calorie-progress-bar"
-          variant='success'
+          variant='danger'
           now={progress}
         />
         <Apple />
       </div>
-      <button
+
+      <Button
+        style={{
+          position: 'absolute',
+          zIndex: '2', bottom: '2%',
+          width: '15px', height: '15px'}}
+        variant="outline-success"
         type="button"
         onClick={() => {
           if (progress >= 100) {
@@ -43,8 +45,7 @@ const CalorieTracker = () => {
           }
         }}
       >
-        Test
-      </button>
+      </Button>
     </>
   );
 };

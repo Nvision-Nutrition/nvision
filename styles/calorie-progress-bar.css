@@ -20,5 +20,7 @@
 .calorie-progress-overlay {
   position: relative;
   overflow: visible;
+  height: 220px;
+  width: 220px;
   size: auto;
 }

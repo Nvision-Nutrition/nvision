@@ -21,7 +21,7 @@ const NvisionNavbar = ({setGlobalTheme}) => {
     <Navbar
       style={{
         justifyContent: 'space-between',
-        border: 'solid #2FD481',
+        border: 'solid #28A745',
         borderRadius: '15px',
       }}
       sticky="top"

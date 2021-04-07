@@ -19,11 +19,15 @@ const DailyTracker = () => {
 
   return (
     <>
-      <Container>
+      <Container style={{
+        border: 'solid grey',
+        borderRadius: '5px',
+        borderWidth: '1px',
+        zIndex: '1'}}>
         <Row>
-          <Col>
+          <Col style={{paddingLeft: '0px'}}>
             <Button
-              variant="outline-warning"
+              variant="warning"
               onClick={(e) => {
                 handleOpen();
                 setType('food');
@@ -31,6 +35,8 @@ const DailyTracker = () => {
               style={{
                 width: '100%',
                 height: '100%',
+                borderBottomLeftRadius: '0px',
+                borderBottomRightRadius: '0px',
               }}
               title='calorie-btn'>
               <img src='/restaurant.png'
@@ -41,16 +47,18 @@ const DailyTracker = () => {
             </Button>
           </Col>
           <Col xs={6}>
-            <div className={`${styles.card} daily-tracker`}>
-              <CalorieTracker />
-            </div>
+            {/* <div className={`${styles.card} daily-tracker`}> */}
+            <CalorieTracker />
+            {/* </div> */}
           </Col>
-          <Col>
+          <Col style={{paddingRight: '0px'}}>
             <Button
-              variant="outline-primary"
+              variant="primary"
               style={{
                 width: '100%',
                 height: '100%',
+                borderBottomLeftRadius: '0px',
+                borderBottomRightRadius: '0px',
               }}
               onClick={(e) => {
                 handleOpen();
@@ -65,11 +73,13 @@ const DailyTracker = () => {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col style={{paddingRight: '0px', paddingLeft: '0px'}}>
             <Button
-              variant="outline-success"
+              variant="success"
               style={{
                 width: '100%',
+                borderTopLeftRadius: '0px',
+                borderTopRightRadius: '0px',
               }}
               onClick={(e) => {
                 handleOpen();
