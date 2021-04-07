@@ -16,9 +16,9 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   const [motivate, setMotivate] = useState(false);
 
   const addToDate = (dateString) => {
-    const previous = Number(dateString.slice(-1));
+    const previous = Number(dateString.slice(-2));
     const updated = previous + 1;
-    const newDate = dateString.slice(0, -1).concat(updated);
+    const newDate = dateString.slice(0, -2).concat(updated);
     return newDate;
   };
 
@@ -84,6 +84,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     };
     axios.post('/api/addWeight', weightEntry)
         .then((res) => {
+          console.log(res);
           setVal(0);
           setValid('');
         })
@@ -144,7 +145,16 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
           show={show}
           onHide={handleClose}
         >
-          <Modal.Header closeButton >
+          <Modal.Header closeButton
+            style={{
+              borderBottom: '0 none',
+            }}/>
+          <Modal.Header
+            className="d-flex
+          justify-content-center
+          text-center
+          align-self-center
+          align-items-center">
             <Modal.Title>
               {
                   type === 'food' ?
@@ -174,7 +184,12 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               }
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body
+            className="d-flex
+          justify-content-center
+          text-center
+          align-self-center
+          align-items-center">
             <Form>
               {
                 type === 'food' &&
