@@ -176,6 +176,24 @@ const addUser = async (req, res) => {
   }
 };
 
+// with username get user information
+const getUser = async (username) => {
+  const userID = await getUsernameID(username);
+  if (userID === -1) {
+    return null;
+  }
+  const queryString = `SELECT * FROM users WHERE id=$1`;
+  return new Promise((resolve, reject) => {
+    pool.query(queryString, [userID])
+        .then((result) => {
+          resolve(result.rows[0]);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+  });
+};
+
 // insert into entries table - water record
 const insertWater = (req, res) => {
   const {waterType, userId, water, usersDate} = req.body;
@@ -241,4 +259,5 @@ module.exports = {
   fetchDayCount,
   fetchWeek,
   addUser,
+  getUser,
 };
