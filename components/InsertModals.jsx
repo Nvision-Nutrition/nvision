@@ -1,22 +1,16 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Context} from './globalState.js';
 import {
   Container, Modal, Button, Form,
 } from 'react-bootstrap';
 import axios from 'axios';
 import NumPad from 'react-numpad';
-import Moment from 'react-moment';
-import moment from 'moment';
 import Celebration from './Celebration.jsx';
 import Failure from './Failure.jsx';
 
 const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   const [meal, setMeal] = useState('Select a Meal');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  const [formatted, setFormatted] = useState(moment(date, 'MMMM Do, YYYY').toString().slice(0, -18));
-  // potential state for a more user friendly date
-  // const [displayDate, setDisplayDate] = useState(date.substring(5, 7).concat(
-  //     '.', date.substring(8), '.', date.substring(2, 4)));
   const [val, setVal] = useState(0);
   const [celebrate, setCelebrate] = useState(false);
   const [motivate, setMotivate] = useState(false);
@@ -110,6 +104,9 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       setValid(false);
     }
   };
+
+  useEffect(() => {
+  }, []);
 
   const myTheme = {
     header: {
@@ -210,10 +207,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               <NumPad.Calendar
                 onChange={(value) => {
                   setDate(value);
-                  console.log(date);
-                  console.log(value);
-                  console.log(moment(value, 'MMMM Do, YYYY').toString().slice(0, -18))
-                  setFormatted(moment(value, 'MMMM Do, YYYY').toString().slice(0, -18));
                 }}
                 dateFormat="YYYY-MM-DD"
                 min="2021-04-05"
@@ -221,7 +214,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
                 theme={myTheme}
               />
               <br/>
-              <div>{formatted}</div>
               <br/>
               {
                 valid === false &&
