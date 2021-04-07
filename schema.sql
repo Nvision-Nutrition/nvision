@@ -18,7 +18,7 @@ CREATE TABLE users
  sex         varchar(50)
 );
 
-CREATE TYPE mealType_t as enum('food', 'water');
+CREATE TYPE mealType_t as enum('food', 'water', 'weight');
 CREATE TYPE mealName_t as enum('breakfast', 'lunch', 'dinner', 'snack');
 
 DROP TABLE IF EXISTS entries CASCADE;
