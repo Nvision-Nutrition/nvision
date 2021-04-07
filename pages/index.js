@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css';
 import {Button, Row, Image} from 'react-bootstrap';
 import { signIn, useSession } from 'next-auth/client';
 import React, {useState} from 'react';
-import {GlobalStateProvider} from '../components/globalState.js';
+import {setGlobalTheme, GlobalStateProvider} from '../components/globalState.js';
 import NvisionNavbar from '../components/nvisionNavbar.jsx';
 import SignUp from '../components/signUp.jsx';
 import dynamic from 'next/dynamic';
