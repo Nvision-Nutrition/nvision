@@ -20,6 +20,7 @@ const DailyTracker = dynamic(
 const App = () => {
   const [session, loading] = useSession();
   const [signup, setSignup] = useState(false); 
+  console.log(session)
 
   if (loading) {
     return <p>Loading...</p>
@@ -46,7 +47,7 @@ const App = () => {
         !signup ? (
         //not a session and not yet signing up 
         <>
-          <p1>Not signed in</p1><br/>
+          <p>Not signed in</p><br/>
           <button onClick={signIn}>Log in</button>
           <button onClick={handleSignUp}>Sign up</button>
           
@@ -61,7 +62,7 @@ const App = () => {
       {session && (
         
         <GlobalStateProvider>
-        <div>Signed in as {session.user.name}<br/>
+        <div>Signed in as {session.user.name} <br/>
             <button onClick={signOut}>Sign Out</button>
             </div>
           <NvisionNavbar />
@@ -71,8 +72,6 @@ const App = () => {
               <CaloricHistory />
               <WaterHistory />
             </main>
-            <Login />
-            <SignUp />
           </div>
         </GlobalStateProvider>
       
