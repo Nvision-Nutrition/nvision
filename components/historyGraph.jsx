@@ -121,7 +121,7 @@ const HistoryGraph = () => {
       <div className={`${styles.card} history-graph`}>
         <p className={`${styles.description} subtitle`}>{`${keyValue}`}
         </p>
-        <div className="chart">
+        <div className="chart" id>
           <ResponsiveBar
             data={data}
             keys={config.keys}
@@ -153,7 +153,10 @@ const HistoryGraph = () => {
             ]}
           />
         </div>
-        <Button variant="outline-secondary" onClick={graphSwap}>
+        <Button
+          variant="outline-secondary"
+          onClick={graphSwap}
+          aria-label="switch-graph">
           {buttonName}
         </Button>
       </div>
