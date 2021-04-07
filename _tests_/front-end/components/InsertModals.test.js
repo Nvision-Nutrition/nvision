@@ -4,6 +4,11 @@ import '@testing-library/jest-dom';
 import * as React from 'react';
 import InsertModals from 'InsertModals.jsx';
 
+<<<<<<< HEAD
+=======
+xdescribe('', () => {
+  it('', () => {
+>>>>>>> 615591e79f8dca342231a5f83c00e729a5514aeb
 
 describe('calorie, water, and weight modals', () => {
   const renderModal = () => {
