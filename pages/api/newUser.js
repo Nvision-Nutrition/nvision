@@ -15,17 +15,8 @@ export default (req, res) => {
   console.log(user)
   //add the user
   queries.addUser(req, res);
-  //implement nextAuth sign in callback
   
-  // const options = {
-  //   callbacks: {
-  //     async signIn(user, account, profile) {
-
-  //     }
-  //   }
-  // }
-
-  // NextAuth(req, res, options);
+  //future -- implement a redirect to the login page or assign session
 };
 
 export const config = {

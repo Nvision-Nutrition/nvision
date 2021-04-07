@@ -24,7 +24,7 @@ const App = () => {
   const [globalTheme, setGlobalTheme] = useState('light');
   const [session, loading] = useSession();
   const [signup, setSignup] = useState(false); 
-  console.log('session: ', session)
+  // console.log('session: ', session)
 
   if (loading) {
     return <p>Loading...</p>

@@ -19,7 +19,7 @@ export const GlobalStateProvider = ({children, session}) => {
   const [userId, setUserId] = useState(1);
   const [calorieCount, setCalorieCount] = useState('20');
   const [waterCount, setWaterCount] = useState('20');
-  console.log('From global state userInfo: ', userInfo)
+  // console.log('From global state userInfo: ', userInfo)
 
   const getCurrentCounts = () => {
     axios.get('/api/progress?type=day')
