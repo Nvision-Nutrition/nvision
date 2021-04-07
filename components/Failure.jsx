@@ -1,33 +1,38 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Modal, Button} from 'react-bootstrap';
+import axios from 'axios';
 
-const Failure = ({ onHide }) => {
+const Failure = ({ show, onHide, name }) => {
+  const [motivation, setMotivation] = useState('');
   const getFailure = () => {
     axios.get('/api/fail')
         .then((res) => {
-          console.log(res);
+          setMotivation(res.data[0].failure_quote);
         })
         .catch((err) => {
-          console.log(res);
+          console.log(err);
         });
   };
+  useEffect(() => {
+    getFailure();
+  }, []);
   return (
     <>
       <Modal
-        // {...props}
+        show={show}
+        onHide={onHide}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-          It's okay!
-            {/* insert name if possible */}
+          It's okay {name}!
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>
-          Tomorrow is a new day!
+            {motivation}
           </p>
         </Modal.Body>
         <Modal.Footer>

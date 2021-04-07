@@ -1,38 +1,46 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Modal, Button} from 'react-bootstrap';
-// import useWindowSize from 'react-use/lib/useWindowSize';
-// import Confetti from 'react-confetti';
+import Confetti from 'react-confetti';
 import axios from 'axios';
 
-const Celebration = ({ onHide }) => {
+
+const Celebration = ({show, onHide, name}) => {
+  const [quote, setQuote] = useState('');
   const getSuccess = () => {
     axios.get('/api/success')
         .then((res) => {
-          console.log('TESTING RES', res);
+          setQuote(res.data[0].success_quote);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
   };
-  // getSuccess();
+
+  useEffect(() => {
+    getSuccess();
+  }, []);
   return (
     <>
+      {
+        show &&
+      <Confetti
+      />
+      }
       <Modal
-        // {...props}
+        show={show}
+        onHide={onHide}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-          Beautifully done!
-            {/* insert name if possible */}
+          Beautifully done {name}!
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>
-            You are doing so well, keep it up!
-            {/* input data */}
+            {quote}
           </p>
         </Modal.Body>
         <Modal.Footer>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {Context} from './globalState.js';
 import {
   Container, Modal, Button, Form,
@@ -15,7 +15,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   // const [displayDate, setDisplayDate] = useState(date.substring(5, 7).concat(
   //     '.', date.substring(8), '.', date.substring(2, 4)));
   const [val, setVal] = useState(0);
-  const [celebrate, setCelebrate] = useState(true);
+  const [celebrate, setCelebrate] = useState(false);
   const [motivate, setMotivate] = useState(false);
   const {userInfo,
     userId,
@@ -43,10 +43,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
           setVal(0);
           setMeal('Select a Meal');
           setValid('');
-          console.log('celebrate ', celebrate);
-          console.log('motivate ', motivate);
-          console.log('cal goal ', userInfo.calorieGoal);
-          console.log('cal count ', calorieCount);
         })
         .catch((err) => {
           console.error(err);
@@ -98,24 +94,20 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       addFood(e);
       setCalorieCount(calorieCount + val);
       if (calorieCount < userInfo.calorieGoal) {
-        // trigger celebration modal
         setCelebrate(true);
       } else {
-        // trigger failure modal
         setMotivate(true);
       }
-      // handleClose();
+      handleClose();
     } else if (type === 'water' && val) {
       addWater(e);
       setWaterCount(waterCount + val);
-      // trigger celebration
       setCelebrate(true);
-      // handleClose();
+      handleClose();
     } else if (type === 'weight' && val) {
       addWeight(e);
-      // trigger failure
       setMotivate(true);
-      // handleClose();
+      handleClose();
     } else {
       setValid(false);
     }
@@ -251,10 +243,12 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
         <Celebration
           show={celebrate}
           onHide={() => setCelebrate(false)}
+          name={userInfo.firstName}
         />
         <Failure
           show={motivate}
           onHide={() => setMotivate(false)}
+          name={userInfo.firstName}
         />
       </Container>
     </>
