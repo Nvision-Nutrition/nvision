@@ -34,7 +34,7 @@ const Celebration = ({show, onHide, name}) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-          Beautifully done {name}!
+          Great job {name}!
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -87,7 +87,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     if (type === 'food' && meal !== 'Select a Meal' && val) {
       addFood(e);
       setCalorieCount(calorieCount + val);
-      calorieCount < userInfo.calorieGoal ?
+      calorieCount <= userInfo.calorieGoal ?
       setCelebrate(true) : setMotivate(true);
       handleClose();
     } else if (type === 'water' && val) {
@@ -97,16 +97,13 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       handleClose();
     } else if (type === 'weight' && val) {
       addWeight(e);
-      val < userInfo.weightGoal ?
+      val <= userInfo.weightGoal ?
       setCelebrate(true) : setMotivate(true);
       handleClose();
     } else {
       setValid(false);
     }
   };
-
-  useEffect(() => {
-  }, []);
 
   const myTheme = {
     header: {
