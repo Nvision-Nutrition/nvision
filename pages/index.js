@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import {Button, Row, Image} from 'react-bootstrap';
-import { signIn, useSession } from 'next-auth/client';
+import { signIn, signOut, useSession } from 'next-auth/client';
 import {GlobalStateProvider} from '../components/globalState.js';
 import React, {useContext, useState, useEffect} from 'react';
 import NvisionNavbar from '../components/nvisionNavbar.jsx';
@@ -24,7 +24,7 @@ const App = () => {
   const [globalTheme, setGlobalTheme] = useState('light');
   const [session, loading] = useSession();
   const [signup, setSignup] = useState(false); 
-  console.log(session)
+  console.log('session: ', session)
 
   if (loading) {
     return <p>Loading...</p>
@@ -47,8 +47,6 @@ const App = () => {
         //not a session and not yet signing up 
      
           // <p>Not signed in</p><br/>
-         
-          // <button onClick={handleSignUp}>Sign up</button>
           
       
         // <Button variant="outline-primary" size="lg" onClick={signIn}>Log in</Button>{' '}
@@ -92,7 +90,7 @@ const App = () => {
       ))} 
       {session && (
         <GlobalStateProvider>
-        <NvisionNavbar setGlobalTheme={setGlobalTheme}/>
+        <NvisionNavbar user={session} signOut={signOut} setGlobalTheme={setGlobalTheme}/>
         <div className={styles.container}>
           <main className={styles.main}>
             <DailyTracker />

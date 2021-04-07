@@ -1,19 +1,21 @@
+import { ContactSupportOutlined, FormatColorReset } from '@material-ui/icons';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
+const db = require('../../../db/index')
 
-const isCorrectCredentials = (credentials) => {
-  // hash password here using argon2
+const credentialsObject = async (credentials) => {
+    // In futre hash password here using argon2
+    //returns a user or nothing if username doesn't exist
+    var user = await db.getUser(credentials.username);
+    if (user !== undefined) {
+        user.verdict = credentials.password === user.password ? 
+        true : false;
+        return user;
 
-    //hash password here using argon2  
-
-    //send query to db for username and password
-
-    //if credentials.username comes back as a match in the db 
-    // and credentials.passowrd (hashed) is === to the hashed version associated with the username in the db 
-    // then its good to go
-
-    return credentials.username === process.env.NEXTAUTH_USERNAME &&
-        credentials.password === process.env.NEXTAUTH_PASSWORD;
+    } else {
+        user.verdict = false;
+        return user;
+    }
 }
 
 
@@ -26,17 +28,14 @@ const providers = [
         },
         authorize: async (credentials) => {
             //if credentials match 
-            if (isCorrectCredentials(credentials)) {
-                //return user to the app  
-                const user = { id: 1, name: 'Admin' };
-                // Any object returned will be saved in `user` property of the JWT
+            const user = await credentialsObject(credentials)
+            if (user.verdict) {
+                //return user to app
+                console.log(user)
                 return Promise.resolve(user);
             } else {
-                // If you return null or false then the credentials will be rejected
+                //reject credentials
                 return Promise.resolve(null);
-                // You can also Reject this callback with an Error or with a URL:
-                // return Promise.reject(new Error('error message')) // Redirect to error page
-                // return Promise.reject('/path/to/redirect')        // Redirect to a URL
             }
         },
     }),
@@ -52,10 +51,8 @@ const callbacks = {
     //     return token;
     // },
     async session(session, token) {
-        console.log('token: ', token)
         // session.accessToken = token.iat;
         //12 hrs = 12 hrs * 60 min/hr * 60 sec/min
-        console.log('session: ', session)
         return session;
     }
 }
@@ -70,10 +67,8 @@ const session = {
 const options = {
     providers,
     session,
-    callbacks
+  
 }
 
-export default (req, res) => {
-    NextAuth(req, res, options);
+export default (req, res) => NextAuth(req, res, options);
 
-}

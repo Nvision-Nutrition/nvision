@@ -1,8 +1,57 @@
-import React from 'react';
-import {Container, Form, Button} from 'react-bootstrap';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Container, Form, Button } from 'react-bootstrap';
 
 
 const SignUp = () => {
+
+
+  const [state, setState] = useState({
+    //added to prevent warning component is changing an uncontrolled input to be controlled
+    //select form initial option is male so setting state to match
+    firstName: '',
+    lastName: '',
+    username: '',
+    password1: '',
+    password2: '',
+    calorieGoal: '',
+    waterGoal: '',
+    phone: '',
+    email: '',
+    sex: 'male'
+  });
+
+  const handleChange = (e) => {
+    //combine the current obj with new state property or set old one
+    setState({ ...state, [e.target.name]: e.target.value })
+  }
+
+
+  const submitUser = () => {
+    console.log(state)
+    //check that data is there
+    if (state.password1 !== state.password2) {
+      alert('Passwords don\'t match')
+      return;
+    }  
+    
+
+    //if it looks good submit to api
+    axios({
+      method: 'POST',
+      url: 'api/newUser',
+      data: state
+    })
+    .then((result) => {
+      console.log(result)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+
+
   return (
     <Container style={{
       margin: '5%',
@@ -13,39 +62,77 @@ const SignUp = () => {
       <Form>
         <Form.Group>
           <Form.Label>First Name</Form.Label>
-          <Form.Control placeholder="Enter first name" />
+          <Form.Control
+            placeholder="Enter first name"
+            onChange={handleChange}
+            name="firstName"
+            value={state.firstName}
+          />
         </Form.Group>
 
         <Form.Group>
           <Form.Label>Last Name</Form.Label>
-          <Form.Control placeholder="Enter last name" />
+          <Form.Control
+            placeholder="Enter last name"
+            onChange={handleChange}
+            name="lastName"
+            value={state.lastName}
+          />
         </Form.Group>
 
         <Form.Group>
           <Form.Label>Username</Form.Label>
-          <Form.Control placeholder="Enter username" />
+          <Form.Control
+            placeholder="Enter username"
+            onChange={handleChange}
+            name="username"
+            value={state.username}
+          />
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            name="password1"
+            value={state.password1}
+          />
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password Again</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            name="password2"
+            value={state.password2}
+          />
         </Form.Group>
 
 
         <Form.Group>
           <Form.Label>Calorie Goal</Form.Label>
-          <Form.Control placeholder="Enter username" />
+          <Form.Control
+            placeholder="Enter username"
+            onChange={handleChange}
+            name='calorieGoal'
+            value={state.calorieGoal}
+
+          />
         </Form.Group>
 
 
         <Form.Group>
           <Form.Label>Water Goal</Form.Label>
-          <Form.Control placeholder="Enter username" />
+          <Form.Control
+            placeholder="Enter username"
+            onChange={handleChange}
+            name="waterGoal"
+            value={state.waterGoal}
+          />
         </Form.Group>
 
         {/*
@@ -61,7 +148,12 @@ const SignUp = () => {
 
         <Form.Group>
           <Form.Label>Phone Number</Form.Label>
-          <Form.Control placeholder="Enter username" />
+          <Form.Control
+            placeholder="Enter username"
+            onChange={handleChange}
+            name="phone"
+            value={state.phone}
+          />
           <Form.Text className="text-muted">
             Format: 1234567890
           </Form.Text>
@@ -69,7 +161,13 @@ const SignUp = () => {
 
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            onChange={handleChange}
+            name="email"
+            value={state.email}
+          />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
           </Form.Text>
@@ -77,7 +175,12 @@ const SignUp = () => {
 
         <Form.Group controlId="exampleForm.ControlSelect1">
           <Form.Label>Sex</Form.Label>
-          <Form.Control as="select">
+          <Form.Control
+            as="select"
+            onChange={handleChange}
+            name="sex"
+            value={state.sex}
+          >
             <option>Male</option>
             <option>Female</option>
             <option>Prefer not to disclose</option>
@@ -87,7 +190,12 @@ const SignUp = () => {
           </Form.Text>
         </Form.Group>
 
-        <Button variant="primary" type="submit">Submit</Button>
+        <Button
+          variant="primary"
+          type="button"
+          onClick={submitUser}
+        >Submit
+        </Button>
       </Form>
     </Container>
     // <div id="signUpDiv" style={{'textAlign': 'center'}}>
