@@ -183,9 +183,9 @@ const getUser = async (username) => {
   if (userID === -1) {
     return null; 
   }
-  const queryString = `SELECT * FROM users WHERE id=${userID}`
+  const queryString = `SELECT * FROM users WHERE id=$1`
   return new Promise((resolve, reject) => {
-  pool.query(queryString)
+  pool.query(queryString, [userID])
     .then((result) => {
       resolve(result.rows[0]);
     })

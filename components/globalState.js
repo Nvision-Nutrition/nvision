@@ -16,10 +16,10 @@ export const GlobalStateProvider = ({children, session}) => {
   // when the database returns that userID to the client
   // (defaults to '1')
 
-  const [userId, setUserId] = useState(1);
+  const [userId, setUserId] = useState(0);
   const [calorieCount, setCalorieCount] = useState('20');
   const [waterCount, setWaterCount] = useState('20');
-
+  console.log(userId)
   const getCurrentCounts = () => {
     axios.get('/api/progress?type=day')
         .then(({data}) => {
@@ -43,6 +43,7 @@ export const GlobalStateProvider = ({children, session}) => {
       waterGoal: session.user.watergoal,
       weightGoal: null
     })
+    setUserId(session.user.id)
   }, []);
 
   return (
