@@ -121,7 +121,7 @@ const HistoryGraph = () => {
       <div className={`${styles.card} history-graph`}>
         <p className={`${styles.description} subtitle`}>{`${keyValue}`}
         </p>
-        <div className="chart" id>
+        <div className="chart" >
           <ResponsiveBar
             data={data}
             keys={config.keys}
