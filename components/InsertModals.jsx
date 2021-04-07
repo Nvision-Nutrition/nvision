@@ -14,6 +14,17 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   const [val, setVal] = useState(0);
   const [celebrate, setCelebrate] = useState(false);
   const [motivate, setMotivate] = useState(false);
+
+  const addToDate = (dateString) => {
+    const previous = Number(dateString.slice(-1));
+    const updated = previous + 1;
+    const newDate = dateString.slice(0, -1).concat(updated);
+    return newDate;
+  };
+
+  const [formatted, setFormatted] =
+  useState(new Date(addToDate(date)).toDateString());
+
   const {userInfo,
     userId,
     calorieCount,
@@ -204,10 +215,11 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               <NumPad.Calendar
                 onChange={(value) => {
                   setDate(value);
+                  setFormatted(addToDate(value));
                 }}
                 dateFormat="YYYY-MM-DD"
                 min="2021-04-05"
-                placeholder={date}
+                placeholder={new Date(formatted).toDateString()}
                 theme={myTheme}
               />
               <br/>
