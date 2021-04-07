@@ -1,6 +1,16 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {Context} from './globalState.js';
 
 const Apple = () => {
+  const {theme} = useContext(Context);
+  const [appleBgColor, setAppleBgColor] = useState('rgb(255, 255, 255)');
+  useEffect(() => {
+    if (theme === 'dark') {
+      setAppleBgColor('rgb(52, 58, 64)');
+    } else if (theme === 'light') {
+      setAppleBgColor('rgb(255, 255, 255)');
+    }
+  }, [theme]);
   return (
     <svg
       id="svg"
@@ -46,7 +56,7 @@ const Apple = () => {
         70.264,192.364 63.870 L 204.874 57.741 217.687 56.958 C 233.452
         55.994,247.801 56.558,254.744 58.414 "
         stroke="none"
-        fill="white"
+        fill={appleBgColor}
         fillRule="evenodd"
       />
     </svg>
