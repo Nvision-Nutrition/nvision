@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
 import {Navbar, Nav, Button} from 'react-bootstrap';
 import Brightness2Icon from '@material-ui/icons/Brightness2';
 import {Context} from './globalState.js';
@@ -68,5 +69,5 @@ const NvisionNavbar = ({setGlobalTheme}) => {
 export default NvisionNavbar;
 
 NvisionNavbar.propTypes = {
-  setGlobalTheme: PropTypes.function,
+  setGlobalTheme: PropTypes.func,
 };
