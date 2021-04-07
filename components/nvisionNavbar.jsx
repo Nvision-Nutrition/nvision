@@ -4,7 +4,7 @@ import {Navbar, Nav, Button} from 'react-bootstrap';
 import Brightness2Icon from '@material-ui/icons/Brightness2';
 import {Context} from './globalState.js';
 
-const NvisionNavbar = ({setGlobalTheme}) => {
+const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
   const {theme, setTheme} = useContext(Context);
 
   const toggleTheme = () => {
@@ -41,6 +41,7 @@ const NvisionNavbar = ({setGlobalTheme}) => {
 
       <Nav>
         <Nav.Link
+          onClick={signOut}
           style={{
             alignSelf: 'center',
             display: 'inline-flex',
