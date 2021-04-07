@@ -23,8 +23,7 @@ const Celebration = ({show, onHide, name}) => {
     <>
       {
         show &&
-      <Confetti
-      />
+      <Confetti />
       }
       <Modal
         show={show}

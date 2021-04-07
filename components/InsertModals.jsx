@@ -5,12 +5,15 @@ import {
 } from 'react-bootstrap';
 import axios from 'axios';
 import NumPad from 'react-numpad';
+import Moment from 'react-moment';
+import moment from 'moment';
 import Celebration from './Celebration.jsx';
 import Failure from './Failure.jsx';
 
 const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   const [meal, setMeal] = useState('Select a Meal');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [formatted, setFormatted] = useState(moment(date, 'MMMM Do, YYYY').toString().slice(0, -18));
   // potential state for a more user friendly date
   // const [displayDate, setDisplayDate] = useState(date.substring(5, 7).concat(
   //     '.', date.substring(8), '.', date.substring(2, 4)));
@@ -39,7 +42,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     };
     axios.post('/api/addCalories', foodEntry)
         .then((res) => {
-          console.log(res);
           setVal(0);
           setMeal('Select a Meal');
           setValid('');
@@ -59,7 +61,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     };
     axios.post('/api/addWater', waterEntry)
         .then((res) => {
-          console.log(res);
           setVal(0);
           setValid('');
         })
@@ -78,7 +79,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     };
     axios.post('/api/addWeight', weightEntry)
         .then((res) => {
-          console.log(res);
           setVal(0);
           setValid('');
         })
@@ -93,11 +93,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     if (type === 'food' && meal !== 'Select a Meal' && val) {
       addFood(e);
       setCalorieCount(calorieCount + val);
-      if (calorieCount < userInfo.calorieGoal) {
-        setCelebrate(true);
-      } else {
-        setMotivate(true);
-      }
+      calorieCount < userInfo.calorieGoal ?
+      setCelebrate(true) : setMotivate(true);
       handleClose();
     } else if (type === 'water' && val) {
       addWater(e);
@@ -106,7 +103,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       handleClose();
     } else if (type === 'weight' && val) {
       addWeight(e);
-      setMotivate(true);
+      val < userInfo.weightGoal ?
+      setCelebrate(true) : setMotivate(true);
       handleClose();
     } else {
       setValid(false);
@@ -212,13 +210,18 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               <NumPad.Calendar
                 onChange={(value) => {
                   setDate(value);
+                  console.log(date);
+                  console.log(value);
+                  console.log(moment(value, 'MMMM Do, YYYY').toString().slice(0, -18))
+                  setFormatted(moment(value, 'MMMM Do, YYYY').toString().slice(0, -18));
                 }}
                 dateFormat="YYYY-MM-DD"
                 min="2021-04-05"
-                value={date}
+                placeholder={date}
                 theme={myTheme}
               />
               <br/>
+              <div>{formatted}</div>
               <br/>
               {
                 valid === false &&
