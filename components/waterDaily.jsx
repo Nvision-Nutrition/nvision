@@ -9,6 +9,8 @@ const WaterDaily = () => {
     darkModeToggle,
     setDarkModeToggle,
   ] = useState(`${card} water-intake-chart`);
+  const [emptyBottleSvg, setEmptyBottleSvg] = useState('/emptyBottle.svg');
+  const [fullBottleSvg, setFullBottleSvg] = useState('/fullBottle.svg');
 
   const generateWaterGraph = (waterDrank = 0, waterGoal = 100) => {
     /*
@@ -29,7 +31,7 @@ const WaterDaily = () => {
           bottleArray.push(
               <div key={uuidv4()}>
                 <img
-                  src="/emptyBottle.svg"
+                  src={emptyBottleSvg}
                   alt="empty-bottle"
                   className="bottle-image" />
               </div>);
@@ -56,7 +58,7 @@ const WaterDaily = () => {
           bottleArray.push(
               <div key={uuidv4()}>
                 <img
-                  src="/fullBottle.svg"
+                  src={fullBottleSvg}
                   alt="full-bottle"
                   className="bottle-image" />
               </div>);
@@ -82,6 +84,12 @@ const WaterDaily = () => {
   useEffect(() => {
     if (theme === 'dark') {
       setDarkModeToggle(`${card} water-intake-chart-darkMode`);
+      setEmptyBottleSvg('/emptyBottle-dk.svg');
+      setFullBottleSvg('/fullBottle-dk.svg');
+    } else {
+      setDarkModeToggle(`${card} water-intake-chart`);
+      setEmptyBottleSvg('/emptyBottle.svg');
+      setFullBottleSvg('/fullBottle.svg');
     }
   }, [theme]);
 
