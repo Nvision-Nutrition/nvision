@@ -12,9 +12,6 @@ export const GlobalStateProvider = ({children, session}) => {
     waterGoal: 0,
     weightGoal: 0
   });
-  // userID should be set upon login/signup/session validation
-  // when the database returns that userID to the client
-  // (defaults to '1')
 
   const [userId, setUserId] = useState(0);
   const [calorieCount, setCalorieCount] = useState('20');
@@ -24,7 +21,6 @@ export const GlobalStateProvider = ({children, session}) => {
         .then(({data}) => {
           let today = new Date();
           today = today.toISOString().slice(0, 10);
-
           setCalorieCount(data[today].calorieSum);
           setWaterCount(data[today].waterSum);
         }).catch((err) => console.error(err));

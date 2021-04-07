@@ -195,9 +195,6 @@ const getUser = async (username) => {
   })
 }
 
-
-
-
 // insert into entries table - water record
 const insertWater = (req, res) => {
   const {waterType, userId, water, usersDate} = req.body;
@@ -263,5 +260,5 @@ module.exports = {
   fetchDayCount,
   fetchWeek,
   addUser,
-  getUser
+  getUser,
 };
