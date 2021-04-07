@@ -15,7 +15,7 @@ const WaterDaily = () => {
      This finds the percentage rounded to the tens digit 62 => 60 => 6,
       representing 6 crushed water bottles out of 10
     */
-    const waterPercentage = waterGoal > 0 ?
+    let waterPercentage = waterGoal > 0 ?
       Math.round((waterDrank / waterGoal) * 10) :
       0;
 
@@ -29,11 +29,11 @@ const WaterDaily = () => {
           bottleArray.push(
               <div key={uuidv4()}>
                 <img
-                  src="/fullBottle.svg"
-                  alt="full-bottle"
+                  src="/emptyBottle.svg"
+                  alt="empty-bottle"
                   className="bottle-image" />
               </div>);
-          break;
+
           // case 10: // waterPercentage = 6 - will not add a full bottle
           // bottleArray.push(
           //     <div key={uuidv4()}>
@@ -56,8 +56,8 @@ const WaterDaily = () => {
           bottleArray.push(
               <div key={uuidv4()}>
                 <img
-                  src="/emptyBottle.svg"
-                  alt="empty-bottle"
+                  src="/fullBottle.svg"
+                  alt="full-bottle"
                   className="bottle-image" />
               </div>);
           /*
