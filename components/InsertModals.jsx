@@ -29,18 +29,16 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       mealName: meal,
       usersDate: date,
     };
-    if (val && meal && date) {
-      axios.post('/api/addCalories', foodEntry)
-          .then((res) => {
-            console.log(res);
-            setVal(0);
-            setMeal('Select a Meal');
-            setValid('');
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-    }
+    axios.post('/api/addCalories', foodEntry)
+        .then((res) => {
+          console.log(res);
+          setVal(0);
+          setMeal('Select a Meal');
+          setValid('');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
   };
 
   const addWater = (e) => {
@@ -51,19 +49,15 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       water: val,
       usersDate: date,
     };
-    if (val && date) {
-      axios.post('/api/addWater', waterEntry)
-          .then((res) => {
-            console.log(res);
-            setVal(0);
-            setValid('');
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-    } else {
-      alert('Please complete entry');
-    }
+    axios.post('/api/addWater', waterEntry)
+        .then((res) => {
+          console.log(res);
+          setVal(0);
+          setValid('');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
   };
 
   const addWeight = (e) => {
@@ -74,19 +68,15 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       usersDate: date,
       userId: userID,
     };
-    if (val && date) {
-      axios.post('/api/addWeight', weightEntry)
-          .then((res) => {
-            console.log(res);
-            setVal(0);
-            setValid('');
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-    } else {
-      alert('Please complete entry');
-    }
+    axios.post('/api/addWeight', weightEntry)
+        .then((res) => {
+          console.log(res);
+          setVal(0);
+          setValid('');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
   };
 
   useEffect(() => {
