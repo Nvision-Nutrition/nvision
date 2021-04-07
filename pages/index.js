@@ -89,7 +89,7 @@ const App = () => {
         </>
       ))} 
       {session && (
-        <GlobalStateProvider>
+        <GlobalStateProvider session={session}>
         <NvisionNavbar user={session} signOut={signOut} setGlobalTheme={setGlobalTheme}/>
         <div className={styles.container}>
           <main className={styles.main}>

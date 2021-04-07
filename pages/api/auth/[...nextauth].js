@@ -1,4 +1,3 @@
-import { ContactSupportOutlined, FormatColorReset } from '@material-ui/icons';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 const db = require('../../../db/index')
@@ -28,36 +27,36 @@ const providers = [
         },
         authorize: async (credentials) => {
             //if credentials match 
-            const user = await credentialsObject(credentials)
+            const user = await credentialsObject(credentials);
             if (user.verdict) {
-                //return user to app
-                console.log(user)
-                return Promise.resolve(user);
+                //return user to callback
+                return user;
             } else {
                 //reject credentials
-                return Promise.resolve(null);
+                return null;
             }
         },
     }),
 ]
 
 const callbacks = {
+    //After authorization come here
     //get the JWT token from API response
-    // async jwt(token, user) {
-    //     if (user) {
-    //         console.log('user: ', user)
-    //         token.accessToken = user.token;
-    //     }
-    //     return token;
-    // },
+    async jwt(token, user, account, profile, isNewUser) {
+            console.log('user: ', user)
+            user && (token.user = user);
+            return token;
+    },
     async session(session, token) {
-        // session.accessToken = token.iat;
-        //12 hrs = 12 hrs * 60 min/hr * 60 sec/min
+        //add user to session
+        session.user = token.user;
         return session;
     }
 }
 
 const session = {
+  //aging the session to expire at 12 hours (displays in zulu time)
+  //update age seems to be how often the server checks for expiration
   jwt: true,
   maxAge: 12 * 60 * 60,
   updateAge: 60*60*1
@@ -67,7 +66,7 @@ const session = {
 const options = {
     providers,
     session,
-  
+    callbacks
 }
 
 export default (req, res) => NextAuth(req, res, options);
