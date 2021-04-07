@@ -1,15 +1,17 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import {Navbar, NavDropdown} from 'react-bootstrap';
-import React, { useState, useEffect } from 'react';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import {Button, Row, Image} from 'react-bootstrap';
+import { signIn, useSession } from 'next-auth/client';
 import {GlobalStateProvider} from '../components/globalState.js';
+import React, {useContext, useState, useEffect} from 'react';
 import NvisionNavbar from '../components/nvisionNavbar.jsx';
-import Login from '../components/login.jsx';
 import SignUp from '../components/signUp.jsx';
 import dynamic from 'next/dynamic';
-import CaloricHistory from '../components/caloricHistory.jsx';
-import WaterHistory from '../components/waterHistory.jsx';
+import { Container } from '@material-ui/core';
+import HistoryGraph from '../components/historyGraph.jsx';
+import WaterDaily from '../components/waterDaily.jsx';
+import axios from 'axios';
+
 const DailyTracker = dynamic(
   () => {
     return import("../components/dailyTracker.jsx");
@@ -18,6 +20,8 @@ const DailyTracker = dynamic(
 );
 
 const App = () => {
+  //what's not seen is that next js is adding a div before render
+  const [globalTheme, setGlobalTheme] = useState('light');
   const [session, loading] = useSession();
   const [signup, setSignup] = useState(false); 
   console.log(session)
@@ -29,29 +33,56 @@ const App = () => {
   const handleSignUp = () => {
     setSignup(true);
   }
-  //what's not seen is that next js is adding a div before render
+
+
   return (
-    <>
+    <div style={globalTheme === 'dark' ? {backgroundColor: '#343A40'} : null}>
       <Head>
         <title>nVision nutrition</title>
         <link rel="icon" href="/favicon.ico" />
         <link href='https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap" rel="stylesheet">' rel="stylesheet" />
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-          crossOrigin="anonymous"
-        />
       </Head>
       {!session && (
         !signup ? (
         //not a session and not yet signing up 
-        <>
-          <p>Not signed in</p><br/>
-          <button onClick={signIn}>Log in</button>
-          <button onClick={handleSignUp}>Sign up</button>
+     
+          // <p>Not signed in</p><br/>
+         
+          // <button onClick={handleSignUp}>Sign up</button>
           
-        </>
+      
+        // <Button variant="outline-primary" size="lg" onClick={signIn}>Log in</Button>{' '}
+        // <Button variant="outline-primary" size="lg" onClick={handleSignUp}>Sign up</Button>{' '}
+          <Container style={{
+            height: '100vh',
+            backgroundImage: 'url("https://images7.alphacoders.com/912/thumbbig-912808.jpg")',
+            backgroundColor: 'white',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+          }}>
+            <Container style={{
+              paddingTop: '20vh',
+            }}>
+              <Row className="justify-content-center">
+                <Image src='logo.png' style={{
+                  width: '20vh'
+                }} />
+              </Row>
+              <Row className="justify-content-center">
+                <Button variant="primary" size="lg" onClick={signIn} style={{
+                  width: '50%',
+                  height: '10vh',
+                }}>Log in</Button>{' '}
+              </Row>
+              <br />
+              <Row className="justify-content-center">
+                <Button variant="primary" size="lg" onClick={handleSignUp} style={{
+                  width: '50%',
+                  height: '10vh',
+                }}>Sign up</Button>{' '}
+              </Row>
+            </Container>
+          </Container>
       ) : (
         //not a session and signing up
         //after hitting submit on signing up can I bypass auth with the cookie?
@@ -60,25 +91,18 @@ const App = () => {
         </>
       ))} 
       {session && (
-        
         <GlobalStateProvider>
-        <div>Signed in as {session.user.name} <br/>
-            <button onClick={signOut}>Sign Out</button>
-            </div>
-          <NvisionNavbar />
-          <div className={styles.container}>
-            <main className={styles.main}>
-              <DailyTracker />
-              <CaloricHistory />
-              <WaterHistory />
-            </main>
-          </div>
-        </GlobalStateProvider>
-      
-          
-     
+        <NvisionNavbar setGlobalTheme={setGlobalTheme}/>
+        <div className={styles.container}>
+          <main className={styles.main}>
+            <DailyTracker />
+            <WaterDaily />
+            <HistoryGraph />
+          </main>
+        </div>
+      </GlobalStateProvider>
       )}
-      </>
+    </div>
   );
 };
 

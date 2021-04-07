@@ -1,16 +1,19 @@
 import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
 import {Navbar, Nav, Button} from 'react-bootstrap';
 import Brightness2Icon from '@material-ui/icons/Brightness2';
 import {Context} from './globalState.js';
 
-const NvisionNavbar = () => {
+const NvisionNavbar = ({setGlobalTheme}) => {
   const {theme, setTheme} = useContext(Context);
 
   const toggleTheme = () => {
     if (theme === 'light') {
       setTheme('dark');
+      setGlobalTheme('dark');
     } else {
       setTheme('light');
+      setGlobalTheme('light');
     }
   };
 
@@ -52,6 +55,7 @@ const NvisionNavbar = () => {
 
       <Button
         variant={theme === 'light' ? 'outline-dark' : 'outline-light'}
+        aria-label="dark-mode-toggle"
         onClick={toggleTheme}
         style={{position: 'relative', marginBottom: '8px', marginRight: '3px'}}
       >
@@ -63,3 +67,7 @@ const NvisionNavbar = () => {
 };
 
 export default NvisionNavbar;
+
+NvisionNavbar.propTypes = {
+  setGlobalTheme: PropTypes.func,
+};

@@ -1,8 +1,8 @@
-
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
 const isCorrectCredentials = (credentials) => {
+  // hash password here using argon2
 
     //hash password here using argon2  
 
