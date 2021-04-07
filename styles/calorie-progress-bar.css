@@ -1,0 +1,24 @@
+.calorie-tracker-dev {
+  display: flex;
+}
+
+
+.calorie-progress-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300;
+  width: 300;
+}
+
+.calorie-progress-bar {
+  position: absolute;
+  overflow: hidden;
+  transform: rotate(-90deg);
+}
+
+.calorie-progress-overlay {
+  position: relative;
+  overflow: visible;
+  size: auto;
+}
