@@ -52,6 +52,14 @@ a {
   display: inline;
 }
 
+.subtitle {
+  color:rgb(0, 0, 0.85);
+}
+
+.subtitle-darkMode {
+  color: white;
+}
+
 .navbar-light .navbar-nav .nav-link {
   color: rgba(0,0,0,.85);
 }
