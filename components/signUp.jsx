@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
-import { Container, Form, Button } from 'react-bootstrap';
+import {Container, Form, Button} from 'react-bootstrap';
 
 
 const SignUp = () => {
-
-
   const [state, setState] = useState({
-    //added to prevent warning component is changing an uncontrolled input to be controlled
-    //select form initial option is male so setting state to match
+    // added to prevent warning component is
+    // changing an uncontrolled input to be controlled
+    // select form initial option is male so setting state to match
     firstName: '',
     lastName: '',
     username: '',
@@ -18,39 +17,36 @@ const SignUp = () => {
     waterGoal: '',
     phone: '',
     email: '',
-    sex: 'male'
+    sex: 'male',
   });
 
   const handleChange = (e) => {
-    //combine the current obj with new state property or set old one
-    setState({ ...state, [e.target.name]: e.target.value })
-  }
+    // combine the current obj with new state property or set old one
+    setState({...state, [e.target.name]: e.target.value});
+  };
 
 
   const submitUser = () => {
-    console.log(state)
-    //check that data is there
+    console.log(state);
+    // check that data is there
     if (state.password1 !== state.password2) {
-      alert('Passwords don\'t match')
+      alert('Passwords don\'t match');
       return;
-    }  
-    
+    }
 
-    //if it looks good submit to api
+    // if it looks good submit to api
     axios({
       method: 'POST',
       url: 'api/newUser',
-      data: state
+      data: state,
     })
-    .then((result) => {
-      console.log(result)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-
-
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  };
 
   return (
     <Container style={{
@@ -169,7 +165,7 @@ const SignUp = () => {
             value={state.email}
           />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
+            {'We\'ll never share your email with anyone else.'}
           </Form.Text>
         </Form.Group>
 
@@ -198,66 +194,6 @@ const SignUp = () => {
         </Button>
       </Form>
     </Container>
-    // <div id="signUpDiv" style={{'textAlign': 'center'}}>
-    //   <h1>Sign Up</h1>
-    //   <form>
-    //     <label>First Name</label>
-    //     <br />
-    //     <input type="text"></input>
-    //     <br />
-    //     <label>Last Name</label>
-    //     <br />
-    //     <input type="text"></input>
-    //     <br />
-    //     <label>Username</label>
-    //     <br />
-    //     <input type="text"></input>
-    //     <br />
-    //     <label>Password</label>
-    //     <br />
-    //     <input type="text"></input>
-    //     <br />
-    //     <label>Password again</label>
-    //     <br />
-    //     <input type="text"></input>
-    //     <br />
-    //     <label>Calorie Goal</label>
-    //     <br />
-    //     <input type="text"></input>
-    //     <br />
-    //     <label>Water Goal (ounces)</label>
-    //     <br />
-    //     <input type="text"></input>
-    //     <br />
-    //     <label>Weight Goal</label>
-    //     <br />
-    //     <input type="text"></input>
-    //     <br />
-    //     <label>Phone number</label>
-    //     <br />
-    //     <input type="number"></input>
-    //     <br />
-    //     <label>Email</label>
-    //     <br />
-    //     <input type="text"></input>
-    //     <br />
-    //     <label>Sex(assigned at birth)</label>
-    //     <br />
-    //     <select style={{'width': '100%'}}>
-    //       <option>Male</option>
-    //       <option>Female</option>
-    //       <option>Choose not to disclose</option>
-    //     </select>
-    //     <br />
-    //     <br />
-    //     <input
-    //       type="submit"
-    //       style={{'width': '100%', 'height': '50px'}} >
-    //     </input>
-    //   </form>
-    //   <br />
-    //   <button style={{'width': '100%', 'height': '50px'}}>Login</button>
-    // </div>
   );
 };
 
