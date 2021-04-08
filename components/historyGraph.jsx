@@ -10,7 +10,13 @@ const HistoryGraph = () => {
   // Macro Number 0 = cal, 1 = water, 2 = weight
   const [macroNumber, setMacroNumber] = useState(1);
   const [userData, setUserData] = useState(sevenDayFetch);
-  const {userId, calorieCount, waterCount, weightValue} = useContext(Context);
+  const {
+    userId,
+    calorieCount,
+    waterCount,
+    weightValue,
+    userInfo,
+  } = useContext(Context);
 
   // keyValue: Graph set up/ aesthetics
   // fetchValue: Define the appropriate db column to fetch from
@@ -23,19 +29,19 @@ const HistoryGraph = () => {
     case 1:
       keyValue = 'Water';
       fetchValue = 'waterSum';
-      goalValue = 5;
+      goalValue = userInfo.waterGoal;
       buttonName = 'Check Weight';
       break;
     case 2:
       keyValue = 'Weight';
       fetchValue = 'weightSum';
-      goalValue = 180;
+      goalValue = userInfo.weightGoal;
       buttonName = 'Check Calorie';
       break;
     default:
       keyValue = 'Calories';
       fetchValue = 'calorieSum';
-      goalValue = 3000;
+      goalValue = userInfo.calorieGoal;
       buttonName = 'Check Water';
       break;
   }
