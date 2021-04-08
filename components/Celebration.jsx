@@ -31,6 +31,7 @@ const Celebration = ({show, onHide, name}) => {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        backdrop={false}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
