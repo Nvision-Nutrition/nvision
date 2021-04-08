@@ -10,19 +10,28 @@ const pool = new Pool({
   port: 5432,
 });
 
+// POSTGRES_USER=emma
+// POSTGRES_PASS=password
+// NEXTAUTH_URL=http://localhost:3000
+// POSTGRES_DATABASE=nvision
+// DATABASE_URL=postgres://nvision:password@127.0.0.1:5432/example?synchronize=true
 
-/*
+// POSTGRES_PASS=b2f1f7ea76dff1997151eaaebd6a08bb2d3ac914f8dcf6bae293fdb72a006ed9
+// POSTGRES_USER=qhfjdhuknbivyz
+// NEXTAUTH_URL=http://localhost:3000
+// POSTGRES_DATABASE=d9uo2ldihv4sbt
+// DATABASE_URL=postgres://qhfjdhuknbivyz:b2f1f7ea76dff1997151eaaebd6a08bb2d3ac914f8dcf6bae293fdb72a006ed9@ec2-54-211-176-156.compute-1.amazonaws.com:5432/d9uo2ldihv4sbt
 
-const {Client} = require('pg');
 
-const pool = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+// const {Client} = require('pg');
 
-/*
+// const pool = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// });
+
 
 /*
   fetches the total calorie and water count for a given date and userID

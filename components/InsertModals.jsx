@@ -173,8 +173,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setC
               {
                   type === 'food' ?
                   <div style={{
-                    backgroundImage: `linear-gradient(to left, #ef5350, #f48fb1,
-                      #7e57c2, #2196f3, #26c6da, #43a047,
+                    backgroundImage: `linear-gradient(to right, #ef5350,
+                      #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047,
                       #F9C74F, #f9a825, #ff5722)`,
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
@@ -188,8 +188,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setC
                   </div> :
                   type === 'water' ?
                   <div style={{
-                    backgroundImage: `linear-gradient(to left, #ef5350, #f48fb1,
-                      #7e57c2, #2196f3, #26c6da, #43a047,
+                    backgroundImage: `linear-gradient(to right, #ef5350,
+                      #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047,
                       #F9C74F, #f9a825, #ff5722)`,
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
@@ -201,8 +201,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setC
                       }}/>
                   </div> :
                   <div style={{
-                    backgroundImage: `linear-gradient(to left, #ef5350, #f48fb1,
-                      #7e57c2, #2196f3, #26c6da, #43a047,
+                    backgroundImage: `linear-gradient(to right, #ef5350,
+                      #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047,
                       #F9C74F, #f9a825, #ff5722)`,
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',

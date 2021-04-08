@@ -6,9 +6,9 @@ const Apple = () => {
   const [appleBgColor, setAppleBgColor] = useState('rgb(255, 255, 255)');
   useEffect(() => {
     if (theme === 'dark') {
-      setAppleBgColor('#c5daee');
+      setAppleBgColor('#FFFFFC');
     } else if (theme === 'light') {
-      setAppleBgColor('#c5daee');
+      setAppleBgColor('#FFFFFC');
     }
   }, [theme]);
   return (
