@@ -132,7 +132,7 @@ const HistoryGraph = () => {
 
   useEffect(()=>{
     getChartData();
-  },[])
+  }, []);
 
   return (
     <>

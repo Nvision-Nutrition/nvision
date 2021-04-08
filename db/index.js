@@ -29,7 +29,11 @@ const sumDay = (userId, date, lastWeight) => {
             waterSum += entry.water;
             weightSum = entry.weight; // fetches last input value
           });
-          const sums = {calorieSum: calorieSum, waterSum: waterSum, weightSum: weightSum};
+          const sums = {
+            calorieSum: calorieSum,
+            waterSum: waterSum,
+            weightSum: weightSum,
+          };
           resolve(sums);
         }).catch((err) => reject(err));
   });
