@@ -38,11 +38,12 @@ const App = () => {
       <Head>
         <title>nVision nutrition</title>
         <link rel="icon" href="/favicon.ico" />
+        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet"></link>
         <link href='https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap" rel="stylesheet">' rel="stylesheet" />
       </Head>
       {!session && (
         !signup ? (
-        //not a session and not yet signing up 
+        //not a session and not yet signing up
           <Container style={{
             height: '100vh',
             backgroundImage: 'url("https://images7.alphacoders.com/912/thumbbig-912808.jpg")',
@@ -79,7 +80,7 @@ const App = () => {
         <>
          <SignUp signup={signup} setSignup={setSignup}/>
         </>
-      ))} 
+      ))}
       {session && (
         <GlobalStateProvider session={session}>
         <NvisionNavbar user={session} signOut={signOut} setGlobalTheme={setGlobalTheme}/>
