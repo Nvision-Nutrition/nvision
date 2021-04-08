@@ -7,6 +7,7 @@ import axios from 'axios';
 import NumPad from 'react-numpad';
 import Celebration from './Celebration.jsx';
 import Failure from './Failure.jsx';
+import styles from '../styles/Home.module.css';
 
 const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   const [meal, setMeal] = useState('Select a Meal');
@@ -14,6 +15,22 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   const [val, setVal] = useState(0);
   const [celebrate, setCelebrate] = useState(false);
   const [motivate, setMotivate] = useState(false);
+
+  const addToDate = (dateString) => {
+    const previous = Number(dateString.slice(-2));
+    const updated = previous + 1;
+    let newDate;
+    if (updated < 10) {
+      newDate = dateString.slice(0, -1).concat(updated);
+    } else {
+      newDate = dateString.slice(0, -2).concat(updated);
+    }
+    return newDate;
+  };
+
+  const [formatted, setFormatted] =
+  useState(new Date(addToDate(date)).toDateString());
+
   const {userInfo,
     userId,
     calorieCount,
@@ -74,6 +91,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     };
     axios.post('/api/addWeight', weightEntry)
         .then((res) => {
+          console.log(res);
           setVal(0);
           setValid('');
         })
@@ -125,7 +143,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       backgroundColor: '#dc3545',
     },
     global: {
-      fontFamily: 'Roboto, Helvetica Neue, Arial, sans-serif, Helvetica',
+      fontFamily: 'Indie Flower, cursive',
+      // fontFamily: 'Roboto, Helvetica Neue, Arial, sans-serif, Helvetica',
     },
   };
 
@@ -136,26 +155,54 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
           show={show}
           onHide={handleClose}
         >
-          <Modal.Header closeButton >
+          <Modal.Header closeButton
+            style={{
+              borderBottom: '0 none',
+            }}/>
+          <Modal.Header
+            className="d-flex
+          justify-content-center
+          text-center
+          align-self-center
+          align-items-center">
             <Modal.Title>
               {
                   type === 'food' ?
-                  <div>
-                  Meal Entry <img src='/restaurant.png'
+                  <div style={{
+                    backgroundImage: `linear-gradient(to left, #ef5350, #f48fb1,
+                      #7e57c2, #2196f3, #26c6da, #43a047,
+                      #F9C74F, #f9a825, #ff5722)`,
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                  }}>
+                  Meal Entry
+                    <img src='/restaurant.png'
                       style={{
                         height: '20px',
                         width: '20px',
                       }}/>
                   </div> :
                   type === 'water' ?
-                  <div>
+                  <div style={{
+                    backgroundImage: `linear-gradient(to left, #ef5350, #f48fb1,
+                      #7e57c2, #2196f3, #26c6da, #43a047,
+                      #F9C74F, #f9a825, #ff5722)`,
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                  }}>
                     Water Entry <img src='/drop.png'
                       style={{
                         height: '20px',
                         width: '20px',
                       }}/>
                   </div> :
-                  <div>
+                  <div style={{
+                    backgroundImage: `linear-gradient(to left, #ef5350, #f48fb1,
+                      #7e57c2, #2196f3, #26c6da, #43a047,
+                      #F9C74F, #f9a825, #ff5722)`,
+                    WebkitBackgroundClip: 'text',
+                    color: 'transparent',
+                  }}>
                   Weight Update <img src='/weight-scale.png'
                       style={{
                         height: '20px',
@@ -166,12 +213,19 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               }
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body
+            className="d-flex
+          justify-content-center
+          text-center
+          align-self-center
+          align-items-center">
             <Form>
               {
                 type === 'food' &&
                 <>
-                  <Form.Label>Meal Type</Form.Label>
+                  <Form.Label>
+                    Meal Type
+                  </Form.Label>
                   <select
                     value={meal}
                     className="form-control"
@@ -207,10 +261,11 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               <NumPad.Calendar
                 onChange={(value) => {
                   setDate(value);
+                  setFormatted(addToDate(value));
                 }}
                 dateFormat="YYYY-MM-DD"
                 min="2021-04-05"
-                placeholder={date}
+                placeholder={new Date(formatted).toDateString()}
                 theme={myTheme}
               />
               <br/>
