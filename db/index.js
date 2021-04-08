@@ -37,7 +37,7 @@ const getCurrentDate = () => {
   const todayMST = new Date().toLocaleString('sv', {
     timeZone: 'America/Denver',
   });
-  const today =todayMST.slice(0, 10);
+  const today = todayMST.slice(0, 10);
   return today;
 };
   // Keeping the visual check if anyone wants to see it
@@ -86,17 +86,15 @@ const fetchDayCount = async (req, res) => {
 
   // 'userID' defaults to 1 for testing purposes only
   // 'date' defaults to today's date (Format: "2021-04-03")
-  const {userId = 1, date = getCurrentDate()} = req.query;
+  const {userId, date = getCurrentDate()} = req.query;
 
   try {
     const day = {};
     day[date] = await sumDay(userId, date);
     res.send(day);
-    // pool.end();
   } catch (err) {
     console.error(err);
     res.status(500).send();
-    // pool.end();
   }
 };
 
@@ -149,11 +147,9 @@ const fetchWeek = async (req, res) => {
     }
 
     res.send(week);
-    // pool.end();
   } catch (err) {
     console.error(err);
     res.status(500).send();
-    // pool.end();
   }
 };
 
@@ -166,11 +162,9 @@ const insertCalories = (req, res) => {
   pool.query(queryString, [mealType, calories, mealName, usersDate, userId])
       .then((response) => {
         res.status(201).send('Calorie entry successful!');
-        // pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(400).send(err);
-        // pool.end();
       });
 };
 
@@ -245,7 +239,7 @@ const addUser = async (req, res) => {
   }
 };
 
-//with username get user information
+// with username get user information
 const getUser = async (email) => {
   const userID = await getEmail(email);
   if (userID === -1) {
