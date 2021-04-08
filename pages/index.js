@@ -36,8 +36,8 @@ const App = () => {
   return (
     <div style={globalTheme === 'dark' ? {backgroundColor: '#343A40'} : null}>
       <Head>
-        <title>nVision nutrition</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>NVision Nutrition</title>
+        <link rel="icon" href="/logo.png" />
         <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet"></link>
         <link href='https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap" rel="stylesheet">' rel="stylesheet" />
       </Head>
