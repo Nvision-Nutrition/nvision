@@ -23,6 +23,7 @@ const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
         justifyContent: 'space-between',
         border: 'solid #28A745',
         borderRadius: '15px',
+        padding: '0px',
       }}
       sticky="top"
       bg={theme}
