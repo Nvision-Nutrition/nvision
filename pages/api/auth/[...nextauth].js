@@ -22,8 +22,8 @@ const providers = [
   Providers.Credentials({
     name: 'Credentials',
     credentials: {
-      username: {label: 'Username', type: 'text', placeholder: 'vision'},
-      password: {label: 'Password', type: 'password'},
+      username: {label: 'Username', type: 'text', placeholder: 'username'},
+      password: {label: 'Password', type: 'password', placeholder: 'password'},
     },
     authorize: async (credentials) => {
       // if credentials match
