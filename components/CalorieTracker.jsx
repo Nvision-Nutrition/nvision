@@ -11,8 +11,7 @@ const CalorieTracker = () => {
 
   useEffect(() => {
     const {calorieGoal} = userInfo;
-    const calcProgressPercent = Math.floor(calorieCount / calorieGoal * 100);
-    console.log(calcProgressPercent);
+    const calcProgressPercent = Math.floor(calorieCount / calorieGoal * 100)/6;
     setProgress(calcProgressPercent);
   }, [calorieCount]);
 
@@ -28,23 +27,23 @@ const CalorieTracker = () => {
         >
           <ProgressBar
             variant="red"
-            now={progress / 6}
+            now={progress}
           />
           <ProgressBar
             variant="orange"
-            now={progress / 6}
+            now={progress}
           />
           <ProgressBar
             variant="yellow"
-            now={progress /6}
+            now={progress}
           />
           <ProgressBar
             variant="green"
-            now={progress /6}
+            now={progress}
           />
           <ProgressBar
             variant="purple"
-            now={progress / 6}
+            now={progress}
           />
         </ProgressBar>
         <Apple />
@@ -58,10 +57,10 @@ const CalorieTracker = () => {
         variant="outline-success"
         type="button"
         onClick={() => {
-          if (progress > 120) {
+          if (progress > 20) {
             setProgress(0);
           } else {
-            setProgress(progress+20);
+            setProgress(progress + (20/6));
           }
         }}
       >
