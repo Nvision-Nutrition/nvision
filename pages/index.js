@@ -46,7 +46,7 @@ const App = () => {
         //not a session and not yet signing up
           <Container style={{
             height: '100vh',
-            backgroundImage: 'url("https://images7.alphacoders.com/912/thumbbig-912808.jpg")',
+            backgroundImage: 'url("fav.jpeg")',
             backgroundColor: 'white',
             backgroundPosition: 'center',
             backgroundSize: 'cover',
