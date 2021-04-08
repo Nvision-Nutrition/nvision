@@ -1,12 +1,27 @@
+/* pooling connection not supported on heroku dev tier:
+
 const {Pool} = require('pg');
 
 const pool = new Pool({
   user: process.env.POSTGRES_USER,
-  host: 'localhost',
-  database: 'nvision',
+  host: 'ec2-54-211-176-156.compute-1.amazonaws.com',
+  database: process.env.POSTGRES_DATABASE,
   password: process.env.POSTGRES_PASS,
   port: 5432,
 });
+
+*/
+
+const {Client} = require('pg');
+
+const pool = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+pool.connect();
 
 /*
   fetches the total calorie and water count for a given date and userID
