@@ -8,8 +8,8 @@ const credentialsObject = async (credentials) => {
     //returns a user or nothing if username doesn't exist
     var user = await db.getUser(credentials.email);
     if (user !== null) {
-        user.verdict = credentials.password === user.password ? 
-        true : false;
+        user.verdict = credentials.password === user.password ?
+            true : false;
         return user;
 
     } else {
@@ -29,6 +29,7 @@ const providers = [
             password: { label: 'Password', type: 'password' },
         },
         authorize: async (credentials) => {
+            //set global flag to be credentials
             //if credentials match 
             const user = await credentialsObject(credentials);
             if (user.verdict) {
@@ -48,48 +49,63 @@ const providers = [
 ]
 
 const callbacks = {
-  // After authorization come here
-  // get the JWT token from API response
-  async jwt(token, user, account, profile, isNewUser) {
-    user && (token.user = user);
-    return token;
+    // After authorization come here
+    // get the JWT token from API response
+  
+    async signIn(user, account, profile, session) {
+        if (account.provider === 'google') {
+            //verify they are a google user
+            if (profile.verified_email === true) {
+                //verify they are a nvision user
+                var nvisionUser = await db.getUser(profile.email);
+                if (nvisionUser !== null) {
+                    //how to pass user information into session?
+                    user = nvisionUser
+                    //verified nvision user
+                    return user;
+                } else {
+                    //not an nvision user
+                    return false;
+                }
+            } else {
+                //they are not with google
+                return false
+            }
+        } else if (account.provider === undefined) {
+            //we are in a credentials session (username, password), return that
+            return session;
+        }
+    },
+    async jwt(token, user) {
+        user && (token.user = user);
+        return token;
     },
     async session(session, token) {
         //add user to session
         session.user = token.user;
         return session;
-    },
-    async signIn(user, account, profile) {
-        if (account.provider === 'google' &&
-            profile.verified_email === true &&
-            profile.email.endsWith('@gmail.com')) {
-                console.log('Google came back')
-                console.log('profile: ', profile)
-                console.log('account: ', account)
-                console.log('user: ', user)
-                return true
-            } else {
-                return false
-            }
     }
 }
-
+// &&
+// profile.email.endsWith('@gmail.com')
 const session = {
-  // aging the session to expire at 12 hours (displays in zulu time)
-  // update age seems to be how often the server checks for expiration
-  jwt: true,
-  maxAge: 12 * 60 * 60,
-  updateAge: 60*60*1,
+    // aging the session to expire at 12 hours (displays in zulu time)
+    // update age seems to be how often the server checks for expiration
+    jwt: true,
+    maxAge: 12 * 60 * 60,
+    updateAge: 60 * 60 * 1,
 };
 
 
 const options = {
-  providers,
-  session,
-  callbacks,
+    providers,
+    session,
+    callbacks,
 };
 
+
 export default (req, res) => NextAuth(req, res, options);
+// signIn() passed in info with google auth
 
 // profile:  {
 //     id: '108073109942218026529',
@@ -120,4 +136,25 @@ export default (req, res) => NextAuth(req, res, options);
 //     name: 'Oren Nelson',
 //     email: 'orendnelson@gmail.com',
 //     image: 'https://lh3.googleusercontent.com/a-/AOh14GgnT27vgFPsZLGit_vSjaQtW-Fa2nb30ZL-MfmjQA=s96-c'
+//   }
+
+// signIn() passed in info with provider credentials
+// user {
+//     id: 1,
+//     firstname: 'Oren',
+//     lastname: 'Nelson',
+//     password: '1',
+//     caloriegoal: 5000,
+//     watergoal: 10000,
+//     weightgoal: 1,
+//     phone: '3216039803',
+//     email: 'orendnelson@gmail.com',
+//     sex: 'male',
+//     verdict: true
+//   }
+//   account:  { id: 'credentials', type: 'credentials' }
+//   profile [Object: null prototype] {
+//     csrfToken: '2bfd005a6ae728d60990230b9453aab10e88332cf21e45bf3aff9bd75f79fa3a',
+//     email: 'orendnelson@gmail.com',
+//     password: '1'
 //   }

@@ -20,9 +20,13 @@ const {Client} = require('pg');
 //     rejectUnauthorized: false,
 //   },
 // });
-
+// connectionString: process.env.DATABASE_URL
 const pool = new Client({
-  connectionString: process.env.DATABASE_URL
+  user: 'orennelson',
+  host: 'localhost',
+  database: 'nvision',
+  password: 'password',
+  port: 5432,
 });
 
 pool.connect();
@@ -175,7 +179,7 @@ const addUser = async (req, res) => {
         firstName, lastName,
         password, calorieGoal, waterGoal,
         weightGoal, phone, email, sex)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
         RETURNING id;`;
 
       // eslint-disable-next-line max-len
@@ -196,11 +200,11 @@ const addUser = async (req, res) => {
 
 //with username get user information
 const getUser = async (email) => {
-  
   const userID = await getEmail(email);
   if (userID === -1) {
     return null;
   }
+
   const queryString = `SELECT * FROM users WHERE id=$1`;
   return new Promise((resolve, reject) => {
     pool.query(queryString, [userID])
