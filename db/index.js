@@ -120,17 +120,17 @@ const insertCalories = (req, res) => {
 };
 
 /*
-  checks if username exists already in database
+  checks if email exists already in database
     if so, returns userID
     if not returns -1
     (returns a Promise)
 */
-const getUsernameID = (username) => {
+const getEmail = (email) => {
   const checkQuery = `Select id FROM users
-                      WHERE username=$1;`;
+                      WHERE email=$1;`;
 
   return new Promise((resolve, reject) => {
-    pool.query(checkQuery, [username])
+    pool.query(checkQuery, [email])
         .then((response) => {
           if (response.rows.length === 0) {
             resolve(-1);
@@ -144,14 +144,13 @@ const getUsernameID = (username) => {
 };
 
 /*
-  adds a new user to the database provided the username
+  adds a new user to the database provided the email
   is not already taken
 */
 const addUser = async (req, res) => {
   const {
     firstName,
     lastName,
-    username,
     password,
     calorieGoal,
     waterGoal,
@@ -162,21 +161,21 @@ const addUser = async (req, res) => {
   } = req.body;
 
   try {
-    const userID = await getUsernameID(username);
+    const userID = await getEmail(email);
     if (userID !== -1) {
       // user exists already
       res.status(501).send(`user exists already with userID: ${userID}`);
     } else {
       // create a new user
       const queryString = `INSERT INTO users(
-        firstName, lastName, username,
+        firstName, lastName,
         password, calorieGoal, waterGoal,
         weightGoal, phone, email, sex)
         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING id;`;
 
       // eslint-disable-next-line max-len
-      pool.query(queryString, [firstName, lastName, username, password, calorieGoal, waterGoal, weightGoal, phone, email, sex])
+      pool.query(queryString, [firstName, lastName, password, calorieGoal, waterGoal, weightGoal, phone, email, sex])
           .then((response) => {
             const userID = response.rows[0].id;
             res.status(201).send(`New user created with ID: ${userID}`);
