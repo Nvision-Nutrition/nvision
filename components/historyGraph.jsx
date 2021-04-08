@@ -52,6 +52,7 @@ const HistoryGraph = () => {
       method: 'get',
     })
         .then((result) => {
+          console.log(result);
           setUserData(result.data);
         })
         .catch((error) => {
