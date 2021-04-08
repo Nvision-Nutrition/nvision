@@ -8,13 +8,15 @@ import NumPad from 'react-numpad';
 import Celebration from './Celebration.jsx';
 import Failure from './Failure.jsx';
 import Confetti from 'react-confetti';
+import {useWindowSize} from '@react-hook/window-size';
 
-const InsertModals = ({show, type, handleClose, valid, setValid}) => {
+const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setCelebrate}) => {
   const [meal, setMeal] = useState('Select a Meal');
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [val, setVal] = useState(0);
-  const [celebrate, setCelebrate] = useState(false);
+  // const [celebrate, setCelebrate] = useState(false);
   const [motivate, setMotivate] = useState(false);
+  const {width, height} = useWindowSize();
 
   const addToDate = (dateString) => {
     const previous = Number(dateString.slice(-2));
@@ -104,9 +106,9 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     if (type === 'food' && meal !== 'Select a Meal' && val) {
       addFood(e);
       setCalorieCount(calorieCount + val);
-      calorieCount <= userInfo.calorieGoal ?
+     (calorieCount <= userInfo.calorieGoal) ?
       setCelebrate(true) : setMotivate(true);
-      handleClose();
+     handleClose();
     } else if (type === 'water' && val) {
       addWater(e);
       setWaterCount(waterCount + val);
@@ -145,10 +147,12 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
 
   return (
     <>
+      {/* {
+          celebrate && <Confetti
+          width={width}
+          height={height}/>
+        } */}
       <Container>
-        {
-          celebrate && <Confetti />
-        }
         <Modal
           show={show}
           onHide={handleClose}

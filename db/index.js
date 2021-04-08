@@ -24,12 +24,12 @@ const pool = new Client({
 
 /*
 
-pool.connect();
-
 /*
   fetches the total calorie and water count for a given date and userID
   (returns a promise)
 */
+
+pool.connect();
 const sumDay = (userId, date) => {
   const queryString = `SELECT calories, water
                        FROM entries

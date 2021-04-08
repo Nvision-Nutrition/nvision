@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css';
 import CalorieTracker from './CalorieTracker.jsx';
 import InsertModals from './InsertModals.jsx';
 
-const DailyTracker = () => {
+const DailyTracker = ({celebrate, setCelebrate}) => {
   const [show, setShow] = useState(false);
   const [type, setType] = useState('');
   const [valid, setValid] = useState('');
@@ -27,7 +27,7 @@ const DailyTracker = () => {
         <Row>
           <Col style={{paddingLeft: '0px'}}>
             <Button
-              variant="warning"
+              // variant="outline-success"
               onClick={(e) => {
                 handleOpen();
                 setType('food');
@@ -37,6 +37,7 @@ const DailyTracker = () => {
                 height: '100%',
                 borderBottomLeftRadius: '0px',
                 borderBottomRightRadius: '0px',
+                backgroundColor: 'white',
               }}
               title='calorie-btn'>
               <img src='/restaurant.png'
@@ -53,12 +54,13 @@ const DailyTracker = () => {
           </Col>
           <Col style={{paddingRight: '0px'}}>
             <Button
-              variant="primary"
+              // variant="outline-success"
               style={{
                 width: '100%',
                 height: '100%',
                 borderBottomLeftRadius: '0px',
                 borderBottomRightRadius: '0px',
+                backgroundColor: 'white',
               }}
               onClick={(e) => {
                 handleOpen();
@@ -75,11 +77,12 @@ const DailyTracker = () => {
         <Row>
           <Col style={{paddingRight: '0px', paddingLeft: '0px'}}>
             <Button
-              variant="success"
+              // variant="outline-success"
               style={{
                 width: '100%',
                 borderTopLeftRadius: '0px',
                 borderTopRightRadius: '0px',
+                backgroundColor: 'white',
               }}
               onClick={(e) => {
                 handleOpen();
@@ -101,6 +104,8 @@ const DailyTracker = () => {
         onHide={handleClose}
         valid={valid}
         setValid={setValid}
+        celebrate={celebrate}
+        setCelebrate={setCelebrate}
       />
     </>
   );

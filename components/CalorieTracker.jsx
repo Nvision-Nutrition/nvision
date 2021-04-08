@@ -54,7 +54,7 @@ const CalorieTracker = () => {
           position: 'absolute',
           zIndex: '2', bottom: '2%',
           width: '15px', height: '15px'}}
-        variant="outline-success"
+        variant="outline-primary"
         type="button"
         onClick={() => {
           if (progress > 20) {

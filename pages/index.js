@@ -11,6 +11,8 @@ import { Container } from '@material-ui/core';
 import HistoryGraph from '../components/historyGraph.jsx';
 import WaterDaily from '../components/waterDaily.jsx';
 import axios from 'axios';
+import Confetti from 'react-confetti';
+
 
 const DailyTracker = dynamic(
   () => {
@@ -24,6 +26,7 @@ const App = () => {
   const [globalTheme, setGlobalTheme] = useState('light');
   const [session, loading] = useSession();
   const [signup, setSignup] = useState(false);
+  const [celebrate, setCelebrate] = useState(false);
 
   if (loading) {
     return <p>Loading...</p>
@@ -83,10 +86,13 @@ const App = () => {
       ))}
       {session && (
         <GlobalStateProvider session={session}>
+        {
+          celebrate && <Confetti/>
+        }
         <NvisionNavbar user={session} signOut={signOut} setGlobalTheme={setGlobalTheme}/>
         <div className={styles.container}>
           <main className={styles.main}>
-            <DailyTracker />
+            <DailyTracker celebrate={celebrate} setCelebrate={setCelebrate}/>
             <WaterDaily />
             <HistoryGraph />
           </main>

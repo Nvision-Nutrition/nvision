@@ -24,9 +24,10 @@ const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
         border: 'solid #28A745',
         borderRadius: '15px',
         padding: '0px',
+        backgroundColor: '#c5daee',
       }}
       sticky="top"
-      bg={theme}
+      // bg={theme}
       variant={theme}
     >
       <Navbar.Brand>

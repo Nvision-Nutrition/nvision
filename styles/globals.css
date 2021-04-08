@@ -7,6 +7,7 @@ body {
   font-family: 'Indie Flower', cursive;
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  background-color: #c5daee;
 }
 
 a {
@@ -115,6 +116,7 @@ a {
   .celebration-modal, .fail-modal {
     width: 80vw;
     max-width: 80vw;
+    margin: auto;
   }
 }
 
