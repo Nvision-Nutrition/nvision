@@ -64,9 +64,11 @@ const fetchDayCount = async (req, res) => {
     const day = {};
     day[date] = await sumDay(userID, date);
     res.send(day);
+    pool.end();
   } catch (err) {
     console.error(err);
     res.status(500).send();
+    pool.end();
   }
 };
 
@@ -101,9 +103,11 @@ const fetchWeek = async (req, res) => {
     }
 
     res.send(week);
+    pool.end();
   } catch (err) {
     console.error(err);
     res.status(500).send();
+    pool.end();
   }
 };
 
@@ -116,9 +120,11 @@ const insertCalories = (req, res) => {
   pool.query(queryString, [mealType, calories, mealName, usersDate, userId])
       .then((response) => {
         res.status(201).send('Calorie entry successful!');
+        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(400).send(err);
+        pool.end();
       });
 };
 
@@ -169,6 +175,7 @@ const addUser = async (req, res) => {
     if (userID !== -1) {
       // user exists already
       res.status(501).send(`user exists already with userID: ${userID}`);
+      pool.end();
     } else {
       // create a new user
       const queryString = `INSERT INTO users(
@@ -186,11 +193,13 @@ const addUser = async (req, res) => {
           }).catch((err) => {
             console.error(err);
             res.send(500);
+            pool.end();
           });
     }
   } catch (err) {
     console.error(err);
     res.status(500).send();
+    pool.end();
   }
 };
 
@@ -220,9 +229,11 @@ const insertWater = (req, res) => {
   pool.query(queryString, [waterType, water, usersDate, userId])
       .then((response) => {
         res.status(201).send('Water entry successful!');
+        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(400).send(err);
+        pool.end();
       });
 };
 
@@ -234,9 +245,11 @@ const insertWeight = (req, res) => {
   pool.query(queryString, [type, weight, usersDate, userId])
       .then((response) => {
         res.status(201).send('Weight entry successful!');
+        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(400).send(err);
+        pool.end();
       });
 };
 
@@ -248,9 +261,11 @@ const getFail = (req, res) => {
   pool.query(queryString)
       .then((failQuote) => {
         res.status(200).send(failQuote.rows);
+        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(404).send(err);
+        pool.end();
       });
 };
 
@@ -262,9 +277,11 @@ const getSuccess = (req, res) => {
   pool.query(queryString)
       .then((successQuote) => {
         res.status(200).send(successQuote.rows);
+        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(404).send(err);
+        pool.end();
       });
 };
 

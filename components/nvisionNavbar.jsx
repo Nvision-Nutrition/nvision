@@ -23,6 +23,7 @@ const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
         justifyContent: 'space-between',
         border: 'solid #28A745',
         borderRadius: '15px',
+        padding: '0px',
       }}
       sticky="top"
       bg={theme}
@@ -47,8 +48,8 @@ const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
             display: 'inline-flex',
             marginLeft: '25px',
             marginRight: '25px',
-            fontFamily: 'Fredoka One, Open Sans, Arial',
-            border: 'solid ',
+            fontFamily: 'Indie Flower, cursive',
+            border: 'solid 1px',
             borderRadius: '10px',
           }}
         > <h4 style={{marginBottom: '0px'}} >Sign Out</h4></Nav.Link>
@@ -58,7 +59,11 @@ const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
         variant={theme === 'light' ? 'outline-dark' : 'outline-light'}
         aria-label="dark-mode-toggle"
         onClick={toggleTheme}
-        style={{position: 'relative', marginBottom: '8px', marginRight: '3px'}}
+        style={{
+          position: 'relative',
+          marginBottom: '8px',
+          marginRight: '3px',
+          borderWeight: '1px'}}
       >
         <Brightness2Icon />
       </Button>
