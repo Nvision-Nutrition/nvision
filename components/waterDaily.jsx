@@ -2,9 +2,16 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Context} from './globalState.js';
 import {v4 as uuidv4} from 'uuid';
 import {card, description} from '../styles/Home.module.css';
+import axios from 'axios';
 
 const WaterDaily = () => {
-  const {theme} = useContext(Context);
+  const {
+    theme,
+    waterCount,
+    userId,
+    userInfo,
+    getCurrentDate,
+  } = useContext(Context);
   const [
     darkModeToggle,
     setDarkModeToggle,
@@ -13,7 +20,23 @@ const WaterDaily = () => {
   const [fullBottleSvg, setFullBottleSvg] = useState('/fullBottle.svg');
   const [subtitleDarkMode, setSubtitleDarkMode] = useState('subtitle');
 
-  const generateWaterGraph = (waterDrank = 0, waterGoal = 100) => {
+
+  const getCurrentWater = () => {
+    const today = getCurrentDate();
+
+    axios.get(`/api/progress?type=day&date=${today}`)
+        .then(({data}) => {
+          // console.log('Running generateWater with', today);
+          generateWaterGraph(data[today].waterSum);
+        }).catch((err) => console.error(err));
+  };
+
+  const generateWaterGraph = (waterDrank) => {
+    // eslint-disable-next-line prefer-const
+    // console.log('localWater', waterDrank);
+    const waterGoal = userInfo.waterGoal;
+    waterDrank =1;
+
     /*
      This finds the percentage rounded to the tens digit 62 => 60 => 6,
       representing 6 crushed water bottles out of 10
@@ -36,6 +59,7 @@ const WaterDaily = () => {
                   alt="empty-bottle"
                   className="bottle-image" />
               </div>);
+          break;
 
           // case 10: // waterPercentage = 6 - will not add a full bottle
           // bottleArray.push(
@@ -83,6 +107,7 @@ const WaterDaily = () => {
   };
 
   useEffect(() => {
+    getCurrentWater();
     if (theme === 'dark') {
       setDarkModeToggle(`${card} water-intake-chart-darkMode`);
       setEmptyBottleSvg('/emptyBottle-dk.svg');
@@ -94,13 +119,13 @@ const WaterDaily = () => {
       setFullBottleSvg('/fullBottle.svg');
       setSubtitleDarkMode('subtitle');
     }
-  }, [theme]);
+  }, [theme, waterCount, userId]);
 
   return (
     <>
       <div className={darkModeToggle}>
         <p className={`${description} ${subtitleDarkMode}`}>{`Water Intake`}</p>
-        { generateWaterGraph() }
+        { generateWaterGraph(getCurrentWater()) }
       </div>
     </>
   );

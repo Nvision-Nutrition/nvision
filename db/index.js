@@ -8,6 +8,21 @@ const pool = new Pool({
   port: 5432,
 });
 
+/* Helper Function to find local date */
+const getCurrentDate = () => {
+  // Since there is no 'local' timezone in heroku we will have to set
+  // the timezone manually.  Setting to Denver should fix most
+  // bugs, but ideally date will be passed into each query string
+  const todayMST = new Date().toLocaleString('sv', {
+    timeZone: 'America/Denver',
+  });
+  const today =todayMST.slice(0, 10);
+  return today;
+};
+  // Keeping the visual check if anyone wants to see it
+  // we should remove this line by Saturday
+  // console.log(getCurrentDate());
+
 /*
   fetches the total calorie and water count for a given date and userID
   (returns a promise)
@@ -49,7 +64,8 @@ const fetchDayCount = async (req, res) => {
 
   // 'userID' defaults to 1 for testing purposes only
   // 'date' defaults to today's date (Format: "2021-04-03")
-  const {userID = 1, date = new Date().toISOString().slice(0, 10)} = req.query;
+  const {userID = 1, date = getCurrentDate()} = req.query;
+
 
   try {
     const day = {};
@@ -79,16 +95,20 @@ const fetchWeek = async (req, res) => {
   try {
     const {userId} = req.query; // Adjusted to match other requests
     const week = [];
-    const today = new Date();
 
     // iterate through the past seven days
     let lastWeight = 0;
-    for (let i = 7; i > 0; i--) { // Reversing for chart
+    for (let i = 6; i >= 0; i--) { // Reversing for chart
       const currentDay = {};
-      const date = new Date(today);
-      // the switch in the loop of going from
-      // 7 to 1 correctly solves bug of incorrect NOW date showing up.
-      date.setDate(date.getDate() - i);
+      const date = new Date();
+      if (date.toISOString().slice(0, 10) === getCurrentDate()) {
+        // this signals that the UTC is on the same day as our MST default
+        // no logic adjustment needed
+        date.setDate(date.getDate() - i);
+      } else {
+        // this signals that the UTC is ahead by 1 day, so we should subtract 1
+        date.setDate(date.getDate() - i - 1);
+      }
       const formattedDate = date.toISOString().slice(0, 10);
 
       currentDay[formattedDate] = await sumDay(

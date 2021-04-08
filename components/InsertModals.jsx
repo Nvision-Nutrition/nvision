@@ -88,6 +88,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     if (type === 'food' && meal !== 'Select a Meal' && val) {
       addFood(e);
       setCalorieCount(calorieCount + val);
+      console.log(calorieCount);
       calorieCount <= userInfo.calorieGoal ?
       setCelebrate(true) : setMotivate(true);
       handleClose();

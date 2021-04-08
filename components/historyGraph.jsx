@@ -46,7 +46,6 @@ const HistoryGraph = () => {
       method: 'get',
     })
         .then((result) => {
-          console.log(result);
           setUserData(result.data);
         })
         .catch((error) => {
@@ -62,8 +61,12 @@ const HistoryGraph = () => {
   Object.keys(userData).forEach((day) => {
     // Fetch date key
     const date = Object.keys(userData[day]);
+    const dateFetch = new Date(date);
     // Re-format key to dow in short form (Mon, Tues, Wed)
-    const dow = new Date(date).toLocaleString('en-us', {weekday: 'short'});
+    // The arrangement of date strings is off for shortform utc fetched date
+    // So I had to create my own
+    const shortDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const dow = shortDays[dateFetch.getDay()];
     // Fetch the appropriate value for the date in question
     const val = userData[day][date][fetchValue];
 
@@ -133,8 +136,6 @@ const HistoryGraph = () => {
   };
 
   useEffect(()=>{
-    console.log('weightValue')
-    console.log(weightValue)
     if (userId !== 0) {
       getChartData();
     }
