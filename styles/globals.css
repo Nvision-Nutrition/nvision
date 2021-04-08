@@ -48,13 +48,6 @@ a {
    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
  }
 
-.titleFont {
-  font-family: Fredoka One, Open Sans, Arial;
-  text-shadow: 1px 1px 1px #28A745;
-  cursor: default;
-  display: inline;
-}
-
 .subtitle {
   color:rgb(0, 0, 0.85);
 }
