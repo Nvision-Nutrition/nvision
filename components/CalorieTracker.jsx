@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Context} from './globalState.js';
 
 import Apple from './Apple.jsx';
-import ProgressBar from 'react-bootstrap/ProgressBar';
+import {Button, ProgressBar} from 'react-bootstrap';
 
 
 const CalorieTracker = () => {
@@ -11,40 +11,60 @@ const CalorieTracker = () => {
 
   useEffect(() => {
     const {calorieGoal} = userInfo;
-    const calcProgressPercent = Math.floor(calorieCount / calorieGoal * 100);
+    const calcProgressPercent = Math.floor(calorieCount / calorieGoal * 100)/6;
     setProgress(calcProgressPercent);
   }, [calorieCount]);
 
   return (
     <>
       <div className="calorie-progress-container">
-        <style type="text/css">
-          {`
-          .progress{
-            height: 18.55rem;
-            width: 16.0rem;
-          }
-        `}
-        </style>
         <ProgressBar
+          style={{
+            height: '100%',
+            width: '190px',
+          }}
           className="calorie-progress-bar"
-          variant='success'
-          now={progress}
-        />
+        >
+          <ProgressBar
+            variant="red"
+            now={progress}
+          />
+          <ProgressBar
+            variant="orange"
+            now={progress}
+          />
+          <ProgressBar
+            variant="yellow"
+            now={progress}
+          />
+          <ProgressBar
+            variant="green"
+            now={progress}
+          />
+          <ProgressBar
+            variant="purple"
+            now={progress}
+          />
+        </ProgressBar>
         <Apple />
       </div>
-      <button
+
+      <Button
+        style={{
+          position: 'absolute',
+          zIndex: '2', bottom: '2%',
+          width: '15px', height: '15px'}}
+        variant="outline-success"
         type="button"
         onClick={() => {
-          if (progress >= 100) {
+          if (progress > 20) {
             setProgress(0);
           } else {
-            setProgress(progress+20);
+            setProgress(progress + (20/6));
           }
         }}
       >
-        Test
-      </button>
+      </Button>
     </>
   );
 };

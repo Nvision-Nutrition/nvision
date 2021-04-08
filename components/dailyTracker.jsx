@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button} from 'react-bootstrap';
+import {Button, Container, Row, Col} from 'react-bootstrap';
 import styles from '../styles/Home.module.css';
 import CalorieTracker from './CalorieTracker.jsx';
 import InsertModals from './InsertModals.jsx';
@@ -19,65 +19,89 @@ const DailyTracker = () => {
 
   return (
     <>
-      <div className={`${styles.card} daily-tracker`}>
-        <p className={`${styles.description} subtitle`}>{`Daily Tracker`}</p>
-        <CalorieTracker />
-        <Button
-          variant="outline-warning"
-          onClick={(e) => {
-            handleOpen();
-            setType('food');
-          }}
-          style={{
-            marginRight: 20,
-            width: '30%',
-          }}
-          title='calorie-btn'>
-          <img src='/restaurant.png'
-            style={{
-              height: '28px',
-              width: '28px',
-            }}/>
-        </Button>
-        <Button
-          variant="outline-primary"
-          style={{
-            width: '30%',
-          }}
-          onClick={(e) => {
-            handleOpen();
-            setType('water');
-          } }>
-          <img src='/drop.png'
-            style={{
-              height: '28px',
-              width: '28px',
-            }}/>
-        </Button>
-        <Button
-          variant="outline-success"
-          style={{
-            width: '30%',
-          }}
-          onClick={(e) => {
-            handleOpen();
-            setType('weight');
-          } }>
-          <img src='/weight-scale.png'
-            style={{
-              height: '28px',
-              width: '28px',
-            }}/>
-        </Button>
-        <InsertModals
-          show={show}
-          type={type}
-          handleClose={handleClose}
-          onHide={handleClose}
-          valid={valid}
-          setValid={setValid}
-        />
-      </div>
+      <Container style={{
+        border: 'solid grey',
+        borderRadius: '5px',
+        borderWidth: '1px',
+        zIndex: '1'}}>
+        <Row>
+          <Col style={{paddingLeft: '0px'}}>
+            <Button
+              variant="warning"
+              onClick={(e) => {
+                handleOpen();
+                setType('food');
+              }}
+              style={{
+                width: '100%',
+                height: '100%',
+                borderBottomLeftRadius: '0px',
+                borderBottomRightRadius: '0px',
+              }}
+              title='calorie-btn'>
+              <img src='/restaurant.png'
+                style={{
+                  height: '28px',
+                  width: '28px',
+                }}/>
+            </Button>
+          </Col>
+          <Col xs={6}>
+            {/* <div className={`${styles.card} daily-tracker`}> */}
+            <CalorieTracker />
+            {/* </div> */}
+          </Col>
+          <Col style={{paddingRight: '0px'}}>
+            <Button
+              variant="primary"
+              style={{
+                width: '100%',
+                height: '100%',
+                borderBottomLeftRadius: '0px',
+                borderBottomRightRadius: '0px',
+              }}
+              onClick={(e) => {
+                handleOpen();
+                setType('water');
+              } }>
+              <img src='/drop.png'
+                style={{
+                  height: '28px',
+                  width: '28px',
+                }}/>
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col style={{paddingRight: '0px', paddingLeft: '0px'}}>
+            <Button
+              variant="success"
+              style={{
+                width: '100%',
+                borderTopLeftRadius: '0px',
+                borderTopRightRadius: '0px',
+              }}
+              onClick={(e) => {
+                handleOpen();
+                setType('weight');
+              } }>
+              <img src='/weight-scale.png'
+                style={{
+                  height: '28px',
+                  width: '28px',
+                }}/>
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+      <InsertModals
+        show={show}
+        type={type}
+        handleClose={handleClose}
+        onHide={handleClose}
+        valid={valid}
+        setValid={setValid}
+      />
     </>
   );
 };

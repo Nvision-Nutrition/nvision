@@ -1,12 +1,27 @@
+/* pooling connection not supported on heroku dev tier:
+
 const {Pool} = require('pg');
 
 const pool = new Pool({
   user: process.env.POSTGRES_USER,
-  host: 'localhost',
-  database: 'nvision',
+  host: 'ec2-54-211-176-156.compute-1.amazonaws.com',
+  database: process.env.POSTGRES_DATABASE,
   password: process.env.POSTGRES_PASS,
   port: 5432,
 });
+
+*/
+
+const {Client} = require('pg');
+
+const pool = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+pool.connect();
 
 /*
   fetches the total calorie and water count for a given date and userID
@@ -176,6 +191,24 @@ const addUser = async (req, res) => {
   }
 };
 
+// with username get user information
+const getUser = async (username) => {
+  const userID = await getUsernameID(username);
+  if (userID === -1) {
+    return null;
+  }
+  const queryString = `SELECT * FROM users WHERE id=$1`;
+  return new Promise((resolve, reject) => {
+    pool.query(queryString, [userID])
+        .then((result) => {
+          resolve(result.rows[0]);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+  });
+};
+
 // insert into entries table - water record
 const insertWater = (req, res) => {
   const {waterType, userId, water, usersDate} = req.body;
@@ -241,4 +274,5 @@ module.exports = {
   fetchDayCount,
   fetchWeek,
   addUser,
+  getUser,
 };
