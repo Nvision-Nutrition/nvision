@@ -6,15 +6,9 @@ import axios from 'axios';
 import DailyTracker from 'dailyTracker.jsx';
 import InsertModals from 'InsertModals.jsx';
 
-beforeEach(() => {
+xdescribe('calorie input button', () => {
   const renderTracker = () => {
-    return render(<DailyTracker />, {wrapper: GlobalStateProvider});
-  };
-});
-
-describe('calorie input button', () => {
-  const renderTracker = async () => {
-    const tracker = await render(<DailyTracker />,
+    const tracker = render(<DailyTracker user={'emma'}/>,
         {wrapper: GlobalStateProvider});
     return tracker;
   };
@@ -24,55 +18,17 @@ describe('calorie input button', () => {
     expect(calBtn).toBeTruthy();
   });
 
-  // it('clicking the button toggles the modal', async () => {
-  //   renderTracker();
-  //   const button = screen.queryByTitle('calorie-btn');
-  //   fireEvent.click(button);
-  //   const recordBtn = await screen.getByText('Record it!');
-  //   expect(recordBtn).toBeInTheDocument();
-  // });
+  it('clicking the button toggles the modal', () => {
+    renderTracker();
+    const button = screen.queryByTitle('calorie-btn');
+    fireEvent.click(button);
+    const recordBtn = screen.getByText('Record it!');
+    expect(recordBtn).toBeInTheDocument();
+  });
 });
 
-// describe('water input button', () => {
-//   const renderTracker = () => {
-//     return render(<DailyTracker />, {wrapper: GlobalStateProvider});
-//   };
-//   it('should render', () => {
-//     const {queryByTitle} = renderTracker();
-//     const calBtn = queryByTitle('calorie-btn');
-//     expect(calBtn).toBeTruthy();
-//   });
-
-//   it('clicking the button toggles the modal', () => {
-//     renderTracker();
-//     const button = screen.queryByTitle('calorie-btn');
-//     fireEvent.click(button);
-//     expect(screen.getByText('Record it!')).toBeInTheDocument();
-//   });
-// });
-
-// describe('weight input button', () => {
-//   const renderTracker = () => {
-//     return render(<DailyTracker />, {wrapper: GlobalStateProvider});
-//   };
-//   it('should render', () => {
-//     const {queryByTitle} = renderTracker();
-//     const calBtn = queryByTitle('calorie-btn');
-//     expect(calBtn).toBeTruthy();
-//   });
-
-//   it('clicking the button toggles the modal', () => {
-//     renderTracker();
-//     const button = screen.queryByTitle('calorie-btn');
-//     fireEvent.click(button);
-//     expect(screen.getByText('Record it!')).toBeInTheDocument();
-//   });
-// });
-
-
 /*
-These tests will need to migrate to dailyTracker due to the fact that
-buttons must be clicked in order for modal to render.
+Insert Modal
 
 describe('calorie, water, and weight modals', () => {
   const renderModal = () => {
@@ -100,5 +56,3 @@ tests for insert modals:
 4. axios req sent to db on click of record button
 5. alert message if input is not valid
 */
-
-
