@@ -1,3 +1,4 @@
+import { SingleBedOutlined } from '@material-ui/icons';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 const db = require('../../../db/index')
@@ -5,14 +6,16 @@ const db = require('../../../db/index')
 const credentialsObject = async (credentials) => {
     // In futre hash password here using argon2
     //returns a user or nothing if username doesn't exist
-    var user = await db.getUser(credentials.username);
+    var user = await db.getUser(credentials.email);
     if (user !== null) {
         user.verdict = credentials.password === user.password ? 
         true : false;
         return user;
 
     } else {
-        user.verdict = false;
+        let user = {
+            verdict: false
+        }
         return user;
     }
 }
@@ -22,7 +25,7 @@ const providers = [
     Providers.Credentials({
         name: 'Credentials',
         credentials: {
-            username: { label: 'Username', type: 'text', placeholder: 'vision' },
+            email: { label: 'Email', type: 'text', placeholder: 'vision@gmail.com' },
             password: { label: 'Password', type: 'password' },
         },
         authorize: async (credentials) => {
@@ -37,6 +40,11 @@ const providers = [
             }
         },
     }),
+    //add google auth - how to make it persist if it doesn't already?  I'd like to continue with JWT
+    Providers.Google({
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    })
 ]
 
 const callbacks = {
@@ -50,6 +58,19 @@ const callbacks = {
         //add user to session
         session.user = token.user;
         return session;
+    },
+    async signIn(user, account, profile) {
+        if (account.provider === 'google' &&
+            profile.verified_email === true &&
+            profile.email.endsWith('@gmail.com')) {
+                console.log('Google came back')
+                console.log('profile: ', profile)
+                console.log('account: ', account)
+                console.log('user: ', user)
+                return true
+            } else {
+                return false
+            }
     }
 }
 

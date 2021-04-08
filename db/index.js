@@ -177,9 +177,9 @@ const addUser = async (req, res) => {
 };
 
 //with username get user information
-const getUser = async (username) => {
+const getUser = async (email) => {
   
-  const userID = await getUsernameID(username);
+  const userID = await getEmailID(email);
   if (userID === -1) {
     return null; 
   }
