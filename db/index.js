@@ -1,12 +1,16 @@
-// const {Pool} = require('pg');
+/* pooling connection not supported on heroku dev tier:
 
-// const pool = new Pool({
-//   user: process.env.POSTGRES_USER,
-//   host: 'ec2-54-211-176-156.compute-1.amazonaws.com',
-//   database: process.env.POSTGRES_DATABASE,
-//   password: process.env.POSTGRES_PASS,
-//   port: 5432,
-// });
+const {Pool} = require('pg');
+
+const pool = new Pool({
+  user: process.env.POSTGRES_USER,
+  host: 'ec2-54-211-176-156.compute-1.amazonaws.com',
+  database: process.env.POSTGRES_DATABASE,
+  password: process.env.POSTGRES_PASS,
+  port: 5432,
+});
+
+*/
 
 const {Client} = require('pg');
 
