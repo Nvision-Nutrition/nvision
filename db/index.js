@@ -76,8 +76,10 @@ const fetchDayCount = async (req, res) => {
   ]
 */
 const fetchWeek = async (req, res) => {
+  console.log('in fetchweek')
   try {
-    const {userID = 1} = req.query;
+    const {userId} = req.query; // Adjusted to match other reqs
+    console.log(userId);
     const week = [];
     const today = new Date();
 
@@ -92,7 +94,7 @@ const fetchWeek = async (req, res) => {
       const formattedDate = date.toISOString().slice(0, 10);
 
       currentDay[formattedDate] = await sumDay(
-          userID,
+          userId,
           formattedDate);
       lastWeight = currentDay[formattedDate].weightSum !== 0 ?
         currentDay[formattedDate].weightSum :

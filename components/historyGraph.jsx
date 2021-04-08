@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import {Context} from './globalState.js';
 import {ResponsiveBar} from '@nivo/bar';
 import sevenDayFetch from '../db/dummyData/dummyData.js';
 import styles from '../styles/Home.module.css';
@@ -9,6 +10,8 @@ const HistoryGraph = () => {
   // Macro Number 0 = cal, 1 = water, 2 = weight
   const [macroNumber, setMacroNumber] = useState(1);
   const [userData, setUserData] = useState(sevenDayFetch);
+  const {userId, calorieCount, waterCount} = useContext(Context);
+  console.log('userId', userId)
 
   // keyValue: Graph set up/ aesthetics
   // fetchValue: Define the appropriate db column to fetch from
@@ -40,7 +43,7 @@ const HistoryGraph = () => {
 
   const getChartData = () => {
     axios({
-      url: 'api/progress?type=week&userId=1',
+      url: `api/progress?type=week&userId=${userId}`,
       method: 'get',
     })
         .then((result) => {
@@ -131,8 +134,10 @@ const HistoryGraph = () => {
   };
 
   useEffect(()=>{
-    getChartData();
-  }, []);
+    if (userId !== 0) {
+      getChartData();
+    }
+  }, [userId, calorieCount, waterCount]);
 
   return (
     <>
