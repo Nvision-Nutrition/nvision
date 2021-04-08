@@ -116,7 +116,7 @@ const SignUp = ({setSignup}) => {
         <Form.Group>
           <Form.Label>Daily Calorie Limit</Form.Label>
           <Form.Control
-            placeholder="Enter calorie limit"
+            placeholder="Enter calorie goal"
             onChange={handleChange}
             name='calorieGoal'
             value={state.calorieGoal}

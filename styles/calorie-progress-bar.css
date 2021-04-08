@@ -20,5 +20,26 @@
 .calorie-progress-overlay {
   position: relative;
   overflow: visible;
+  height: 220px;
+  width: 220px;
   size: auto;
+}
+
+.bg-red {
+  background-color: red;
+}
+.bg-orange {
+  background-color: orange;
+}
+.bg-yellow {
+  background-color: yellow;
+}
+.bg-green {
+  background-color: green;
+}
+.bg-blue {
+  background-color: blue;
+}
+.bg-purple {
+  background-color: purple;
 }

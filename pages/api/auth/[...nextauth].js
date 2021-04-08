@@ -4,18 +4,19 @@ import Providers from 'next-auth/providers';
 const db = require('../../../db/index');
 
 const credentialsObject = async (credentials) => {
-  // In futre hash password here using argon2
-  // returns a user or nothing if username doesn't exist
-  const user = await db.getUser(credentials.username);
-  if (user !== undefined) {
-    user.verdict = credentials.password === user.password ?
-    true : false;
-    return user;
-  } else {
-    user.verdict = false;
-    return user;
-  }
-};
+    // In futre hash password here using argon2
+    //returns a user or nothing if username doesn't exist
+    var user = await db.getUser(credentials.username);
+    if (user !== null) {
+        user.verdict = credentials.password === user.password ? 
+        true : false;
+        return user;
+
+    } else {
+        user.verdict = false;
+        return user;
+    }
+}
 
 
 const providers = [
@@ -43,16 +44,15 @@ const callbacks = {
   // After authorization come here
   // get the JWT token from API response
   async jwt(token, user, account, profile, isNewUser) {
-    console.log('user: ', user);
     user && (token.user = user);
     return token;
-  },
-  async session(session, token) {
-  // add user to session
-    session.user = token.user;
-    return session;
-  },
-};
+    },
+    async session(session, token) {
+        //add user to session
+        session.user = token.user;
+        return session;
+    }
+}
 
 const session = {
   // aging the session to expire at 12 hours (displays in zulu time)
