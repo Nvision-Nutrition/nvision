@@ -7,7 +7,7 @@ import axios from 'axios';
 import NumPad from 'react-numpad';
 import Celebration from './Celebration.jsx';
 import Failure from './Failure.jsx';
-import styles from '../styles/Home.module.css';
+import Confetti from 'react-confetti';
 
 const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   const [meal, setMeal] = useState('Select a Meal');
@@ -90,7 +90,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     };
     axios.post('/api/addWeight', weightEntry)
         .then((res) => {
-          console.log(res);
           setVal(0);
           setValid('');
         })
@@ -141,16 +140,20 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     },
     global: {
       fontFamily: 'Indie Flower, cursive',
-      // fontFamily: 'Roboto, Helvetica Neue, Arial, sans-serif, Helvetica',
     },
   };
 
   return (
     <>
       <Container>
+        {
+          celebrate && <Confetti />
+        }
         <Modal
           show={show}
           onHide={handleClose}
+          centered
+          dialogClassName="insert-modals"
         >
           <Modal.Header closeButton
             style={{
@@ -238,9 +241,16 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               <br/>
               {
                 type === 'food' ? <Form.Label>Calories</Form.Label> :
-                type === 'water' ? <Form.Label>Water (oz)</Form.Label> :
+                type === 'water' ? <Form.Label>Water (oz)
+
+                </Form.Label> :
                 <Form.Label>Weight (lb)</Form.Label>
               }
+              {type == 'water' && <div
+                style={{
+                  fontSize: '12px',
+                }}
+              >1 glass of water is 8 oz</div>}
               <br/>
               <NumPad.Number
                 onChange={(value) => {
