@@ -71,3 +71,6 @@ INSERT INTO quotes(failure_quote, success_quote) VALUES('Believe in yourself and
 INSERT INTO quotes(failure_quote, success_quote) VALUES('Mistakes are inevitable, but as long as you keep trying, you will remain perfect!', 'Your hard work will not go unnoticed!');
 INSERT INTO quotes(failure_quote, success_quote) VALUES('You will gain confidence with every small positive change you are making.', 'You''ve got this!');
 INSERT INTO quotes(failure_quote, success_quote) VALUES('You can accomplish anything you set your mind to!', 'Keep up the great work!');
+
+INSERT INTO users(firstName,  lastName, username, password, email,  calorieGoal, waterGoal) VALUES('John', 'Doe', 'jdoe', 'password', 'jdoe@yahoo.com', 5, 5);
+INSERT INTO sessions(session,  user_id) VALUES('1', 1);
