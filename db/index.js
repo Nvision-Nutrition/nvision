@@ -76,10 +76,8 @@ const fetchDayCount = async (req, res) => {
   ]
 */
 const fetchWeek = async (req, res) => {
-  console.log('in fetchweek')
   try {
-    const {userId} = req.query; // Adjusted to match other reqs
-    console.log(userId);
+    const {userId} = req.query; // Adjusted to match other requests
     const week = [];
     const today = new Date();
 
