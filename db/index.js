@@ -12,8 +12,8 @@ const pool = new Pool({
   fetches the total calorie and water count for a given date and userID
   (returns a promise)
 */
-const sumDay = (userId, date) => {
-  const queryString = `SELECT calories, water
+const sumDay = (userId, date, lastWeight) => {
+  const queryString = `SELECT calories, water, weight
                        FROM entries
                        WHERE user_id=$1 AND date=$2;`;
 
@@ -22,12 +22,14 @@ const sumDay = (userId, date) => {
         .then((response) => {
           let calorieSum = 0;
           let waterSum = 0;
+          let weightSum = 0;
 
           response.rows.forEach((entry) => {
             calorieSum += entry.calories;
             waterSum += entry.water;
+            weightSum = entry.weight; // fetches last input value
           });
-          const sums = {calorieSum: calorieSum, waterSum: waterSum};
+          const sums = {calorieSum: calorieSum, waterSum: waterSum, weightSum: weightSum};
           resolve(sums);
         }).catch((err) => reject(err));
   });
@@ -73,16 +75,32 @@ const fetchWeek = async (req, res) => {
     const today = new Date();
 
     // iterate through the past seven days
-    for (let i = 0; i < 7; i++) {
+    let lastWeight = 0;
+    for (let i = 7; i > 0; i--) { // Reversing for chart
       const currentDay = {};
       const date = new Date(today);
+      // the switch in the loop of going from
+      // 7 to 1 correctly solves bug of incorrect NOW date showing up.
       date.setDate(date.getDate() - i);
       const formattedDate = date.toISOString().slice(0, 10);
-      currentDay[formattedDate] = await sumDay(userID, formattedDate);
+
+      currentDay[formattedDate] = await sumDay(
+          userID,
+          formattedDate,
+          lastWeight,
+      );
+      lastWeight = currentDay[formattedDate].weightSum !== 0 ?
+        currentDay[formattedDate].weightSum :
+        lastWeight;
+
+      // eslint-disable-next-line max-len
+      currentDay[formattedDate].weightSum = currentDay[formattedDate].weightSum === 0 ?
+        lastWeight :
+        currentDay[formattedDate].weightSum;
       week.push(currentDay);
     }
 
-    res.send(week);
+    res.send(week); // Reversing for the chart data load
   } catch (err) {
     console.error(err);
     res.status(500).send();
