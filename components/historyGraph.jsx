@@ -10,8 +10,7 @@ const HistoryGraph = () => {
   // Macro Number 0 = cal, 1 = water, 2 = weight
   const [macroNumber, setMacroNumber] = useState(1);
   const [userData, setUserData] = useState(sevenDayFetch);
-  const {userId, calorieCount, waterCount} = useContext(Context);
-  console.log('userId', userId)
+  const {userId, calorieCount, waterCount, weightValue} = useContext(Context);
 
   // keyValue: Graph set up/ aesthetics
   // fetchValue: Define the appropriate db column to fetch from
@@ -134,10 +133,12 @@ const HistoryGraph = () => {
   };
 
   useEffect(()=>{
+    console.log('weightValue')
+    console.log(weightValue)
     if (userId !== 0) {
       getChartData();
     }
-  }, [userId, calorieCount, waterCount]);
+  }, [userId, calorieCount, waterCount, weightValue]);
 
   return (
     <>

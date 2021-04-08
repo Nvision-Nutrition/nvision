@@ -19,6 +19,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     calorieCount,
     setCalorieCount,
     waterCount,
+    setWeightValue,
     setWaterCount} = useContext(Context);
 
   const handleChange = (e) => {
@@ -97,6 +98,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       handleClose();
     } else if (type === 'weight' && val) {
       addWeight(e);
+      setWeightValue(val);
       val <= userInfo.weightGoal ?
       setCelebrate(true) : setMotivate(true);
       handleClose();
