@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Context} from './globalState.js';
 
 import Apple from './Apple.jsx';
-import {Button, ProgressBar, Container} from 'react-bootstrap';
+import {Button, ProgressBar} from 'react-bootstrap';
 
 
 const CalorieTracker = () => {
@@ -12,6 +12,7 @@ const CalorieTracker = () => {
   useEffect(() => {
     const {calorieGoal} = userInfo;
     const calcProgressPercent = Math.floor(calorieCount / calorieGoal * 100);
+    console.log(calcProgressPercent);
     setProgress(calcProgressPercent);
   }, [calorieCount]);
 
@@ -24,9 +25,28 @@ const CalorieTracker = () => {
             width: '190px',
           }}
           className="calorie-progress-bar"
-          variant='danger'
-          now={progress}
-        />
+        >
+          <ProgressBar
+            variant="red"
+            now={progress / 6}
+          />
+          <ProgressBar
+            variant="orange"
+            now={progress / 6}
+          />
+          <ProgressBar
+            variant="yellow"
+            now={progress /6}
+          />
+          <ProgressBar
+            variant="green"
+            now={progress /6}
+          />
+          <ProgressBar
+            variant="purple"
+            now={progress / 6}
+          />
+        </ProgressBar>
         <Apple />
       </div>
 
@@ -38,7 +58,7 @@ const CalorieTracker = () => {
         variant="outline-success"
         type="button"
         onClick={() => {
-          if (progress >= 100) {
+          if (progress > 120) {
             setProgress(0);
           } else {
             setProgress(progress+20);
