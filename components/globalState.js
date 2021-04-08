@@ -50,7 +50,7 @@ export const GlobalStateProvider = ({children, session}) => {
       username: session.user.username,
       calorieGoal: session.user.caloriegoal,
       waterGoal: session.user.watergoal,
-      weightGoal: null,
+      weightGoal: session.user.weightgoal,
     });
     setUserId(session.user.id);
   }, []);

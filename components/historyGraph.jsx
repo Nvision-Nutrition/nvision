@@ -88,6 +88,12 @@ const HistoryGraph = () => {
   // Button Control
   // Switches between the different macro values
   const graphSwap = () => {
+    console.log('waterGoal')
+    console.log(userInfo.waterGoal)
+    console.log('weightGoal')
+    console.log(userInfo.weightGoal)
+    console.log('calorieGoal')
+    console.log(userInfo.calorieGoal)
     setMacroNumber(macroNumber === 2 ?
       0 :
       (macroNumber + 1 ));
