@@ -19,23 +19,24 @@ const WaterDaily = () => {
   const [emptyBottleSvg, setEmptyBottleSvg] = useState('/emptyBottle.svg');
   const [fullBottleSvg, setFullBottleSvg] = useState('/fullBottle.svg');
   const [subtitleDarkMode, setSubtitleDarkMode] = useState('subtitle');
+  const [waterDrank, setWaterDrank] = useState(0);
 
 
   const getCurrentWater = () => {
     const today = getCurrentDate();
+    console.log(today)
 
-    axios.get(`/api/progress?type=day&date=${today}`)
+    axios.get(`/api/progress?type=day&date=${today}&userId=${userId}`)
         .then(({data}) => {
           // console.log('Running generateWater with', today);
-          generateWaterGraph(data[today].waterSum);
+          console.log(data)
+          setWaterDrank(data[today].waterSum);
+          generateWaterGraph(waterDrank);
         }).catch((err) => console.error(err));
   };
 
-  const generateWaterGraph = (waterDrank) => {
-    // eslint-disable-next-line prefer-const
-    // console.log('localWater', waterDrank);
+  const generateWaterGraph = () => {
     const waterGoal = userInfo.waterGoal;
-    waterDrank =1;
 
     /*
      This finds the percentage rounded to the tens digit 62 => 60 => 6,
@@ -44,6 +45,7 @@ const WaterDaily = () => {
     let waterPercentage = waterGoal > 0 ?
       Math.round((waterDrank / waterGoal) * 10) :
       0;
+    console.log(waterPercentage);
 
     const bottleArray = [];
     for (let j = 0; j < 10; j += 1) {
@@ -125,7 +127,7 @@ const WaterDaily = () => {
     <>
       <div className={darkModeToggle}>
         <p className={`${description} ${subtitleDarkMode}`}>{`Water Intake`}</p>
-        { generateWaterGraph(getCurrentWater()) }
+        { generateWaterGraph(waterDrank) }
       </div>
     </>
   );

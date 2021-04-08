@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
@@ -10,7 +11,7 @@ export const GlobalStateProvider = ({children, session}) => {
     username: '',
     calorieGoal: 0,
     waterGoal: 0,
-    weightGoal: 0
+    weightGoal: 0,
   });
 
   const [userId, setUserId] = useState(0);
@@ -34,13 +35,14 @@ export const GlobalStateProvider = ({children, session}) => {
 
   const getCurrentDate = () => {
     const todayDate = new Date();
-    const today = `${todayDate.getFullYear()}-${("0" + (todayDate.getMonth() + 1)).slice(-2)}-${('0' + todayDate.getDate()).slice(-2)}`
+    // eslint-disable-next-line max-len
+    const today = `${todayDate.getFullYear()}-${('0' + (todayDate.getMonth() + 1)).slice(-2)}-${('0' + todayDate.getDate()).slice(-2)}`;
     return today;
   };
 
   useEffect(() => {
     getCurrentCounts();
-    //weight not implemented in sign up form yet
+    // weight not implemented in sign up form yet
     setUserInfo({
       firstName: session.user.firstname,
       lastName: session.user.lastname,
@@ -48,9 +50,9 @@ export const GlobalStateProvider = ({children, session}) => {
       username: session.user.username,
       calorieGoal: session.user.caloriegoal,
       waterGoal: session.user.watergoal,
-      weightGoal: null
-    })
-    setUserId(session.user.id)
+      weightGoal: null,
+    });
+    setUserId(session.user.id);
   }, []);
 
   return (

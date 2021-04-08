@@ -64,12 +64,11 @@ const fetchDayCount = async (req, res) => {
 
   // 'userID' defaults to 1 for testing purposes only
   // 'date' defaults to today's date (Format: "2021-04-03")
-  const {userID = 1, date = getCurrentDate()} = req.query;
-
+  const {userId = 1, date = getCurrentDate()} = req.query;
 
   try {
     const day = {};
-    day[date] = await sumDay(userID, date);
+    day[date] = await sumDay(userId, date);
     res.send(day);
   } catch (err) {
     console.error(err);
