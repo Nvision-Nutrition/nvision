@@ -12,7 +12,7 @@ const pool = new Pool({
   fetches the total calorie and water count for a given date and userID
   (returns a promise)
 */
-const sumDay = (userId, date, lastWeight) => {
+const sumDay = (userId, date) => {
   const queryString = `SELECT calories, water, weight
                        FROM entries
                        WHERE user_id=$1 AND date=$2;`;
@@ -22,6 +22,9 @@ const sumDay = (userId, date, lastWeight) => {
         .then((response) => {
           let calorieSum = 0;
           let waterSum = 0;
+
+          // Leaving this as weight sum even though it is a 1 off val
+          // for cohesiveness in my later fetches.
           let weightSum = 0;
 
           response.rows.forEach((entry) => {
@@ -90,9 +93,7 @@ const fetchWeek = async (req, res) => {
 
       currentDay[formattedDate] = await sumDay(
           userID,
-          formattedDate,
-          lastWeight,
-      );
+          formattedDate);
       lastWeight = currentDay[formattedDate].weightSum !== 0 ?
         currentDay[formattedDate].weightSum :
         lastWeight;
