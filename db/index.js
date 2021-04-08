@@ -50,7 +50,6 @@ pool.connect();
   (returns a promise)
 */
 const sumDay = (userId, date) => {
-  console.log(`in sumday with ${userId} and date ${date}`)
   const queryString = `SELECT calories, water, weight
                        FROM entries
                        WHERE user_id=$1 AND date=$2;`;

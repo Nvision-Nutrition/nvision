@@ -24,12 +24,9 @@ const WaterDaily = () => {
 
   const getCurrentWater = () => {
     const today = getCurrentDate();
-    console.log(today)
 
     axios.get(`/api/progress?type=day&date=${today}&userId=${userId}`)
         .then(({data}) => {
-          // console.log('Running generateWater with', today);
-          console.log(data)
           setWaterDrank(data[today].waterSum);
           generateWaterGraph(waterDrank);
         }).catch((err) => console.error(err));
@@ -45,7 +42,6 @@ const WaterDaily = () => {
     let waterPercentage = waterGoal > 0 ?
       Math.round((waterDrank / waterGoal) * 10) :
       0;
-    console.log(waterPercentage);
 
     const bottleArray = [];
     for (let j = 0; j < 10; j += 1) {
