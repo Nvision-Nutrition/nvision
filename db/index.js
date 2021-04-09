@@ -9,13 +9,12 @@ const pool = new Pool({
 });
 */
 
-const {Client} = require('pg');
-
-const pool = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+const {Pool} = require('pg');
+const pool = new Pool({
+  host: '18.218.164.26',
+  user: 'ubuntu',
+  password: 'ubuntupass', //Adjust this to the password
+  database: 'nvision',
 });
 
 /* Helper Function to find local date */
@@ -39,7 +38,6 @@ pool.connect();
   (returns a promise)
 */
 
-pool.connect();
 const sumDay = (userId, date) => {
   const queryString = `SELECT calories, water, weight
                        FROM entries
