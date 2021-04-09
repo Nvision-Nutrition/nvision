@@ -47,6 +47,9 @@ User Stories
 * As a user I should be able to recieve a motivational message when I am struggling to meet my daily goals.
 
 ## MVP
+
+https://user-images.githubusercontent.com/73598239/114245298-720e3f80-994d-11eb-89bb-6b8ccc5d2fc2.mp4
+
 ![picture alt](http://via.placeholder.com/200x150 "Title is optional")
 web app demo 1
 
@@ -54,7 +57,10 @@ web app demo 1
 web app demo 2
 
 ## Future additions:
-stretch goals that were not achieved go here!
+stretch goals that were not
+
+
+ achieved go here!
 
 ## Workflow:
 ![picture alt](http://via.placeholder.com/200x150 "Title is optional")
@@ -66,5 +72,5 @@ Our team implemented an agile process as well as a modern Git workflow over the 
 
 -linter/best practices
 
-Ticketing System: [https://app.asana.com/0/1200144939863904/board]
-Wireframe: [https://www.figma.com/file/UlLnGihRrXrBesmVPPHJ1A/nVision-Nutrition?node-id=0%3A1]
+[Ticketing System](https://app.asana.com/0/1200144939863904/board)
+[Wireframe](https://www.figma.com/file/UlLnGihRrXrBesmVPPHJ1A/nVision-Nutrition?node-id=0%3A1)
