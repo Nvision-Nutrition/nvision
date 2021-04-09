@@ -27,7 +27,6 @@ const SignUp = ({setSignup}) => {
 
 
   const submitUser = () => {
-    console.log(Number(state.phone));
     // check that data is there
     if (!state.firstName || !state.lastName || !state.password1 ||
         !state.calorieGoal || !state.waterGoal||
@@ -50,12 +49,11 @@ const SignUp = ({setSignup}) => {
         data: state,
       })
           .then((result) => {
-            console.log(result + 'this is the result.');
             alert('Account creation successful!');
             setSignup(false);
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
             alert('Sign up unsuccessful: '+
             'someone has already taken this username.');
           });
