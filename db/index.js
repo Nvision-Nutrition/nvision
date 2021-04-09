@@ -14,20 +14,20 @@ const pool = new Pool({
 
 const {Client} = require('pg');
 
-// const pool = new Client({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: {
-//     rejectUnauthorized: false,
-//   },
-// });
-// connectionString: process.env.DATABASE_URL
 const pool = new Client({
-  user: 'orennelson',
-  host: 'localhost',
-  database: 'nvision',
-  password: 'password',
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+//local testing client below
+// const pool = new Client({
+//   user: 'orennelson',
+//   host: 'localhost',
+//   database: 'nvision',
+//   password: 'password',
+//   port: 5432,
+// });
 
 /* Helper Function to find local date */
 const getCurrentDate = () => {
