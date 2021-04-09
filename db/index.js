@@ -19,10 +19,10 @@ const {Client} = require('pg');
 // });
 //local testing client below
 const pool = new Client({
-  user: 'orennelson',
+  user: process.env.POSTGRES_USER,
   host: 'localhost',
   database: 'nvision',
-  password: 'password',
+  password: process.env.POSTGRES_PASS,
   port: 5432,
 });
 
