@@ -129,7 +129,7 @@ const InsertModals = ({
       addWeight(e);
       setWeightValue(Number(val));
       if (weightValue === 0) {
-        val <= weightGoal ?
+        val <= userInfo.weightGoal ?
         setCelebrate(true) : setMotivate(true);
       } else {
         val <= weightValue ?

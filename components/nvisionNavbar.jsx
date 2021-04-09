@@ -43,7 +43,7 @@ const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
         </div>
       </Navbar.Brand>
       <h4>
-        Be Healthy
+        You Got It!
       </h4>
       <Nav>
         <Nav.Link
