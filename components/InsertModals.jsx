@@ -131,10 +131,10 @@ const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setC
 
   const myTheme = {
     header: {
-      primaryColor: '#dc3545',
+      primaryColor: '#ffadad',
       secondaryColor: '#ECEFF1',
       highlightColor: '#FFC107',
-      backgroundColor: '#dc3545',
+      backgroundColor: '#ffadad',
     },
     body: {
       primaryColor: '#000000',
@@ -143,7 +143,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setC
       backgroundColor: '#000000',
     },
     panel: {
-      backgroundColor: '#dc3545',
+      backgroundColor: '#ffadad',
     },
     global: {
       fontFamily: 'Indie Flower, cursive',
@@ -292,7 +292,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setC
               }
               <br/>
               <Button
-                variant="outline-danger"
+                variant="outline-dark"
                 onClick={(e) => {
                   handleInput(e);
                 }}>

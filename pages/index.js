@@ -12,6 +12,7 @@ import HistoryGraph from '../components/historyGraph.jsx';
 import WaterDaily from '../components/waterDaily.jsx';
 import axios from 'axios';
 import Confetti from 'react-confetti';
+import { useWindowSize } from '@react-hook/window-size'
 
 
 const DailyTracker = dynamic(
@@ -27,6 +28,7 @@ const App = () => {
   const [session, loading] = useSession();
   const [signup, setSignup] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
+  const [width, height] = useWindowSize();
 
   console.log(session)
   if (loading) {
@@ -88,7 +90,10 @@ const App = () => {
       {session && (
         <GlobalStateProvider session={session}>
         {
-          celebrate && <Confetti/>
+          celebrate && <Confetti
+          height={height}
+          width={width}
+          />
         }
         <NvisionNavbar user={session} signOut={signOut} setGlobalTheme={setGlobalTheme}/>
         <div className={styles.container}>

@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import {Context} from './globalState.js';
 
 import Apple from './Apple.jsx';
-import {Button, ProgressBar} from 'react-bootstrap';
+import {ProgressBar} from 'react-bootstrap';
 
 
 const CalorieTracker = () => {

@@ -3,7 +3,7 @@ import {Context} from './globalState.js';
 import {ResponsiveBar} from '@nivo/bar';
 import sevenDayFetch from '../db/dummyData/dummyData.js';
 import styles from '../styles/Home.module.css';
-import {Button} from 'react-bootstrap';
+import {Button, Col} from 'react-bootstrap';
 import axios from 'axios';
 
 const HistoryGraph = () => {
@@ -184,12 +184,20 @@ const HistoryGraph = () => {
             ]}
           />
         </div>
-        <Button
-          variant="outline-secondary"
-          onClick={graphSwap}
-          aria-label="switch-graph">
-          {buttonName}
-        </Button>
+        <Col
+          className="d-flex
+        justify-content-center
+        text-center
+        align-self-center
+        align-items-center">
+          <Button
+            variant="outline-secondary"
+            onClick={graphSwap}
+            aria-label="switch-graph"
+            style={{marginTop: '20px'}}>
+            {buttonName}
+          </Button>
+        </Col>
       </div>
     </>
   );

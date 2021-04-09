@@ -92,12 +92,13 @@
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.card:hover,
+/* We all really like this effect, but could not make it possible with the other buttons, so it is commented out for now to make the app a bit more cohesive. */
+/* .card:hover,
 .card:focus,
 .card:active {
   color:#CAFFBF;
   border-color:#CAFFBF;
-}
+} */
 
 .card h3 {
   margin: 0 0 1rem 0;

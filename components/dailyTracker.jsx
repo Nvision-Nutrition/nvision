@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Button, Container, Row, Col} from 'react-bootstrap';
-import styles from '../styles/Home.module.css';
+import {Context} from './globalState.js';
 import CalorieTracker from './CalorieTracker.jsx';
 import InsertModals from './InsertModals.jsx';
 
 const DailyTracker = ({celebrate, setCelebrate}) => {
+  const {userInfo, calorieCount} = useContext(Context);
   const [show, setShow] = useState(false);
   const [type, setType] = useState('');
   const [valid, setValid] = useState('');
@@ -29,6 +30,20 @@ const DailyTracker = ({celebrate, setCelebrate}) => {
         borderWidth: '1px',
         zIndex: '1'}}>
         <Row>
+          <Col
+            className="calorie-tracker"
+          >
+            <h3>{`Today's Progress`}</h3>
+          </Col>
+        </Row>
+        <Row>
+          <Col
+            className="calorie-tracker"
+          >
+            <h3>{`${calorieCount} / ${userInfo.calorieGoal}`}</h3>
+          </Col>
+        </Row>
+        <Row>
           <Col xs={2} xl={3}></Col>
           <Col
             xs={6}
@@ -46,19 +61,6 @@ const DailyTracker = ({celebrate, setCelebrate}) => {
           align-self-center
           align-items-center"
           >
-            {/* <button
-              onClick={(e) => {
-                handleOpen();
-                setType('food');
-              }}
-              title='calorie-btn'
-              className="cal-btn">
-              <img src='/restaurant.png'
-                style={{
-                  height: '38px',
-                  width: '38px',
-                }}/>
-            </button> */}
             <Button
               onClick={(e) => {
                 handleOpen();
@@ -73,19 +75,14 @@ const DailyTracker = ({celebrate, setCelebrate}) => {
                 borderRadius: '10%',
                 marginTop: '30px',
                 marginBottom: '15px',
-                border: '3px solid #ffadad',
-                // marginLeft: '10px',
+                border: '3px solid #A0C4FF',
                 backgroundColor: '#FFFFFC',
-                // boxShadow: 'inset 0px 0px 20px 0px rgba(0,0,0, 0.6)',
               }}
               title='calorie-btn'>
-               {/* <div style={{
-                color: 'black',
-                paddingBottom: '15px'}}>Add Meal</div> */}
-            <img src='/restaurant.png'
+              <img src='/restaurant.png'
                 style={{
-                  height: '45px',
-                  width: '45px',
+                  height: '40px',
+                  width: '40px',
                 }}/>
             </Button>
           </Col>
@@ -95,34 +92,26 @@ const DailyTracker = ({celebrate, setCelebrate}) => {
           align-self-center
           align-items-center">
             <Button
-              // variant="outline-success"
               bsPrefix="water-btn"
               style={{
                 width: '70%',
                 height: '70%',
                 marginTop: '30px',
                 marginBottom: '15px',
-                // marginRight: '10px',
                 borderBottomLeftRadius: '0px',
                 borderBottomRightRadius: '0px',
                 borderRadius: '10%',
                 border: '3px solid #A0C4FF',
                 backgroundColor: '#FFFFFC',
-                // border: '3px solid #ffadad',
-                // backgroundColor: 'rgb(31, 119, 180)',
-                // boxShadow: 'inset 0px 0px 20px 0px rgba(0,0,0, 0.6)',
               }}
               onClick={(e) => {
                 handleOpen();
                 setType('water');
               } }>
-              {/* <div style={{
-                color: 'black',
-                paddingBottom: '15px'}}>Add Water</div> */}
               <img src='/drop.png'
                 style={{
-                  height: '45px',
-                  width: '45px',
+                  height: '40px',
+                  width: '40px',
                 }}/>
             </Button>
           </Col>
@@ -137,29 +126,22 @@ const DailyTracker = ({celebrate, setCelebrate}) => {
               style={{
                 width: '70%',
                 height: '70%',
-                // margin: '0 auto',
                 borderTopLeftRadius: '0px',
                 borderTopRightRadius: '0px',
                 borderRadius: '10%',
                 marginTop: '30px',
                 marginBottom: '15px',
-                border: '3px solid #FFC6FF',
+                border: '3px solid #A0C4FF',
                 backgroundColor: '#FFFFFC',
-                // backgroundColor: 'rgb(31, 119, 180)',
-                // marginBottom: '20px',
-                // boxShadow: 'inset 0px 0px 20px 0px rgba(0,0,0, 0.6)',
               }}
               onClick={(e) => {
                 handleOpen();
                 setType('weight');
               } }>
-              {/* <div style={{
-                color: 'black',
-                padding: '15px'}}>Update Weight</div> */}
               <img src='/weight-scale.png'
                 style={{
-                  height: '45px',
-                  width: '45px',
+                  height: '40px',
+                  width: '40px',
                 }}/>
             </Button>
           </Col>
