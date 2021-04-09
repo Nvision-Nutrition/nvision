@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, {useState, useContext} from 'react';
 import {Context} from './globalState.js';
 import {
@@ -9,7 +10,15 @@ import Celebration from './Celebration.jsx';
 import Failure from './Failure.jsx';
 
 
-const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setCelebrate}) => {
+const InsertModals = ({
+  show,
+  type,
+  handleClose,
+  valid,
+  setValid,
+  celebrate,
+  setCelebrate,
+}) => {
   const {userInfo,
     userId,
     calorieCount,

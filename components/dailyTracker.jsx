@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, {useState, useContext} from 'react';
 import {Button, Container, Row, Col} from 'react-bootstrap';
 import {Context} from './globalState.js';
@@ -16,10 +17,6 @@ const DailyTracker = ({celebrate, setCelebrate}) => {
     setValid('');
   };
   const handleOpen = () => setShow(true);
-
-  // #ffadad, #FFD6A5,
-  //         #FDFFB6, #CAFFBF, #9BF6FF, #A0C4FF,
-  //         #BDB2FF, #FFC6FF
 
   return (
     <>
