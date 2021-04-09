@@ -6,11 +6,8 @@ import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
 const credentialsObject = async (credentials) => {
-
     try {
         var user = await db.getUser(credentials.email);
-
-
         if (user !== null) {
             //hash input password and compare
             user.verdict = await argon2.verify(user.password, credentials.password);
@@ -26,7 +23,6 @@ const credentialsObject = async (credentials) => {
         //probably didn't hash the password coming in 
         console.error(e);
     }
-
 }
 
 
@@ -62,7 +58,6 @@ const providers = [
 ]
 
 const callbacks = {
-
     async jwt(token, user, account, profile) {
         //only pass information when user is not undefined
         try {
@@ -98,7 +93,6 @@ const callbacks = {
         session.user = token.user;
         return session;
     }
-
 }
 
 const session = {
@@ -108,12 +102,10 @@ const session = {
     maxAge: 12 * 60 * 60,
 };
 
-
 const options = {
     providers,
     session,
     callbacks,
 };
-
 
 export default (req, res) => NextAuth(req, res, options);
