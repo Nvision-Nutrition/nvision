@@ -129,7 +129,7 @@ const HistoryGraph = () => {
             indexBy="dow"
             margin={config.margin}
             padding={0.3}
-            colors={{scheme: 'category10'}}
+            colors={{scheme: 'pastel2'}}
             colorBy="id"
             borderColor="inherit:darker(1.6)"
             axisTop={null}

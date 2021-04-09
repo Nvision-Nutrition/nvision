@@ -6,9 +6,12 @@ body {
   margin: 0;
   font-family: 'Indie Flower', cursive;
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  background-image: url('../public/bkgrd_BOTH.svg');
   background-color: #FFFFFC;
-  background-image: '../public/bkgrd.svg';
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* opacity: 20%; */
 }
 
 a {
@@ -120,7 +123,30 @@ a {
     margin: auto;
   }
 }
+
 /* .update-weight-primary {
   width: 100%;
   /* max-width: 70vw;
 } */
+
+button.cal-btn.cal-btn-primary {
+  background-color: #FFFFFC,
+}
+
+button.cal-btn.cal-btn-primary:hover {
+  background: #ffadad;
+}
+
+button.water-btn.water-btn-primary:hover {
+  background: #A0C4FF;
+}
+
+button.update-weight.update-weight-primary:hover {
+  background: #FFC6FF;
+}
+
+
+/* // #ffadad, #FFD6A5,
+//         #FDFFB6, #CAFFBF, #9BF6FF, #A0C4FF,
+//         #BDB2FF, #FFC6FF */
+
