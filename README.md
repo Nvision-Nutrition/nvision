@@ -31,7 +31,7 @@ A user will first sign up for an account where they are able to enter their calo
 ## Tech Stack
 NVision Nutrition utilizes React as the front-end library and a Node server connected to a PostgreSQL database on the back-end configured with Next.js.
 
-![68747470733a2f2f6c68352e676f6f676c6575736572636f6e74656e742e636f6d2f7264416f5664594b4f436e6d746576367437444a724559376d4734695973525071655448305a2d4f726c73566d696561337135534d744f474e536137487a4a637978634963656c546163473567504e6779426f497669](https://user-images.githubusercontent.com/73598239/113373808-e7b05500-9328-11eb-8f31-38830ea4a3c8.png | width=100)
+<img src="https://user-images.githubusercontent.com/73598239/113373808-e7b05500-9328-11eb-8f31-38830ea4a3c8.png" width="100" height="100">
 
 <img src="https://user-images.githubusercontent.com/73598239/113373813-ebdc7280-9328-11eb-8a4e-dcee209e0861.png" width="100" height="100">
 
