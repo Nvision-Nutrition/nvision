@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, {useState, useEffect} from 'react';
 import {Modal, Button} from 'react-bootstrap';
 import axios from 'axios';
@@ -24,6 +25,7 @@ const Failure = ({ show, onHide, name }) => {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        dialogClassName="fail-modal"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">

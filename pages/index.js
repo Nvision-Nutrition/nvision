@@ -11,6 +11,9 @@ import { Container } from '@material-ui/core';
 import HistoryGraph from '../components/historyGraph.jsx';
 import WaterDaily from '../components/waterDaily.jsx';
 import axios from 'axios';
+import Confetti from 'react-confetti';
+import { useWindowSize } from '@react-hook/window-size'
+
 
 const DailyTracker = dynamic(
   () => {
@@ -24,6 +27,8 @@ const App = () => {
   const [globalTheme, setGlobalTheme] = useState('light');
   const [session, loading] = useSession();
   const [signup, setSignup] = useState(false);
+  const [celebrate, setCelebrate] = useState(false);
+  const [width, height] = useWindowSize();
 
   if (loading) {
     return <p>Loading...</p>
@@ -36,8 +41,8 @@ const App = () => {
   return (
     <div style={globalTheme === 'dark' ? {backgroundColor: '#343A40'} : null}>
       <Head>
-        <title>nVision nutrition</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>NVision Nutrition</title>
+        <link rel="icon" href="/logo.png" />
         <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet"></link>
         <link href='https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans&display=swap" rel="stylesheet">' rel="stylesheet" />
       </Head>
@@ -83,10 +88,16 @@ const App = () => {
       ))}
       {session && (
         <GlobalStateProvider session={session}>
+        {
+          celebrate && <Confetti
+          height={height}
+          width={width}
+          />
+        }
         <NvisionNavbar user={session} signOut={signOut} setGlobalTheme={setGlobalTheme}/>
         <div className={styles.container}>
           <main className={styles.main}>
-            <DailyTracker />
+            <DailyTracker celebrate={celebrate} setCelebrate={setCelebrate}/>
             <WaterDaily />
             <HistoryGraph />
           </main>

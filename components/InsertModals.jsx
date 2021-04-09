@@ -1,4 +1,5 @@
-import React, {useState, useContext, useEffect} from 'react';
+/* eslint-disable react/prop-types */
+import React, {useState, useContext} from 'react';
 import {Context} from './globalState.js';
 import {
   Container, Modal, Button, Form,
@@ -7,15 +8,32 @@ import axios from 'axios';
 import NumPad from 'react-numpad';
 import Celebration from './Celebration.jsx';
 import Failure from './Failure.jsx';
-import styles from '../styles/Home.module.css';
 
-const InsertModals = ({show, type, handleClose, valid, setValid}) => {
+
+const InsertModals = ({
+  show,
+  type,
+  handleClose,
+  valid,
+  setValid,
+  celebrate,
+  setCelebrate,
+}) => {
+  const {userInfo,
+    userId,
+    calorieCount,
+    setCalorieCount,
+    waterCount,
+    setWeightValue,
+    setWaterCount,
+    weightValue,
+    getCurrentDate} = useContext(Context);
   const [meal, setMeal] = useState('Select a Meal');
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [val, setVal] = useState(0);
-  const [celebrate, setCelebrate] = useState(false);
   const [motivate, setMotivate] = useState(false);
 
+
+  const [date, setDate] = useState(getCurrentDate());
   const addToDate = (dateString) => {
     const previous = Number(dateString.slice(-2));
     const updated = previous + 1;
@@ -29,14 +47,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
   };
 
   const [formatted, setFormatted] =
-  useState(new Date(addToDate(date)).toDateString());
-
-  const {userInfo,
-    userId,
-    calorieCount,
-    setCalorieCount,
-    waterCount,
-    setWaterCount} = useContext(Context);
+    useState(new Date(addToDate(date)).toDateString());
 
   const handleChange = (e) => {
     setMeal(e.target.value);
@@ -90,7 +101,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
     };
     axios.post('/api/addWeight', weightEntry)
         .then((res) => {
-          console.log(res);
           setVal(0);
           setValid('');
         })
@@ -99,24 +109,33 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
         });
   };
 
-
   const handleInput = (e) => {
     e.preventDefault();
     if (type === 'food' && meal !== 'Select a Meal' && val) {
       addFood(e);
-      setCalorieCount(calorieCount + val);
-      calorieCount <= userInfo.calorieGoal ?
+      if (date === getCurrentDate()) {
+        setCalorieCount(calorieCount + Number(val));
+      }
+     (calorieCount <= userInfo.calorieGoal) ?
       setCelebrate(true) : setMotivate(true);
-      handleClose();
+     handleClose();
     } else if (type === 'water' && val) {
       addWater(e);
-      setWaterCount(waterCount + val);
+      if (date === getCurrentDate()) {
+        setWaterCount(waterCount + Number(val));
+      }
       setCelebrate(true);
       handleClose();
     } else if (type === 'weight' && val) {
       addWeight(e);
-      val <= userInfo.weightGoal ?
-      setCelebrate(true) : setMotivate(true);
+      setWeightValue(Number(val));
+      if (weightValue === 0) {
+        val <= userInfo.weightGoal ?
+        setCelebrate(true) : setMotivate(true);
+      } else {
+        val <= weightValue ?
+        setCelebrate(true) : setMotivate(true);
+      }
       handleClose();
     } else {
       setValid(false);
@@ -125,10 +144,10 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
 
   const myTheme = {
     header: {
-      primaryColor: '#dc3545',
+      primaryColor: '#ffadad',
       secondaryColor: '#ECEFF1',
       highlightColor: '#FFC107',
-      backgroundColor: '#dc3545',
+      backgroundColor: '#ffadad',
     },
     body: {
       primaryColor: '#000000',
@@ -137,11 +156,10 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
       backgroundColor: '#000000',
     },
     panel: {
-      backgroundColor: '#dc3545',
+      backgroundColor: '#ffadad',
     },
     global: {
       fontFamily: 'Indie Flower, cursive',
-      // fontFamily: 'Roboto, Helvetica Neue, Arial, sans-serif, Helvetica',
     },
   };
 
@@ -151,6 +169,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
         <Modal
           show={show}
           onHide={handleClose}
+          centered
+          dialogClassName="insert-modals"
         >
           <Modal.Header closeButton
             style={{
@@ -166,8 +186,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               {
                   type === 'food' ?
                   <div style={{
-                    backgroundImage: `linear-gradient(to left, #ef5350, #f48fb1,
-                      #7e57c2, #2196f3, #26c6da, #43a047,
+                    backgroundImage: `linear-gradient(to right, #ef5350,
+                      #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047,
                       #F9C74F, #f9a825, #ff5722)`,
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
@@ -181,8 +201,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
                   </div> :
                   type === 'water' ?
                   <div style={{
-                    backgroundImage: `linear-gradient(to left, #ef5350, #f48fb1,
-                      #7e57c2, #2196f3, #26c6da, #43a047,
+                    backgroundImage: `linear-gradient(to right, #ef5350,
+                      #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047,
                       #F9C74F, #f9a825, #ff5722)`,
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
@@ -194,8 +214,8 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
                       }}/>
                   </div> :
                   <div style={{
-                    backgroundImage: `linear-gradient(to left, #ef5350, #f48fb1,
-                      #7e57c2, #2196f3, #26c6da, #43a047,
+                    backgroundImage: `linear-gradient(to right, #ef5350,
+                      #f48fb1, #7e57c2, #2196f3, #26c6da, #43a047,
                       #F9C74F, #f9a825, #ff5722)`,
                     WebkitBackgroundClip: 'text',
                     color: 'transparent',
@@ -238,9 +258,16 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               <br/>
               {
                 type === 'food' ? <Form.Label>Calories</Form.Label> :
-                type === 'water' ? <Form.Label>Water (oz)</Form.Label> :
+                type === 'water' ? <Form.Label>Water (oz)
+
+                </Form.Label> :
                 <Form.Label>Weight (lb)</Form.Label>
               }
+              {type == 'water' && <div
+                style={{
+                  fontSize: '12px',
+                }}
+              >1 glass of water is 8 oz</div>}
               <br/>
               <NumPad.Number
                 onChange={(value) => {
@@ -278,7 +305,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid}) => {
               }
               <br/>
               <Button
-                variant="outline-danger"
+                variant="outline-dark"
                 onClick={(e) => {
                   handleInput(e);
                 }}>

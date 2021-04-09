@@ -5,8 +5,10 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Indie Flower', cursive;
-  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  background-image: url('../public/bkgrd_BOTH.svg');
+  background-color: #FFFFFC;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 a {
@@ -48,13 +50,6 @@ a {
    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
  }
 
-.titleFont {
-  font-family: Fredoka One, Open Sans, Arial;
-  text-shadow: 1px 1px 1px #28A745;
-  cursor: default;
-  display: inline;
-}
-
 .subtitle {
   color:rgb(0, 0, 0.85);
 }
@@ -68,5 +63,52 @@ a {
 }
 
 .modal-content {
-  background-color: #EEEFF0;
+  background-color: #FFFFFC;
+  margin: auto;
+}
+
+.insert-modals {
+  width: 20vw;
+  max-width: 20vw;
+  margin: auto;
+}
+
+.celebration-modal, .fail-modal {
+  width: 40vw;
+  max-width: 40vw;
+  margin: auto;
+}
+
+@media (max-width: 1000px) {
+  .insert-modals {
+    width: 30vw;
+    max-width: 30vw;
+  }
+  .celebration-modal, .fail-modal {
+    width: 30vw;
+    max-width: 30vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .insert-modals {
+    width: 80vw;
+    max-width: 80vw;
+  }
+  .celebration-modal, .fail-modal {
+    width: 80vw;
+    max-width: 80vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .insert-modals {
+    width: 80vw;
+    max-width: 80vw;
+  }
+  .celebration-modal, .fail-modal {
+    width: 80vw;
+    max-width: 80vw;
+    margin: auto;
+  }
 }
