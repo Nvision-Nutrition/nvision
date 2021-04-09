@@ -12,9 +12,7 @@ const HistoryGraph = () => {
   const [userData, setUserData] = useState(sevenDayFetch);
   const {
     userId,
-    calorieCount,
-    waterCount,
-    weightValue,
+    updateFlag,
     userInfo,
   } = useContext(Context);
 
@@ -145,7 +143,7 @@ const HistoryGraph = () => {
     if (userId !== 0) {
       getChartData();
     }
-  }, [userId, calorieCount, waterCount, weightValue]);
+  }, [userId, updateFlag]);
 
   return (
     <>

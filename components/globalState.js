@@ -4,6 +4,7 @@ import axios from 'axios';
 
 export const GlobalStateProvider = ({children, session}) => {
   const [theme, setTheme] = useState('light');
+  const [updateFlag, setUpdateFlag] = useState(true);
   const [userInfo, setUserInfo] = useState({
     firstName: '',
     lastName: '',
@@ -70,6 +71,8 @@ export const GlobalStateProvider = ({children, session}) => {
       userInfo,
       setUserInfo,
       getCurrentDate,
+      updateFlag,
+      setUpdateFlag,
     }}
     >
       {children}

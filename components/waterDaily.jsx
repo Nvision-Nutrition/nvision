@@ -7,10 +7,10 @@ import axios from 'axios';
 const WaterDaily = () => {
   const {
     theme,
-    waterCount,
     userId,
     userInfo,
     getCurrentDate,
+    updateFlag,
   } = useContext(Context);
   const [
     darkModeToggle,
@@ -117,7 +117,7 @@ const WaterDaily = () => {
       setFullBottleSvg('/fullBottle.svg');
       setSubtitleDarkMode('subtitle');
     }
-  }, [theme, waterCount, userId]);
+  }, [updateFlag, userId]);
 
   return (
     <>
