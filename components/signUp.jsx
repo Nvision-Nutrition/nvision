@@ -36,6 +36,15 @@ const SignUp = ({setSignup}) => {
     } else if (state.password1 !== state.password2) {
       alert('Passwords don\'t match');
       return;
+    } else if (Number(state.calorieGoal) > 32767) {
+      //small int limit
+      alert('Enter a realistic calorie goal'); 
+    } else if (Number(state.waterGoal) > 32767) {
+      //small int limit
+      alert('Enter a realistic water goal'); 
+    } else if (Number(state.weightGoal) > 32767) {
+      //small int limit
+      alert('Enter a realistic weight goal');   
     } else if (state.phone.length !== 10 ||
       typeof Number(state.phone) !== 'number') {
       alert('Phone number is incorrect');
@@ -55,7 +64,7 @@ const SignUp = ({setSignup}) => {
           .catch((err) => {
             console.error(err);
             alert('Sign up unsuccessful: '+
-            'someone has already taken this username.');
+            'someone has already taken this email.');
           });
     }
   };

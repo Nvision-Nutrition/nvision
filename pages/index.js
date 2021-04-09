@@ -30,7 +30,6 @@ const App = () => {
   const [celebrate, setCelebrate] = useState(false);
   const [width, height] = useWindowSize();
 
-  console.log(session)
   if (loading) {
     return <p>Loading...</p>
   }

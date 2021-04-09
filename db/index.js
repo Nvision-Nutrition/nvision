@@ -11,6 +11,13 @@ const pool = new Pool({
 
 const {Client} = require('pg');
 
+// const pool = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// });
+//local testing client below
 const pool = new Client({
   user: process.env.POSTGRES_USER,
   host: 'localhost',
