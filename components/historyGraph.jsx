@@ -1,22 +1,12 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {Context} from './globalState.js';
+import React, {useState} from 'react';
 import {ResponsiveBar} from '@nivo/bar';
 import sevenDayFetch from '../db/dummyData/dummyData.js';
 import styles from '../styles/Home.module.css';
-import {Button, Col} from 'react-bootstrap';
-import axios from 'axios';
+import {Button} from 'react-bootstrap';
 
 const HistoryGraph = () => {
   // Macro Number 0 = cal, 1 = water, 2 = weight
   const [macroNumber, setMacroNumber] = useState(1);
-  const [userData, setUserData] = useState(sevenDayFetch);
-  const {
-    userId,
-    calorieCount,
-    waterCount,
-    weightValue,
-    userInfo,
-  } = useContext(Context);
 
   // keyValue: Graph set up/ aesthetics
   // fetchValue: Define the appropriate db column to fetch from
@@ -29,52 +19,36 @@ const HistoryGraph = () => {
     case 1:
       keyValue = 'Water';
       fetchValue = 'waterSum';
-      goalValue = userInfo.waterGoal;
+      goalValue = 5;
       buttonName = 'Check Weight';
       break;
     case 2:
       keyValue = 'Weight';
       fetchValue = 'weightSum';
-      goalValue = userInfo.weightGoal;
+      goalValue = 180;
       buttonName = 'Check Calorie';
       break;
     default:
       keyValue = 'Calories';
       fetchValue = 'calorieSum';
-      goalValue = userInfo.calorieGoal;
+      goalValue = 3000;
       buttonName = 'Check Water';
       break;
   }
 
-  const getChartData = () => {
-    axios({
-      url: `api/progress?type=week&userId=${userId}`,
-      method: 'get',
-    })
-        .then((result) => {
-          setUserData(result.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-  };
 
   // Fetch and format data appropriately
   // NOTE:
   //   This will fetch the rows of data that are available from the last seven
   //   day fetch.  If no data was input, the days may be skipped.
   const data = [];
-  Object.keys(userData).forEach((day) => {
+  Object.keys(sevenDayFetch).forEach((day) => {
     // Fetch date key
-    const date = Object.keys(userData[day]);
-    const dateFetch = new Date(date);
+    const date = Object.keys(sevenDayFetch[day]);
     // Re-format key to dow in short form (Mon, Tues, Wed)
-    // The arrangement of date strings is off for shortform utc fetched date
-    // So I had to create my own
-    const shortDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    const dow = shortDays[dateFetch.getDay()];
+    const dow = new Date(date).toLocaleString('en-us', {weekday: 'short'});
     // Fetch the appropriate value for the date in question
-    const val = userData[day][date][fetchValue];
+    const val = sevenDayFetch[day][date][fetchValue];
 
     // Add object to data array
     data.push({
@@ -141,11 +115,6 @@ const HistoryGraph = () => {
     ],
   };
 
-  useEffect(()=>{
-    if (userId !== 0) {
-      getChartData();
-    }
-  }, [userId, calorieCount, waterCount, weightValue]);
 
   return (
     <>
@@ -160,7 +129,7 @@ const HistoryGraph = () => {
             indexBy="dow"
             margin={config.margin}
             padding={0.3}
-            colors={{scheme: 'pastel2'}}
+            colors={{scheme: 'category10'}}
             colorBy="id"
             borderColor="inherit:darker(1.6)"
             axisTop={null}
@@ -184,20 +153,12 @@ const HistoryGraph = () => {
             ]}
           />
         </div>
-        <Col
-          className="d-flex
-        justify-content-center
-        text-center
-        align-self-center
-        align-items-center">
-          <Button
-            variant="outline-secondary"
-            onClick={graphSwap}
-            aria-label="switch-graph"
-            style={{marginTop: '20px'}}>
-            {buttonName}
-          </Button>
-        </Col>
+        <Button
+          variant="outline-secondary"
+          onClick={graphSwap}
+          aria-label="switch-graph">
+          {buttonName}
+        </Button>
       </div>
     </>
   );

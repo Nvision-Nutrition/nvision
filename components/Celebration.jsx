@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Modal, Button} from 'react-bootstrap';
+import Confetti from 'react-confetti';
 import axios from 'axios';
 
 
@@ -20,6 +21,10 @@ const Celebration = ({show, onHide, name}) => {
   }, []);
   return (
     <>
+      {
+        show &&
+      <Confetti />
+      }
       <Modal
         show={show}
         onHide={onHide}
@@ -27,7 +32,6 @@ const Celebration = ({show, onHide, name}) => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         backdrop={false}
-        dialogClassName="celebration-modal"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">

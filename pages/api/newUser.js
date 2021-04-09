@@ -1,26 +1,22 @@
+import { signIn } from 'next-auth/client';
+import { redirect } from 'next/dist/next-server/server/api-utils';
 
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const queries = require('../../db/index.js');
-const argon2 = require('argon2');
+const NextAuth = require('next-auth');
 
-export default async (req, res) => {
-  // shape data
+export default (req, res) => {
+  //shape data
   const user = req.body;
   user.password = user.password1;
   delete user.password1;
   delete user.password2;
   user.phone = Number(user.phone);
-  user.waterGoal = Number(user.waterGoal);
-  user.weightGoal = Number(user.weightGoal);
-  user.calorieGoal = Number(user.calorieGoal);
-  // add the user
-  try {
-    // best hashing on the npm market baby, SHA2 / blake2 with a work function to slow down the gpu kids brute force churning
-    const hash = await argon2.hash(user.password);
-    user.password = hash;
-    queries.addUser(req, res);
-  } catch (err) {
-    console.error('hashing function fail')
-  }
+  console.log(user)
+  //add the user
+  queries.addUser(req, res);
+  
+  //future -- implement a redirect to the login page or assign session
 };
 
 export const config = {

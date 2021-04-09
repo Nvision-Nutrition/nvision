@@ -1,5 +1,7 @@
 /* pooling connection not supported on heroku dev tier:
+
 const {Pool} = require('pg');
+
 const pool = new Pool({
   user: process.env.POSTGRES_USER,
   host: 'ec2-54-211-176-156.compute-1.amazonaws.com',
@@ -7,39 +9,26 @@ const pool = new Pool({
   password: process.env.POSTGRES_PASS,
   port: 5432,
 });
+
 */
 
-const {Pool} = require('pg');
-const pool = new Pool({
-  host: '18.218.164.26',
-  user: 'ubuntu',
-  password: 'ubuntupass', //Adjust this to the password
-  database: 'nvision',
+const {Client} = require('pg');
+
+const pool = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
-/* Helper Function to find local date */
-const getCurrentDate = () => {
-  // Since there is no 'local' timezone in heroku we will have to set
-  // the timezone manually.  Setting to Denver should fix most
-  // bugs, but ideally date will be passed into each query string
-  const todayMST = new Date().toLocaleString('sv', {
-    timeZone: 'America/Denver',
-  });
-  const today = todayMST.slice(0, 10);
-  return today;
-};
-  // Keeping the visual check if anyone wants to see it
-  // we should remove this line by Saturday
-  // console.log(getCurrentDate());
 pool.connect();
 
 /*
   fetches the total calorie and water count for a given date and userID
   (returns a promise)
 */
-
 const sumDay = (userId, date) => {
-  const queryString = `SELECT calories, water, weight
+  const queryString = `SELECT calories, water
                        FROM entries
                        WHERE user_id=$1 AND date=$2;`;
 
@@ -49,20 +38,11 @@ const sumDay = (userId, date) => {
           let calorieSum = 0;
           let waterSum = 0;
 
-          // Leaving this as weight sum even though it is a 1 off val
-          // for cohesiveness in my later fetches.
-          let weightSum = 0;
-
           response.rows.forEach((entry) => {
             calorieSum += entry.calories;
             waterSum += entry.water;
-            weightSum = entry.weight; // fetches last input value
           });
-          const sums = {
-            calorieSum: calorieSum,
-            waterSum: waterSum,
-            weightSum: weightSum,
-          };
+          const sums = {calorieSum: calorieSum, waterSum: waterSum};
           resolve(sums);
         }).catch((err) => reject(err));
   });
@@ -70,13 +50,16 @@ const sumDay = (userId, date) => {
 
 /* Sends day sums to client for given userID and date */
 const fetchDayCount = async (req, res) => {
+  // where does the userID info come from? req.query?
+  // https://stackoverflow.com/questions/30967822/when-do-i-use-path-params-vs-query-params-in-a-restful-api
+
   // 'userID' defaults to 1 for testing purposes only
   // 'date' defaults to today's date (Format: "2021-04-03")
-  const {userId, date = getCurrentDate()} = req.query;
+  const {userID = 1, date = new Date().toISOString().slice(0, 10)} = req.query;
 
   try {
     const day = {};
-    day[date] = await sumDay(userId, date);
+    day[date] = await sumDay(userID, date);
     res.send(day);
   } catch (err) {
     console.error(err);
@@ -100,35 +83,17 @@ const fetchDayCount = async (req, res) => {
 */
 const fetchWeek = async (req, res) => {
   try {
-    const {userId} = req.query; // Adjusted to match other requests
+    const {userID = 1} = req.query;
     const week = [];
+    const today = new Date();
 
     // iterate through the past seven days
-    let lastWeight = 0;
-    for (let i = 6; i >= 0; i--) { // Reversing for chart
+    for (let i = 0; i < 7; i++) {
       const currentDay = {};
-      const date = new Date();
-      if (date.toISOString().slice(0, 10) === getCurrentDate()) {
-        // this signals that the UTC is on the same day as our MST default
-        // no logic adjustment needed
-        date.setDate(date.getDate() - i);
-      } else {
-        // this signals that the UTC is ahead by 1 day, so we should subtract 1
-        date.setDate(date.getDate() - i - 1);
-      }
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
       const formattedDate = date.toISOString().slice(0, 10);
-
-      currentDay[formattedDate] = await sumDay(
-          userId,
-          formattedDate);
-      lastWeight = currentDay[formattedDate].weightSum !== 0 ?
-        currentDay[formattedDate].weightSum :
-        lastWeight;
-
-      // eslint-disable-next-line max-len
-      currentDay[formattedDate].weightSum = currentDay[formattedDate].weightSum === 0 ?
-        lastWeight :
-        currentDay[formattedDate].weightSum;
+      currentDay[formattedDate] = await sumDay(userID, formattedDate);
       week.push(currentDay);
     }
 
@@ -155,17 +120,17 @@ const insertCalories = (req, res) => {
 };
 
 /*
-  checks if email exists already in database
+  checks if username exists already in database
     if so, returns userID
     if not returns -1
     (returns a Promise)
 */
-const getEmail = (email) => {
+const getUsernameID = (username) => {
   const checkQuery = `Select id FROM users
-                      WHERE email=$1;`;
+                      WHERE username=$1;`;
 
   return new Promise((resolve, reject) => {
-    pool.query(checkQuery, [email])
+    pool.query(checkQuery, [username])
         .then((response) => {
           if (response.rows.length === 0) {
             resolve(-1);
@@ -179,13 +144,14 @@ const getEmail = (email) => {
 };
 
 /*
-  adds a new user to the database provided the email
+  adds a new user to the database provided the username
   is not already taken
 */
 const addUser = async (req, res) => {
   const {
     firstName,
     lastName,
+    username,
     password,
     calorieGoal,
     waterGoal,
@@ -196,21 +162,21 @@ const addUser = async (req, res) => {
   } = req.body;
 
   try {
-    const userID = await getEmail(email);
+    const userID = await getUsernameID(username);
     if (userID !== -1) {
       // user exists already
       res.status(501).send(`user exists already with userID: ${userID}`);
     } else {
       // create a new user
       const queryString = `INSERT INTO users(
-        firstName, lastName,
+        firstName, lastName, username,
         password, calorieGoal, waterGoal,
         weightGoal, phone, email, sex)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING id;`;
 
       // eslint-disable-next-line max-len
-      pool.query(queryString, [firstName, lastName, password, calorieGoal, waterGoal, weightGoal, phone, email, sex])
+      pool.query(queryString, [firstName, lastName, username, password, calorieGoal, waterGoal, weightGoal, phone, email, sex])
           .then((response) => {
             const userID = response.rows[0].id;
             res.status(201).send(`New user created with ID: ${userID}`);
@@ -226,12 +192,11 @@ const addUser = async (req, res) => {
 };
 
 // with username get user information
-const getUser = async (email) => {
-  const userID = await getEmail(email);
+const getUser = async (username) => {
+  const userID = await getUsernameID(username);
   if (userID === -1) {
     return null;
   }
-
   const queryString = `SELECT * FROM users WHERE id=$1`;
   return new Promise((resolve, reject) => {
     pool.query(queryString, [userID])

@@ -21,15 +21,11 @@ const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
     <Navbar
       style={{
         justifyContent: 'space-between',
-        border: 'solid #000',
+        border: 'solid #28A745',
         borderRadius: '15px',
-        margin: '30px',
-        backgroundImage: `linear-gradient(to right, #ffadad, #FFD6A5,
-          #FDFFB6, #CAFFBF, #9BF6FF, #A0C4FF,
-          #BDB2FF, #FFC6FF)`,
       }}
       sticky="top"
-      // bg={theme}
+      bg={theme}
       variant={theme}
     >
       <Navbar.Brand>
@@ -42,9 +38,7 @@ const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
           />
         </div>
       </Navbar.Brand>
-      <h4>
-        Be Healthy
-      </h4>
+
       <Nav>
         <Nav.Link
           onClick={signOut}
@@ -53,35 +47,21 @@ const NvisionNavbar = ({setGlobalTheme, signOut, session}) => {
             display: 'inline-flex',
             marginLeft: '25px',
             marginRight: '25px',
-            fontFamily: 'Indie Flower, cursive',
-            border: 'solid 1px',
+            fontFamily: 'Fredoka One, Open Sans, Arial',
+            border: 'solid ',
             borderRadius: '10px',
           }}
-        >
-          {/* <h4 style={{marginBottom: '0px'}} >
-            Sign Out
-          </h4> */}
-          <img src='./sign-out-option.png'
-            style={{
-              height: '30px',
-              width: '30px',
-            }}/>
-        </Nav.Link>
+        > <h4 style={{marginBottom: '0px'}} >Sign Out</h4></Nav.Link>
       </Nav>
 
-
-      {/* <Button
+      <Button
         variant={theme === 'light' ? 'outline-dark' : 'outline-light'}
         aria-label="dark-mode-toggle"
         onClick={toggleTheme}
-        style={{
-          position: 'relative',
-          marginBottom: '8px',
-          marginRight: '3px',
-          borderWeight: '1px'}}
+        style={{position: 'relative', marginBottom: '8px', marginRight: '3px'}}
       >
         <Brightness2Icon />
-      </Button> */}
+      </Button>
 
     </Navbar>
   );
