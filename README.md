@@ -1,3 +1,4 @@
+
 # NVision Nutrition
 
 <img width="1208" alt="Screen Shot 2021-04-09 at 3 55 04 PM" src="https://user-images.githubusercontent.com/73598239/114244553-f8298680-994b-11eb-94a8-e0807c6d9aa0.png">
@@ -48,7 +49,7 @@ User Stories
 
 ## MVP
 
-https://user-images.githubusercontent.com/73598239/114245298-720e3f80-994d-11eb-89bb-6b8ccc5d2fc2.mp4
+![] (https://user-images.githubusercontent.com/73598239/114245298-720e3f80-994d-11eb-89bb-6b8ccc5d2fc2.mp4)
 
 ![picture alt](http://via.placeholder.com/200x150 "Title is optional")
 web app demo 1
