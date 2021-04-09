@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
@@ -11,31 +10,25 @@ export const GlobalStateProvider = ({children, session}) => {
     username: '',
     calorieGoal: 0,
     waterGoal: 0,
-    weightGoal: 0,
+    weightGoal: 0
   });
 
   const [userId, setUserId] = useState(0);
-  const [calorieCount, setCalorieCount] = useState(0);
-  const [waterCount, setWaterCount] = useState(0);
-
-  const [weightValue, setWeightValue] = useState(0);
+  const [calorieCount, setCalorieCount] = useState('20');
+  const [waterCount, setWaterCount] = useState('20');
   const getCurrentCounts = () => {
-    axios.get(`/api/progress?type=day&userId=${userId}`)
+    axios.get('/api/progress?type=day')
         .then(({data}) => {
-          const today = getCurrentDate();
+          let today = new Date();
+          today = today.toISOString().slice(0, 10);
           setCalorieCount(data[today].calorieSum);
           setWaterCount(data[today].waterSum);
         }).catch((err) => console.error(err));
   };
 
-  const getCurrentDate = () => {
-    const todayDate = new Date();
-    // eslint-disable-next-line max-len
-    const today = `${todayDate.getFullYear()}-${('0' + (todayDate.getMonth() + 1)).slice(-2)}-${('0' + todayDate.getDate()).slice(-2)}`;
-    return today;
-  };
-
   useEffect(() => {
+    getCurrentCounts();
+    //weight not implemented in sign up form yet
     setUserInfo({
       firstName: session.user.firstname,
       lastName: session.user.lastname,
@@ -43,14 +36,10 @@ export const GlobalStateProvider = ({children, session}) => {
       username: session.user.username,
       calorieGoal: session.user.caloriegoal,
       waterGoal: session.user.watergoal,
-      weightGoal: session.user.weightgoal,
-    });
-    setUserId(session.user.id);
+      weightGoal: null
+    })
+    setUserId(session.user.id)
   }, []);
-
-  useEffect(() => {
-    getCurrentCounts();
-  }, [userId]);
 
   return (
     <Context.Provider value={{
@@ -62,11 +51,8 @@ export const GlobalStateProvider = ({children, session}) => {
       setCalorieCount,
       waterCount,
       setWaterCount,
-      weightValue,
-      setWeightValue,
       userInfo,
       setUserInfo,
-      getCurrentDate,
     }}
     >
       {children}

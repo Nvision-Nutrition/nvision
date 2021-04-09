@@ -1,6 +1,5 @@
-.calorie-tracker {
+.calorie-tracker-dev {
   display: flex;
-  justify-content: center;
 }
 
 
@@ -27,26 +26,20 @@
 }
 
 .bg-red {
-  background-color: #ffadad;
+  background-color: red;
 }
 .bg-orange {
-  background-color: #FFD6A5;
+  background-color: orange;
 }
 .bg-yellow {
-  background-color: #FDFFB6;
+  background-color: yellow;
 }
 .bg-green {
-  background-color: #CAFFBF;
-}
-.bg-teal {
-  background-color: #9BF6FF;
+  background-color: green;
 }
 .bg-blue {
-  background-color: #A0C4FF;
+  background-color: blue;
 }
 .bg-purple {
-  background-color: #BDB2FF;
-}
-.bg-pink {
-  background-color: #FFC6FF;
+  background-color: purple;
 }

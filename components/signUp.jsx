@@ -1,73 +1,55 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import {Container, Form, Button} from 'react-bootstrap';
+import { Container, Form, Button } from 'react-bootstrap';
 
 
-const SignUp = ({setSignup}) => {
+const SignUp = () => {
+
+
   const [state, setState] = useState({
-    // added to prevent warning component is
-    // changing an uncontrolled input to be controlled
-    // select form initial option is male so setting state to match
+    //added to prevent warning component is changing an uncontrolled input to be controlled
+    //select form initial option is male so setting state to match
     firstName: '',
     lastName: '',
+    username: '',
     password1: '',
     password2: '',
     calorieGoal: '',
     waterGoal: '',
-    weightGoal: '',
     phone: '',
     email: '',
-    sex: 'male',
+    sex: 'male'
   });
 
   const handleChange = (e) => {
-    // combine the current obj with new state property or set old one
-    setState({...state, [e.target.name]: e.target.value});
-  };
+    //combine the current obj with new state property or set old one
+    setState({ ...state, [e.target.name]: e.target.value })
+  }
 
 
   const submitUser = () => {
-    // check that data is there
-    if (!state.firstName || !state.lastName || !state.password1 ||
-        !state.calorieGoal || !state.waterGoal||
-        !state.weightGoal || !state.phone || !state.email) {
-      alert('Please make sure you have filled out all fields.');
+    //check that data is there
+    if (state.password1 !== state.password2) {
+      alert('Passwords don\'t match')
       return;
-    } else if (state.password1 !== state.password2) {
-      alert('Passwords don\'t match');
-      return;
-    } else if (Number(state.calorieGoal) > 32767) {
-      //small int limit
-      alert('Enter a realistic calorie goal'); 
-    } else if (Number(state.waterGoal) > 32767) {
-      //small int limit
-      alert('Enter a realistic water goal'); 
-    } else if (Number(state.weightGoal) > 32767) {
-      //small int limit
-      alert('Enter a realistic weight goal');   
-    } else if (state.phone.length !== 10 ||
-      typeof Number(state.phone) !== 'number') {
-      alert('Phone number is incorrect');
-    } else if (!state.email.includes('@') || !state.email.includes('.com')) {
-      alert('please enter a valid email');
-    } else {
-      // if it looks good submit to api
-      axios({
-        method: 'POST',
-        url: 'api/newUser',
-        data: state,
-      })
-          .then((result) => {
-            alert('Account creation successful!');
-            setSignup(false);
-          })
-          .catch((err) => {
-            console.error(err);
-            alert('Sign up unsuccessful: '+
-            'someone has already taken this email.');
-          });
-    }
-  };
+    }  
+    
+
+    //if it looks good submit to api
+    axios({
+      method: 'POST',
+      url: 'api/newUser',
+      data: state
+    })
+    .then((result) => {
+      console.error(result)
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  }
+
+
 
   return (
     <Container style={{
@@ -97,6 +79,16 @@ const SignUp = ({setSignup}) => {
           />
         </Form.Group>
 
+        <Form.Group>
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            placeholder="Enter username"
+            onChange={handleChange}
+            name="username"
+            value={state.username}
+          />
+        </Form.Group>
+
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -121,7 +113,7 @@ const SignUp = ({setSignup}) => {
 
 
         <Form.Group>
-          <Form.Label>Daily Calorie Limit</Form.Label>
+          <Form.Label>Calorie Goal</Form.Label>
           <Form.Control
             placeholder="Enter calorie goal"
             onChange={handleChange}
@@ -132,30 +124,25 @@ const SignUp = ({setSignup}) => {
 
 
         <Form.Group>
-          <Form.Label>Daily Water Goal</Form.Label>
+          <Form.Label>Water Goal</Form.Label>
           <Form.Control
             placeholder="Enter water goal"
             onChange={handleChange}
             name="waterGoal"
             value={state.waterGoal}
           />
-          <Form.Text className="text-muted">
-            in ounces (oz)
-          </Form.Text>
+        </Form.Group>
+
+        {/*
+        <Form.Group>
+          <Form.Label>Weight Goal</Form.Label>
+          <Form.Control placeholder="Enter username" />
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>Target Weight</Form.Label>
-          <Form.Control
-            placeholder="Enter target weight"
-            onChange={handleChange}
-            name="weightGoal"
-            value={state.weightGoal}
-          />
-          <Form.Text className="text-muted">
-            in pounds (lbs)
-          </Form.Text>
-        </Form.Group>
+          <Form.Label>Current Weight</Form.Label>
+          <Form.Control placeholder="Enter username" />
+        </Form.Group> */}
 
         <Form.Group>
           <Form.Label>Phone Number</Form.Label>
@@ -180,7 +167,7 @@ const SignUp = ({setSignup}) => {
             value={state.email}
           />
           <Form.Text className="text-muted">
-            {'We\'ll never share your email with anyone else.'}
+            We'll never share your email with anyone else.
           </Form.Text>
         </Form.Group>
 

@@ -8,6 +8,7 @@ CREATE TABLE users
  id          serial NOT NULL PRIMARY KEY,
  firstName   varchar(50),
  lastName    varchar(50),
+ username    varchar(50) NOT NULL,
  password    varchar NOT NULL,
  calorieGoal smallint NOT NULL DEFAULT 2000,
  waterGoal   smallint NOT NULL,
@@ -71,3 +72,5 @@ INSERT INTO quotes(failure_quote, success_quote) VALUES('Mistakes are inevitable
 INSERT INTO quotes(failure_quote, success_quote) VALUES('You will gain confidence with every small positive change you are making.', 'You''ve got this!');
 INSERT INTO quotes(failure_quote, success_quote) VALUES('You can accomplish anything you set your mind to!', 'Keep up the great work!');
 
+INSERT INTO users(firstName,  lastName, username, password, email,  calorieGoal, waterGoal) VALUES('John', 'Doe', 'jdoe', 'password', 'jdoe@yahoo.com', 5, 5);
+INSERT INTO sessions(session,  user_id) VALUES('1', 1);
