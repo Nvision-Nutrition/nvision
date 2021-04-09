@@ -22,7 +22,7 @@ const {Client} = require('pg');
 // });
 // connectionString: process.env.DATABASE_URL
 const pool = new Client({
-  user: 'taylorsmart',
+  user: 'orennelson',
   host: 'localhost',
   database: 'nvision',
   password: 'password',
