@@ -1,6 +1,6 @@
 # NVision Nutrition
 
-![nutritionimage](https://user-images.githubusercontent.com/73598239/113371941-b6ce2100-9324-11eb-9c23-a75eecbf2f04.png)
+<img width="1208" alt="Screen Shot 2021-04-09 at 3 55 04 PM" src="https://user-images.githubusercontent.com/73598239/114244553-f8298680-994b-11eb-94a8-e0807c6d9aa0.png">
 
 ## About
 
