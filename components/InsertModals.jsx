@@ -308,7 +308,6 @@ const InsertModals = ({
                 onClick={(e) => {
                   handleInput(e);
                   setUpdateFlag(!updateFlag);
-                  console.log(updateFlag)
                 }}>
                 Record it!
               </Button>
