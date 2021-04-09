@@ -29,11 +29,15 @@ const DailyTracker = ({celebrate, setCelebrate}) => {
         borderWidth: '1px',
         zIndex: '1'}}>
         <Row>
-          <Col></Col>
-          <Col xs={6}>
+          <Col xs={2} xl={3}></Col>
+          <Col
+            xs={6}
+            xl={6}
+            className="calorie-tracker"
+          >
             <CalorieTracker />
           </Col>
-          <Col></Col>
+          <Col xs={2} xl={3}></Col>
         </Row>
         <Row>
           <Col className="d-flex

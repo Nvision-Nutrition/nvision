@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {Context} from './globalState.js';
 import {
   Container, Modal, Button, Form,
@@ -7,17 +7,24 @@ import axios from 'axios';
 import NumPad from 'react-numpad';
 import Celebration from './Celebration.jsx';
 import Failure from './Failure.jsx';
-import Confetti from 'react-confetti';
-import {useWindowSize} from '@react-hook/window-size';
+
 
 const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setCelebrate}) => {
+  const {userInfo,
+    userId,
+    calorieCount,
+    setCalorieCount,
+    waterCount,
+    setWeightValue,
+    setWaterCount,
+    weightValue,
+    getCurrentDate} = useContext(Context);
   const [meal, setMeal] = useState('Select a Meal');
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [val, setVal] = useState(0);
-  // const [celebrate, setCelebrate] = useState(false);
   const [motivate, setMotivate] = useState(false);
-  const {width, height} = useWindowSize();
 
+
+  const [date, setDate] = useState(getCurrentDate());
   const addToDate = (dateString) => {
     const previous = Number(dateString.slice(-2));
     const updated = previous + 1;
@@ -31,15 +38,7 @@ const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setC
   };
 
   const [formatted, setFormatted] =
-  useState(new Date(addToDate(date)).toDateString());
-
-  const {userInfo,
-    userId,
-    calorieCount,
-    setCalorieCount,
-    waterCount,
-    setWeightValue,
-    setWaterCount} = useContext(Context);
+    useState(new Date(addToDate(date)).toDateString());
 
   const handleChange = (e) => {
     setMeal(e.target.value);
@@ -101,25 +100,29 @@ const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setC
         });
   };
 
-
   const handleInput = (e) => {
     e.preventDefault();
     if (type === 'food' && meal !== 'Select a Meal' && val) {
       addFood(e);
-      setCalorieCount(calorieCount + val);
+      setCalorieCount(calorieCount + Number(val));
      (calorieCount <= userInfo.calorieGoal) ?
       setCelebrate(true) : setMotivate(true);
      handleClose();
     } else if (type === 'water' && val) {
       addWater(e);
-      setWaterCount(waterCount + val);
+      setWaterCount(waterCount + Number(val));
       setCelebrate(true);
       handleClose();
     } else if (type === 'weight' && val) {
       addWeight(e);
-      setWeightValue(val);
-      val <= userInfo.weightGoal ?
-      setCelebrate(true) : setMotivate(true);
+      setWeightValue(Number(val));
+      if (weightValue === 0) {
+        val <= weightGoal ?
+        setCelebrate(true) : setMotivate(true);
+      } else {
+        val <= weightValue ?
+        setCelebrate(true) : setMotivate(true);
+      }
       handleClose();
     } else {
       setValid(false);
@@ -149,11 +152,6 @@ const InsertModals = ({show, type, handleClose, valid, setValid, celebrate, setC
 
   return (
     <>
-      {/* {
-          celebrate && <Confetti
-          width={width}
-          height={height}/>
-        } */}
       <Container>
         <Modal
           show={show}

@@ -25,14 +25,10 @@ const App = () => {
   //what's not seen is that next js is adding a div before render
   const [globalTheme, setGlobalTheme] = useState('light');
   const [session, loading] = useSession();
-<<<<<<< HEAD
   const [signup, setSignup] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
 
-=======
-  const [signup, setSignup] = useState(false); 
   console.log(session)
->>>>>>> 1e5de233c671e96ccda504085f68755d4188b9e1
   if (loading) {
     return <p>Loading...</p>
   }

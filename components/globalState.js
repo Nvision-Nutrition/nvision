@@ -15,14 +15,14 @@ export const GlobalStateProvider = ({children, session}) => {
   });
 
   const [userId, setUserId] = useState(0);
-  const [calorieCount, setCalorieCount] = useState('20');
-  const [waterCount, setWaterCount] = useState('20');
+  const [calorieCount, setCalorieCount] = useState(20);
+  const [waterCount, setWaterCount] = useState(20);
 
   // TS: As an FYI - I cannot use these values because they are
   // appending to a string.
   // I'm not sure if there is a purpose to this, if there is not
   // please feel free to adjust my weightVal conforming below.
-  const [weightValue, setWeightValue] = useState('0');
+  const [weightValue, setWeightValue] = useState(0);
   const getCurrentCounts = () => {
     axios.get('/api/progress?type=day')
         .then(({data}) => {
