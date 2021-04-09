@@ -51,7 +51,15 @@ const providers = [
 const callbacks = {
     // After authorization come here
     // get the JWT token from API response
-  
+    async jwt(token, user, account, profile, isNewUser) {
+        user && (token.user = user);
+        return token;
+    },
+    async session(session, token) {
+        //add user to session
+        session.user = token.user;
+        return session;
+    },
     async signIn(user, account, profile, session) {
         if (account.provider === 'google') {
             //verify they are a google user
@@ -59,10 +67,10 @@ const callbacks = {
                 //verify they are a nvision user
                 var nvisionUser = await db.getUser(profile.email);
                 if (nvisionUser !== null) {
-                    //how to pass user information into session?
-                    user = nvisionUser
+                    //how to pass user information ito 
+                    // user = nvisionUser
                     //verified nvision user
-                    return user;
+                    return true;
                 } else {
                     //not an nvision user
                     return false;
@@ -75,15 +83,6 @@ const callbacks = {
             //we are in a credentials session (username, password), return that
             return session;
         }
-    },
-    async jwt(token, user) {
-        user && (token.user = user);
-        return token;
-    },
-    async session(session, token) {
-        //add user to session
-        session.user = token.user;
-        return session;
     }
 }
 // &&

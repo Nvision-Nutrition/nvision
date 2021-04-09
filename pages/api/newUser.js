@@ -15,7 +15,6 @@ export default (req, res) => {
   user.weightGoal = Number(user.weightGoal);
   user.calorieGoal = Number(user.calorieGoal);
   // add the user
-  console.log(user)
   queries.addUser(req, res);
   // future -- implement a redirect to the login page or assign session
 };
