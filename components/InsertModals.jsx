@@ -27,7 +27,10 @@ const InsertModals = ({
     setWeightValue,
     setWaterCount,
     weightValue,
-    getCurrentDate} = useContext(Context);
+    getCurrentDate,
+    updateFlag,
+    setUpdateFlag,
+  } = useContext(Context);
   const [meal, setMeal] = useState('Select a Meal');
   const [val, setVal] = useState(0);
   const [motivate, setMotivate] = useState(false);
@@ -308,6 +311,7 @@ const InsertModals = ({
                 variant="outline-dark"
                 onClick={(e) => {
                   handleInput(e);
+                  setUpdateFlag(!updateFlag);
                 }}>
                 Record it!
               </Button>
