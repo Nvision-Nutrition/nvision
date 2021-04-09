@@ -1,4 +1,4 @@
-const argon2 = require('argon2')
+
 const db = require('../../../db/index');
 
 //next auth must be in this js module format
@@ -9,8 +9,8 @@ const credentialsObject = async (credentials) => {
     try {
         var user = await db.getUser(credentials.email);
         if (user !== null) {
-            //hash input password and compare
-            user.verdict = await argon2.verify(user.password, credentials.password);
+            
+            user.verdict = user.password === credentials.password ? true : false;
             return user;
 
         } else {
