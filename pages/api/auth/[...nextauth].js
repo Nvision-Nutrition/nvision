@@ -6,8 +6,7 @@ import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
 const credentialsObject = async (credentials) => {
-    // In futre hash password here using argon2
-    //returns a user or nothing if username doesn't exist
+
     try {
         var user = await db.getUser(credentials.email);
 
