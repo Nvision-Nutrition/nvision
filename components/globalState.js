@@ -16,19 +16,14 @@ export const GlobalStateProvider = ({children, session}) => {
   });
 
   const [userId, setUserId] = useState(0);
-  const [calorieCount, setCalorieCount] = useState(20);
-  const [waterCount, setWaterCount] = useState(20);
+  const [calorieCount, setCalorieCount] = useState(0);
+  const [waterCount, setWaterCount] = useState(0);
 
-  // TS: As an FYI - I cannot use these values because they are
-  // appending to a string.
-  // I'm not sure if there is a purpose to this, if there is not
-  // please feel free to adjust my weightVal conforming below.
   const [weightValue, setWeightValue] = useState(0);
   const getCurrentCounts = () => {
-    axios.get('/api/progress?type=day')
+    axios.get(`/api/progress?type=day&userId=${userId}`)
         .then(({data}) => {
-          let today = new Date();
-          today = today.toISOString().slice(0, 10);
+          const today = getCurrentDate();
           setCalorieCount(data[today].calorieSum);
           setWaterCount(data[today].waterSum);
         }).catch((err) => console.error(err));
@@ -42,8 +37,6 @@ export const GlobalStateProvider = ({children, session}) => {
   };
 
   useEffect(() => {
-    getCurrentCounts();
-    // weight not implemented in sign up form yet
     setUserInfo({
       firstName: session.user.firstname,
       lastName: session.user.lastname,
@@ -55,6 +48,10 @@ export const GlobalStateProvider = ({children, session}) => {
     });
     setUserId(session.user.id);
   }, []);
+
+  useEffect(() => {
+    getCurrentCounts();
+  }, [userId]);
 
   return (
     <Context.Provider value={{

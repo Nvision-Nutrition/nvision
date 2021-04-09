@@ -17,22 +17,6 @@ const pool = new Pool({
 })
 
 
-//
-
-// // const pool = new Client({
-// //   connectionString: process.env.DATABASE_URL,
-// //   ssl: {
-// //     rejectUnauthorized: false,
-// //   },
-// // });
-// //local testing client below
-// const pool = new Client({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: {
-//     rejectUnauthorized: false,
-//   },
-// });
-
 /* Helper Function to find local date */
 const getCurrentDate = () => {
   // Since there is no 'local' timezone in heroku we will have to set
@@ -54,7 +38,6 @@ pool.connect();
   (returns a promise)
 */
 
-pool.connect();
 const sumDay = (userId, date) => {
   const queryString = `SELECT calories, water, weight
                        FROM entries
@@ -87,9 +70,6 @@ const sumDay = (userId, date) => {
 
 /* Sends day sums to client for given userID and date */
 const fetchDayCount = async (req, res) => {
-  // where does the userID info come from? req.query?
-  // https://stackoverflow.com/questions/30967822/when-do-i-use-path-params-vs-query-params-in-a-restful-api
-
   // 'userID' defaults to 1 for testing purposes only
   // 'date' defaults to today's date (Format: "2021-04-03")
   const {userId, date = getCurrentDate()} = req.query;
