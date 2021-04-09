@@ -49,7 +49,7 @@ User Stories
 
 ## MVP
 
-![](https://user-images.githubusercontent.com/73598239/114245298-720e3f80-994d-11eb-89bb-6b8ccc5d2fc2.mp4)
+![](nvision-signup.gif)
 
 ![picture alt](http://via.placeholder.com/200x150 "Title is optional")
 web app demo 1
