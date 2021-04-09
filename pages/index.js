@@ -11,6 +11,9 @@ import { Container } from '@material-ui/core';
 import HistoryGraph from '../components/historyGraph.jsx';
 import WaterDaily from '../components/waterDaily.jsx';
 import axios from 'axios';
+import Confetti from 'react-confetti';
+import { useWindowSize } from '@react-hook/window-size'
+
 
 const DailyTracker = dynamic(
   () => {
@@ -23,7 +26,10 @@ const App = () => {
   //what's not seen is that next js is adding a div before render
   const [globalTheme, setGlobalTheme] = useState('light');
   const [session, loading] = useSession();
-  const [signup, setSignup] = useState(false); 
+  const [signup, setSignup] = useState(false);
+  const [celebrate, setCelebrate] = useState(false);
+  const [width, height] = useWindowSize();
+
   console.log(session)
   if (loading) {
     return <p>Loading...</p>
@@ -83,10 +89,16 @@ const App = () => {
       ))}
       {session && (
         <GlobalStateProvider session={session}>
+        {
+          celebrate && <Confetti
+          height={height}
+          width={width}
+          />
+        }
         <NvisionNavbar user={session} signOut={signOut} setGlobalTheme={setGlobalTheme}/>
         <div className={styles.container}>
           <main className={styles.main}>
-            <DailyTracker />
+            <DailyTracker celebrate={celebrate} setCelebrate={setCelebrate}/>
             <WaterDaily />
             <HistoryGraph />
           </main>
