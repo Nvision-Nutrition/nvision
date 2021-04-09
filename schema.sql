@@ -71,7 +71,3 @@ INSERT INTO quotes(failure_quote, success_quote) VALUES('Mistakes are inevitable
 INSERT INTO quotes(failure_quote, success_quote) VALUES('You will gain confidence with every small positive change you are making.', 'You''ve got this!');
 INSERT INTO quotes(failure_quote, success_quote) VALUES('You can accomplish anything you set your mind to!', 'Keep up the great work!');
 
-
-INSERT INTO users(firstName,  lastName, password, email,  calorieGoal, waterGoal) VALUES('John', 'Doe', 'password', 'jdoe@yahoo.com', 5, 5);
-INSERT INTO sessions(session,  user_id) VALUES('1', 1);
-

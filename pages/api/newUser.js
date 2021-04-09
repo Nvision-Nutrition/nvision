@@ -1,10 +1,8 @@
-// import { signIn } from 'next-auth/client';
-// import { redirect } from 'next/dist/next-server/server/api-utils';
 
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const queries = require('../../db/index.js');
+const argon2 = require('argon2');
 
-export default (req, res) => {
+export default async (req, res) => {
   // shape data
   const user = req.body;
   user.password = user.password1;
@@ -15,9 +13,14 @@ export default (req, res) => {
   user.weightGoal = Number(user.weightGoal);
   user.calorieGoal = Number(user.calorieGoal);
   // add the user
-  console.log(user)
-  queries.addUser(req, res);
-  // future -- implement a redirect to the login page or assign session
+  try {
+    // best hashing on the npm market baby, SHA2 / blake2 with a work function to slow down the gpu kids brute force churning
+    const hash = await argon2.hash(user.password);
+    user.password = hash;
+    queries.addUser(req, res);
+  } catch (err) {
+    console.error('hashing function fail')
+  }
 };
 
 export const config = {
