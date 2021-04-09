@@ -113,13 +113,17 @@ const InsertModals = ({
     e.preventDefault();
     if (type === 'food' && meal !== 'Select a Meal' && val) {
       addFood(e);
-      setCalorieCount(calorieCount + Number(val));
+      if (date === getCurrentDate()) {
+        setCalorieCount(calorieCount + Number(val));
+      }
      (calorieCount <= userInfo.calorieGoal) ?
       setCelebrate(true) : setMotivate(true);
      handleClose();
     } else if (type === 'water' && val) {
       addWater(e);
-      setWaterCount(waterCount + Number(val));
+      if (date === getCurrentDate()) {
+        setWaterCount(waterCount + Number(val));
+      }
       setCelebrate(true);
       handleClose();
     } else if (type === 'weight' && val) {

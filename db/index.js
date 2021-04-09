@@ -72,9 +72,6 @@ const sumDay = (userId, date) => {
 
 /* Sends day sums to client for given userID and date */
 const fetchDayCount = async (req, res) => {
-  // where does the userID info come from? req.query?
-  // https://stackoverflow.com/questions/30967822/when-do-i-use-path-params-vs-query-params-in-a-restful-api
-
   // 'userID' defaults to 1 for testing purposes only
   // 'date' defaults to today's date (Format: "2021-04-03")
   const {userId, date = getCurrentDate()} = req.query;
