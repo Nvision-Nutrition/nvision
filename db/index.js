@@ -1,37 +1,39 @@
-// pooling connection not supported on heroku dev tier:
-
+/* pooling connection not supported on heroku dev tier:
 const {Pool} = require('pg');
-
 const pool = new Pool({
   user: process.env.POSTGRES_USER,
-  host: 'localhost',
+  host: 'ec2-54-211-176-156.compute-1.amazonaws.com',
   database: process.env.POSTGRES_DATABASE,
   password: process.env.POSTGRES_PASS,
   port: 5432,
 });
+*/
 
-// POSTGRES_USER=emma
-// POSTGRES_PASS=password
-// NEXTAUTH_URL=http://localhost:3000
-// POSTGRES_DATABASE=nvision
-// DATABASE_URL=postgres://nvision:password@127.0.0.1:5432/example?synchronize=true
+const {Client} = require('pg');
 
-// POSTGRES_PASS=b2f1f7ea76dff1997151eaaebd6a08bb2d3ac914f8dcf6bae293fdb72a006ed9
-// POSTGRES_USER=qhfjdhuknbivyz
-// NEXTAUTH_URL=http://localhost:3000
-// POSTGRES_DATABASE=d9uo2ldihv4sbt
-// DATABASE_URL=postgres://qhfjdhuknbivyz:b2f1f7ea76dff1997151eaaebd6a08bb2d3ac914f8dcf6bae293fdb72a006ed9@ec2-54-211-176-156.compute-1.amazonaws.com:5432/d9uo2ldihv4sbt
+const pool = new Client({
+  user: process.env.POSTGRES_USER,
+  host: 'localhost',
+  database: 'nvision',
+  password: process.env.POSTGRES_PASS,
+  port: 5432,
+});
 
-
-// const {Client} = require('pg');
-
-// const pool = new Client({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: {
-//     rejectUnauthorized: false,
-//   },
-// });
-
+/* Helper Function to find local date */
+const getCurrentDate = () => {
+  // Since there is no 'local' timezone in heroku we will have to set
+  // the timezone manually.  Setting to Denver should fix most
+  // bugs, but ideally date will be passed into each query string
+  const todayMST = new Date().toLocaleString('sv', {
+    timeZone: 'America/Denver',
+  });
+  const today = todayMST.slice(0, 10);
+  return today;
+};
+  // Keeping the visual check if anyone wants to see it
+  // we should remove this line by Saturday
+  // console.log(getCurrentDate());
+pool.connect();
 
 /*
   fetches the total calorie and water count for a given date and userID
@@ -40,7 +42,7 @@ const pool = new Pool({
 
 pool.connect();
 const sumDay = (userId, date) => {
-  const queryString = `SELECT calories, water
+  const queryString = `SELECT calories, water, weight
                        FROM entries
                        WHERE user_id=$1 AND date=$2;`;
 
@@ -50,11 +52,20 @@ const sumDay = (userId, date) => {
           let calorieSum = 0;
           let waterSum = 0;
 
+          // Leaving this as weight sum even though it is a 1 off val
+          // for cohesiveness in my later fetches.
+          let weightSum = 0;
+
           response.rows.forEach((entry) => {
             calorieSum += entry.calories;
             waterSum += entry.water;
+            weightSum = entry.weight; // fetches last input value
           });
-          const sums = {calorieSum: calorieSum, waterSum: waterSum};
+          const sums = {
+            calorieSum: calorieSum,
+            waterSum: waterSum,
+            weightSum: weightSum,
+          };
           resolve(sums);
         }).catch((err) => reject(err));
   });
@@ -67,17 +78,15 @@ const fetchDayCount = async (req, res) => {
 
   // 'userID' defaults to 1 for testing purposes only
   // 'date' defaults to today's date (Format: "2021-04-03")
-  const {userID = 1, date = new Date().toISOString().slice(0, 10)} = req.query;
+  const {userId, date = getCurrentDate()} = req.query;
 
   try {
     const day = {};
-    day[date] = await sumDay(userID, date);
+    day[date] = await sumDay(userId, date);
     res.send(day);
-    pool.end();
   } catch (err) {
     console.error(err);
     res.status(500).send();
-    pool.end();
   }
 };
 
@@ -97,26 +106,42 @@ const fetchDayCount = async (req, res) => {
 */
 const fetchWeek = async (req, res) => {
   try {
-    const {userID = 1} = req.query;
+    const {userId} = req.query; // Adjusted to match other requests
     const week = [];
-    const today = new Date();
 
     // iterate through the past seven days
-    for (let i = 0; i < 7; i++) {
+    let lastWeight = 0;
+    for (let i = 6; i >= 0; i--) { // Reversing for chart
       const currentDay = {};
-      const date = new Date(today);
-      date.setDate(date.getDate() - i);
+      const date = new Date();
+      if (date.toISOString().slice(0, 10) === getCurrentDate()) {
+        // this signals that the UTC is on the same day as our MST default
+        // no logic adjustment needed
+        date.setDate(date.getDate() - i);
+      } else {
+        // this signals that the UTC is ahead by 1 day, so we should subtract 1
+        date.setDate(date.getDate() - i - 1);
+      }
       const formattedDate = date.toISOString().slice(0, 10);
-      currentDay[formattedDate] = await sumDay(userID, formattedDate);
+
+      currentDay[formattedDate] = await sumDay(
+          userId,
+          formattedDate);
+      lastWeight = currentDay[formattedDate].weightSum !== 0 ?
+        currentDay[formattedDate].weightSum :
+        lastWeight;
+
+      // eslint-disable-next-line max-len
+      currentDay[formattedDate].weightSum = currentDay[formattedDate].weightSum === 0 ?
+        lastWeight :
+        currentDay[formattedDate].weightSum;
       week.push(currentDay);
     }
 
     res.send(week);
-    pool.end();
   } catch (err) {
     console.error(err);
     res.status(500).send();
-    pool.end();
   }
 };
 
@@ -129,26 +154,24 @@ const insertCalories = (req, res) => {
   pool.query(queryString, [mealType, calories, mealName, usersDate, userId])
       .then((response) => {
         res.status(201).send('Calorie entry successful!');
-        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(400).send(err);
-        pool.end();
       });
 };
 
 /*
-  checks if username exists already in database
+  checks if email exists already in database
     if so, returns userID
     if not returns -1
     (returns a Promise)
 */
-const getUsernameID = (username) => {
+const getEmail = (email) => {
   const checkQuery = `Select id FROM users
-                      WHERE username=$1;`;
+                      WHERE email=$1;`;
 
   return new Promise((resolve, reject) => {
-    pool.query(checkQuery, [username])
+    pool.query(checkQuery, [email])
         .then((response) => {
           if (response.rows.length === 0) {
             resolve(-1);
@@ -162,14 +185,13 @@ const getUsernameID = (username) => {
 };
 
 /*
-  adds a new user to the database provided the username
+  adds a new user to the database provided the email
   is not already taken
 */
 const addUser = async (req, res) => {
   const {
     firstName,
     lastName,
-    username,
     password,
     calorieGoal,
     waterGoal,
@@ -180,44 +202,42 @@ const addUser = async (req, res) => {
   } = req.body;
 
   try {
-    const userID = await getUsernameID(username);
+    const userID = await getEmail(email);
     if (userID !== -1) {
       // user exists already
       res.status(501).send(`user exists already with userID: ${userID}`);
-      pool.end();
     } else {
       // create a new user
       const queryString = `INSERT INTO users(
-        firstName, lastName, username,
+        firstName, lastName,
         password, calorieGoal, waterGoal,
         weightGoal, phone, email, sex)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
         RETURNING id;`;
 
       // eslint-disable-next-line max-len
-      pool.query(queryString, [firstName, lastName, username, password, calorieGoal, waterGoal, weightGoal, phone, email, sex])
+      pool.query(queryString, [firstName, lastName, password, calorieGoal, waterGoal, weightGoal, phone, email, sex])
           .then((response) => {
             const userID = response.rows[0].id;
             res.status(201).send(`New user created with ID: ${userID}`);
           }).catch((err) => {
             console.error(err);
             res.send(500);
-            pool.end();
           });
     }
   } catch (err) {
     console.error(err);
     res.status(500).send();
-    pool.end();
   }
 };
 
 // with username get user information
-const getUser = async (username) => {
-  const userID = await getUsernameID(username);
+const getUser = async (email) => {
+  const userID = await getEmail(email);
   if (userID === -1) {
     return null;
   }
+
   const queryString = `SELECT * FROM users WHERE id=$1`;
   return new Promise((resolve, reject) => {
     pool.query(queryString, [userID])
@@ -238,11 +258,9 @@ const insertWater = (req, res) => {
   pool.query(queryString, [waterType, water, usersDate, userId])
       .then((response) => {
         res.status(201).send('Water entry successful!');
-        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(400).send(err);
-        pool.end();
       });
 };
 
@@ -254,11 +272,9 @@ const insertWeight = (req, res) => {
   pool.query(queryString, [type, weight, usersDate, userId])
       .then((response) => {
         res.status(201).send('Weight entry successful!');
-        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(400).send(err);
-        pool.end();
       });
 };
 
@@ -270,11 +286,9 @@ const getFail = (req, res) => {
   pool.query(queryString)
       .then((failQuote) => {
         res.status(200).send(failQuote.rows);
-        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(404).send(err);
-        pool.end();
       });
 };
 
@@ -286,11 +300,9 @@ const getSuccess = (req, res) => {
   pool.query(queryString)
       .then((successQuote) => {
         res.status(200).send(successQuote.rows);
-        pool.end();
       }).catch((err) => {
         console.error(err);
         res.status(404).send(err);
-        pool.end();
       });
 };
 

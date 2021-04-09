@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
@@ -10,12 +11,18 @@ export const GlobalStateProvider = ({children, session}) => {
     username: '',
     calorieGoal: 0,
     waterGoal: 0,
-    weightGoal: 0
+    weightGoal: 0,
   });
 
   const [userId, setUserId] = useState(0);
   const [calorieCount, setCalorieCount] = useState('20');
   const [waterCount, setWaterCount] = useState('20');
+
+  // TS: As an FYI - I cannot use these values because they are
+  // appending to a string.
+  // I'm not sure if there is a purpose to this, if there is not
+  // please feel free to adjust my weightVal conforming below.
+  const [weightValue, setWeightValue] = useState('0');
   const getCurrentCounts = () => {
     axios.get('/api/progress?type=day')
         .then(({data}) => {
@@ -26,9 +33,16 @@ export const GlobalStateProvider = ({children, session}) => {
         }).catch((err) => console.error(err));
   };
 
+  const getCurrentDate = () => {
+    const todayDate = new Date();
+    // eslint-disable-next-line max-len
+    const today = `${todayDate.getFullYear()}-${('0' + (todayDate.getMonth() + 1)).slice(-2)}-${('0' + todayDate.getDate()).slice(-2)}`;
+    return today;
+  };
+
   useEffect(() => {
     getCurrentCounts();
-    //weight not implemented in sign up form yet
+    // weight not implemented in sign up form yet
     setUserInfo({
       firstName: session.user.firstname,
       lastName: session.user.lastname,
@@ -36,9 +50,9 @@ export const GlobalStateProvider = ({children, session}) => {
       username: session.user.username,
       calorieGoal: session.user.caloriegoal,
       waterGoal: session.user.watergoal,
-      weightGoal: null
-    })
-    setUserId(session.user.id)
+      weightGoal: session.user.weightgoal,
+    });
+    setUserId(session.user.id);
   }, []);
 
   return (
@@ -51,8 +65,11 @@ export const GlobalStateProvider = ({children, session}) => {
       setCalorieCount,
       waterCount,
       setWaterCount,
+      weightValue,
+      setWeightValue,
       userInfo,
       setUserInfo,
+      getCurrentDate,
     }}
     >
       {children}
