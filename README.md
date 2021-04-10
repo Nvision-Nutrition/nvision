@@ -34,39 +34,44 @@ NVision Nutrition utilizes React as the front-end library and a Node server conn
 
 <img src="https://user-images.githubusercontent.com/73598239/113373808-e7b05500-9328-11eb-8f31-38830ea4a3c8.png" width="100" height="100">
 
-<img src="https://user-images.githubusercontent.com/73598239/113373813-ebdc7280-9328-11eb-8a4e-dcee209e0861.png" width="100" height="100">
+<img src="https://user-images.githubusercontent.com/73598239/113373813-ebdc7280-9328-11eb-8a4e-dcee209e0861.png" width="130" height="100">
+
+<img src="https://user-images.githubusercontent.com/73598239/114254162-08049300-996b-11eb-854c-d71ed3c46be3.png" width="130" height="100">
+
+<img src="https://user-images.githubusercontent.com/73598239/114254174-118dfb00-996b-11eb-8221-46a413e9d01d.png" width="130" height="100">
 
 
 ## Technical Challenges:
 
+* deployment
+* date/timezone
+* navigating client expectations
+
+
 ## Client Deliverables:
 
 User Stories
-* As a user I should be able to create an account with NVision Nutrition.
+* As a user I should be able to create an account with NVision Nutrition with calorie, weight, and water goals.
 * As a user, after creating an account I should be able to log into my account.
-* As a user after eating a meal or hydrating myself I would like to be able to record my consumption.
+* As a user, I should be able to record my caloric consumption.
+* As a user, I should be able to record water intake in ounces.
+* As a user, I should be able to record my weight.
+* As a user, I would like to receive progress reports after consumption input.
+* As a user, I should be able to view daily and historical calorie counts, water consumed in ounces, and weight measurements.
 * As a user upon submitting health metrics I expect my dashboard to reflect my current intake in respect to my predefined goals.
 * As a user I should be able to recieve a motivational message when I am struggling to meet my daily goals.
-* 
-
-As a user, I should expect a get started button to set up calorie and water goals
-As a user, I should be able to view current/daily calorie count and water consumed in ounces
-As a user, I should be able to view historic consumption of water and calories 
-As a user, I should be able to record water intake in ounces 
-As a user, I should be able to record consumption (calories and water)
-As a user, I would like to receive progress reports after consumption input. 
-As a user, I would like to receive motivation if my goals are not met 
-As a user, the progress reports are celebratory if they are within goal, motivation if not.
-
-
+* As a user I expect to recieve a celebratory message when I have met my goals.
 
 
 ## MVP
 
+Sign-up:
 ![](signup.gif)
 
+Login and data entry:
 ![](meal-entry.gif)
 
+Data charts:
 ![](charts.gif)
 
 
