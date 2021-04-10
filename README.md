@@ -32,13 +32,19 @@ A user will first sign up for an account where they are able to enter their calo
 ## Tech Stack
 NVision Nutrition utilizes React as the front-end library and a Node server connected to a PostgreSQL database on the back-end configured with Next.js and deployed with Vercel.
 
-<img src="https://user-images.githubusercontent.com/73598239/113373808-e7b05500-9328-11eb-8f31-38830ea4a3c8.png" width="100" height="100">
+<img src="https://user-images.githubusercontent.com/73598239/113373808-e7b05500-9328-11eb-8f31-38830ea4a3c8.png" width="130" height="100">
 
 <img src="https://user-images.githubusercontent.com/73598239/113373813-ebdc7280-9328-11eb-8a4e-dcee209e0861.png" width="130" height="100">
 
 <img src="https://user-images.githubusercontent.com/73598239/114254162-08049300-996b-11eb-854c-d71ed3c46be3.png" width="130" height="100">
 
 <img src="https://user-images.githubusercontent.com/73598239/114254174-118dfb00-996b-11eb-8221-46a413e9d01d.png" width="130" height="100">
+
+<img src="https://user-images.githubusercontent.com/73598239/114254306-c1fbff00-996b-11eb-9213-aba771023111.png" width="130" height="100">
+
+<img src="https://user-images.githubusercontent.com/73598239/114254311-c4f6ef80-996b-11eb-8854-891acaea90aa.png" width="130" height="100">
+
+<img src="https://user-images.githubusercontent.com/73598239/114254313-c7594980-996b-11eb-9839-d92245d85665.png" width="130" height="100">
 
 
 ## Technical Challenges:
@@ -66,23 +72,23 @@ User Stories
 ## MVP
 
 Sign-up:
+
 ![](signup.gif)
 
 Login and data entry:
+
 ![](meal-entry.gif)
 
 Data charts:
+
 ![](charts.gif)
 
 
 ## Workflow:
 ![](git-workflow.gif)
 
-Our team implemented an agile process as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics.
+Our team implemented an agile process as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics. We utilized a main deployment branch, testing branch, and seperate feature branches. Each team member made pull requests to the testing branch and our code reviews consisted of approval from one person within a feature team and an outside team member.
 
--code reviews
-
--linter/best practices
 
 [Ticketing System](https://app.asana.com/0/1200144939863904/board)
 
