@@ -20,17 +20,17 @@ A user will first sign up for an account where they are able to enter their calo
 
 [Dennis Mejia](https://github.com/dennismejia) - UI Designer
 
-[Mauricio Moreno](https://github.com/mmoren01)
+[Emma Knor](https://github.com/emmaknor) - UI Designer
 
-[Emma Knor](https://github.com/emmaknor)
+[Mauricio Moreno](https://github.com/mmoren01) - Graphic Designer
 
-[Oren Nelson](https://github.com/nohren)
+[Oren Nelson](https://github.com/nohren) - Security Architect
 
-[Ben Kennedy](https://github.com/benkennedy98)
+[Ben Kennedy](https://github.com/benkennedy98) - Security Architect
 
 
 ## Tech Stack
-NVision Nutrition utilizes React as the front-end library and a Node server connected to a PostgreSQL database on the back-end configured with Next.js.
+NVision Nutrition utilizes React as the front-end library and a Node server connected to a PostgreSQL database on the back-end configured with Next.js and deployed with Vercel.
 
 <img src="https://user-images.githubusercontent.com/73598239/113373808-e7b05500-9328-11eb-8f31-38830ea4a3c8.png" width="100" height="100">
 
@@ -49,19 +49,12 @@ User Stories
 
 ## MVP
 
-![](nvision-signup.gif)
+![](signup.gif)
 
-![picture alt](http://via.placeholder.com/200x150 "Title is optional")
-web app demo 1
+![](meal-entry.gif)
 
-![picture alt](http://via.placeholder.com/200x150 "Title is optional")
-web app demo 2
+![](charts.gif)
 
-## Future additions:
-stretch goals that were not
-
-
- achieved go here!
 
 ## Workflow:
 ![picture alt](http://via.placeholder.com/200x150 "Title is optional")
