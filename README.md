@@ -30,7 +30,7 @@ A user will first sign up for an account where they are able to enter their calo
 
 
 ## Tech Stack
-NVision Nutrition utilizes React as the front-end library and a Node server connected to a PostgreSQL database on the back-end configured with Next.js and deployed with Vercel.
+NVision Nutrition utilizes the Next.js framework with React for the front-end library and Node serverless functions combined with PostgreSQL persistence for the back-end.  Chosen deployment method was Vercel and AWS (database).
 
 | React  |  Node  | PostgreSQL | Next.js| NextAuth.js | Vercel |  Axios |
 | :-------------------------:|:-------------------------: |:-------------------------: |:-------------------------: |:-------------------------:|:-------------------------:|:-------------------------: |
