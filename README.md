@@ -43,9 +43,23 @@ NVision Nutrition utilizes React as the front-end library and a Node server conn
 
 User Stories
 * As a user I should be able to create an account with NVision Nutrition.
+* As a user, after creating an account I should be able to log into my account.
 * As a user after eating a meal or hydrating myself I would like to be able to record my consumption.
 * As a user upon submitting health metrics I expect my dashboard to reflect my current intake in respect to my predefined goals.
 * As a user I should be able to recieve a motivational message when I am struggling to meet my daily goals.
+* 
+
+As a user, I should expect a get started button to set up calorie and water goals
+As a user, I should be able to view current/daily calorie count and water consumed in ounces
+As a user, I should be able to view historic consumption of water and calories 
+As a user, I should be able to record water intake in ounces 
+As a user, I should be able to record consumption (calories and water)
+As a user, I would like to receive progress reports after consumption input. 
+As a user, I would like to receive motivation if my goals are not met 
+As a user, the progress reports are celebratory if they are within goal, motivation if not.
+
+
+
 
 ## MVP
 
@@ -59,11 +73,12 @@ User Stories
 ## Workflow:
 ![](git-workflow.gif)
 
-Our team implemented an agile process as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics. 
+Our team implemented an agile process as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics.
 
 -code reviews
 
 -linter/best practices
 
 [Ticketing System](https://app.asana.com/0/1200144939863904/board)
+
 [Wireframe](https://www.figma.com/file/UlLnGihRrXrBesmVPPHJ1A/nVision-Nutrition?node-id=0%3A1)
