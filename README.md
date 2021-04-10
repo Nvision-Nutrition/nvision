@@ -43,7 +43,9 @@ React                   | Node                    | PostgreSQL                  
 
 * deployment
 * Syncing the date between the front and back end frameworks proved unexpectedly challenging.  It was important from the user perspective, to keep the front end aligned with their local time zone.  The server, in contrast, had no local timezone up on deployment.  We debated several potential fixes for this and ultimately decided to pass the date values from the front end to the backend while standardizing our backend server to MST (the timezone of our client).
-* navigating client expectations
+* Over the course of this project we were tasked with balancing client expectations and developing a fully functional app within our one week time constraint. Given the short timeframe, our team prioritized the basic foundational features of a nutrition app. Once basic features were met, we moved on to more accessory features.
+* Adapting to the unique advantages and challenges presented by a serverless architecture, we needed to plan a home for our database, npm packages without native dependencies, and a git workflow that was optimized for  feature branch style.
+The security architecture used the Next-Auth api and some challenges we faced were the understanding of Json Web Tokens and how to add user data to them within the api flow.
 
 
 ## Client Deliverables:
