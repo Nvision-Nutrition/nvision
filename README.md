@@ -42,7 +42,7 @@ React                   | Node                    | PostgreSQL                  
 ## Technical Challenges:
 
 * deployment
-* date/timezone
+* Syncing the date between the front and back end frameworks proved unexpectedly challenging.  It was important from the user perspective, to keep the front end aligned with their local time zone.  The server, in contrast, had no local timezone up on deployment.  We debated several potential fixes for this and ultimately decided to pass the date values from the front end to the backend while standardizing our backend server to MST (the timezone of our client).
 * navigating client expectations
 
 
