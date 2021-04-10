@@ -57,8 +57,7 @@ User Stories
 
 
 ## Workflow:
-![picture alt](http://via.placeholder.com/200x150 "Title is optional")
-git workflow demo
+![](git-workflow.gif)
 
 Our team implemented an agile process as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics. 
 
