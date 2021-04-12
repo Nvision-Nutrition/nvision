@@ -40,7 +40,7 @@ NVision Nutrition utilizes the Next.js framework with React for the front-end li
 
 ## Technical Challenges:
 
-* deployment
+* Initially deploying to the free Heroku platform allowed for rapid development, but we soon encountered issues with the database connection limits on the Hobby-Dev plan of Heroku. A 20 connection max forced our team to pivot our database deployment to AWS which allowed for additional connections, and pooling connections, to satisfy the needs of our client MVP.
 * Syncing the date between the front and back end frameworks proved unexpectedly challenging.  It was important from the user perspective, to keep the front end aligned with their local time zone.  The server, in contrast, had no local timezone up on deployment.  We debated several potential fixes for this and ultimately decided to pass the date values from the front end to the backend while standardizing our backend server to MST (the timezone of our client).
 * Over the course of this project we were tasked with balancing client expectations and developing a fully functional app within our one week time constraint. Given the short timeframe, our team prioritized the basic foundational features of a nutrition app. Once basic features were met, we moved on to more accessory features.
 * Adapting to the unique advantages and challenges presented by a serverless architecture, we needed to plan a home for our database, npm packages without native dependencies, and a git workflow that was optimized for  feature branch style.
