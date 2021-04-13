@@ -43,8 +43,8 @@ NVision Nutrition utilizes the Next.js framework with React for the front-end li
 * Initially deploying to the free Heroku platform allowed for rapid development, but we soon encountered issues with the database connection limits on the Hobby-Dev plan of Heroku. A 20 connection max forced our team to pivot our database deployment to AWS which allowed for additional connections, and pooling connections, to satisfy the needs of our client MVP.
 * Syncing the date between the front and back end frameworks proved unexpectedly challenging.  It was important from the user perspective, to keep the front end aligned with their local time zone.  The server, in contrast, had no local timezone up on deployment.  We debated several potential fixes for this and ultimately decided to pass the date values from the front end to the backend while standardizing our backend server to MST (the timezone of our client).
 * Over the course of this project we were tasked with balancing client expectations and developing a fully functional app within our one week time constraint. Given the short timeframe, our team prioritized the basic foundational features of a nutrition app. Once basic features were met, we moved on to more accessory features.
-* Adapting to the unique advantages and challenges presented by a serverless architecture, we needed to plan a home for our database, npm packages without native dependencies, and a git workflow that was optimized for  feature branch style.
-The security architecture used the Next-Auth api and some challenges we faced were the understanding of Json Web Tokens and how to add user data to them within the api flow.
+* Adapting to the unique advantages and challenges presented by a serverless architecture, coupled with deployment to the Vercel network, forced us to utilize npm packages without native dependencies and adopt a git workflow that was optimized for feature branch additions and reviews.
+* The security team utilized the Next-Auth API which required an understanding of JSON Web Tokens and how to add user data to them within the API flow.
 
 
 ## Client Deliverables:
@@ -52,14 +52,14 @@ The security architecture used the Next-Auth api and some challenges we faced we
 User Stories
 * As a user I should be able to create an account with NVision Nutrition with calorie, weight, and water goals.
 * As a user, after creating an account I should be able to log into my account.
-* As a user, I should be able to record my caloric consumption.
+* As a user, I should be able to record my caloric consumption for a given day.
 * As a user, I should be able to record water intake in ounces.
 * As a user, I should be able to record my weight.
 * As a user, I would like to receive progress reports after consumption input.
 * As a user, I should be able to view daily and historical calorie counts, water consumed in ounces, and weight measurements.
-* As a user upon submitting health metrics I expect my dashboard to reflect my current intake in respect to my predefined goals.
-* As a user I should be able to recieve a motivational message when I am struggling to meet my daily goals.
-* As a user I expect to recieve a celebratory message when I have met my goals.
+* As a user, upon submitting health metrics I expect my dashboard to reflect my current intake in respect to my predefined goals.
+* As a user, I should be able to recieve a motivational message when I am struggling to meet my daily goals.
+* As a user, I expect to recieve a celebratory message when I have met my goals.
 
 
 ## MVP
@@ -80,7 +80,7 @@ Data charts:
 ## Workflow:
 ![](git-workflow.gif)
 
-Our team implemented an agile process as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics. We utilized a main deployment branch, testing branch, and seperate feature branches. Each team member made pull requests to the testing branch and our code reviews consisted of approval from one person within a feature team and an outside team member.
+Our team implemented an agile development methodology as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics. We utilized a main (production) branch, testing branch, and seperate feature branches. Each team member made pull requests to the testing branch and our code reviews consisted of approval from one person within a feature team as well as an outside team member.
 
 
 [Ticketing System](https://app.asana.com/0/1200144939863904/board)
