@@ -2,3 +2,7 @@ Hey Emma
 hey taylor
 
 How are you doing?
+
+I worked on this while Em was talking.  I suspect it will create a merge conflict of some sort. 
+
+OH NOOO
