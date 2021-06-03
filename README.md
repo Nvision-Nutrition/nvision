@@ -16,7 +16,7 @@ A user will first sign up for an account where they are able to enter their calo
 
 [Ciaddie Rutelionis](https://github.com/Ciaddie) - Product Manager
 
-[Taylor Smart](https://github.com/taylorsmart) - UX Designer 
+[Taylor Smart](https://github.com/taylorsmart) - UX Designer
 
 [Dennis Mejia](https://github.com/dennismejia) - UI Designer
 
