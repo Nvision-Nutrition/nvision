@@ -2,7 +2,11 @@ Hey Emma
 hey taylor
 
 How are you doing?
+<<<<<<< HEAD
 
 I worked on this while Em was talking.  I suspect it will create a merge conflict of some sort. 
 
 OH NOOO
+=======
+sooooo gooooood!
+>>>>>>> 6d4d7fc560f876306830b451629863b7ed5e64e3
