@@ -80,7 +80,7 @@ Data charts:
 ## Workflow:
 ![](git-workflow.gif)
 
-Our team implemented an agile development methodology as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics. We utilized a main (production) branch, testing branch, and seperate feature branches. Each team member made pull requests to the testing branch and our code reviews consisted of approval from one person within a feature team as well as an outside team member.
+Our team implemented an agile development methodology as well as a modern Git workflow over the course of this project. We established the roles for our team early on in order to facilitate efficient team dynamics. We utilized a main (production) branch, testing branch, and separate feature branches. Each team member made pull requests to the testing branch and our code reviews consisted of approval from one person within a feature team as well as an outside team member.
 
 
 [Ticketing System](https://app.asana.com/0/1200144939863904/board)
